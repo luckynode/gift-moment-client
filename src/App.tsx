@@ -10,7 +10,7 @@ body {
   }
 `
 const Wrapper = styled.div`
-  max-width: 400px;
+  max-width: 390px;
   margin-left: auto;
   margin-right: auto;
   background-color: #FFECEC;

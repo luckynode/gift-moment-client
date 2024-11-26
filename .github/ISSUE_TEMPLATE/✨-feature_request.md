@@ -1,8 +1,8 @@
 ---
 name: "✨ Feature request"
-about: 작업 사항을 입력해주세요.
-title: "Feat: 화면 배치 설정"
-labels: "✨ feature"
+about: 작업 사항을 입력해주세요
+title: "UI: "
+labels: "UI"
 assignees: ''
 
 ---

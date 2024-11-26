@@ -3,6 +3,8 @@ import styled, { createGlobalStyle } from 'styled-components'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Home from './routes/home'
 import { useEffect } from 'react'
+import MyLetter from "./pages/MyLetter.tsx";
+import Letter from "./pages/Letter.tsx";
 
 const GlobalStyles = createGlobalStyle`
 body {
@@ -29,6 +31,14 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Home />
+  },
+  {
+    path: "/myLetter",
+    element: <MyLetter />
+  },
+  {
+    path: "/letter",
+    element: <Letter />
   }
 ])
 

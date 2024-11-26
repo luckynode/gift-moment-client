@@ -1,7 +1,7 @@
 import styled from "styled-components"
 import logoimg from "/LOGO.svg"
 import introimg from "/INTRO.svg"
-import KakaoBtn from "../components/Kakao"
+import KakaoBtn from "../components/kakao"
 
 const Wrapper = styled.div`
     display: flex;

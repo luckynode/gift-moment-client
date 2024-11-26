@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import kimg from "/klogin.svg"
+import path from "/kakaoLogo.svg"
 
 const Button = styled.button`
     display: flex;
@@ -11,8 +11,10 @@ const Button = styled.button`
     width: 160px;
     height: 40px;
 
-    background: url(${kimg}) no-repeat center center;
+    background: #FEE500;
     border: none;
+    border-radius: 5px;
+    font-weight: 600;
     cursor: pointer;
     
     &:hover {
@@ -24,6 +26,9 @@ export default function KakaoBtn(){
     const login = () => {}
     
     return (
-        <Button onClick={() => login} />
+        <Button onClick={() => login}>
+            <img src={path} />
+            카카오 로그인
+        </Button>
     )
 }

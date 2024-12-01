@@ -3,8 +3,7 @@ import styled, { createGlobalStyle } from 'styled-components'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Home from './routes/home'
 import { useEffect } from 'react'
-import MyLetter from "./pages/MyLetter.tsx";
-import Letter from "./pages/Letter.tsx";
+import MyLettersPage from "./pages/MyLettersPage.tsx";
 
 const GlobalStyles = createGlobalStyle`
 body {
@@ -12,7 +11,7 @@ body {
     background-color: #f2f2f2;
     display: flex;
     justify-content: center;
-  }
+}
   :root {
        --vh: 100%;
    }
@@ -25,6 +24,7 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   height: calc(var(--vh, 1vh) * 100);
+  font-family: 'Pretendard', sans-serif;
 `
 
 const router = createBrowserRouter([
@@ -33,13 +33,9 @@ const router = createBrowserRouter([
     element: <Home />
   },
   {
-    path: "/myLetter",
-    element: <MyLetter />
+    path: "/my-letters",
+    element: <MyLettersPage />
   },
-  {
-    path: "/letter",
-    element: <Letter />
-  }
 ])
 
 

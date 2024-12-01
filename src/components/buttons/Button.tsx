@@ -25,15 +25,18 @@ const StyledButton = styled.button<ButtonProps>`
   font-size: 20px;
   font-weight: 600;
   transition: all 0.3s ease;
+  font-family: 'Pretendard', sans-serif;
 
   &:hover {
     background-color: ${(props) =>
-            props.color === 'black' ? '#333' : '#f0f0f0'}; /* 색상 변화 */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
-    transform: translateY(-2px); /* 약간 위로 움직이는 효과 */
+            props.color === 'black' ? '#333' : '#f7f7f7'}; /* 색상 변화 */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* 부드럽게 그림자 효과 */
+    transform: translateY(-3px); /* 약간 위로 움직이는 효과 */
   }
 
   &:active {
+    background-color: ${(props) =>
+            props.color === 'black' ? '#555' : '#e6e6e6'}; /* 클릭 시 색상 조금 더 어두운 톤으로 */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* 클릭 시 그림자 축소 */
     transform: translateY(0); /* 클릭 시 원래 위치로 */
   }

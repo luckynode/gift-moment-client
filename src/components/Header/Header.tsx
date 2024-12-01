@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from 'styled-components';
 
 type HeaderProps = {
@@ -7,16 +6,24 @@ type HeaderProps = {
     hasBorder?: boolean; // underline 표시 여부
 };
 
-const HeaderContainer = styled.header<{ hasBorder: boolean }>`
+const HeaderContainer = styled.header`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
-  border-bottom: ${(props) => (props.hasBorder ? '4px solid #B6001E' : 'none')};
 `;
 
 const HeaderTitle = styled.h1<{ fontSize: string }>`
   font-size: ${(props) => props.fontSize};
   font-weight: 700;
-  color: #B6001E;
+  color: transparent; /* 텍스트 색상을 투명으로 설정 */
   margin: 0;
+  border-bottom: 4px solid #B72F54; /* 글씨 크기만큼 밑줄 */
+  display: inline-block;
+
+  /* 글자 내부 색상 변화 */
+  background: linear-gradient(to bottom, #924C57 0%, #B62F45 30%, #B72F54 60%, #924C57 100%); /* 중앙만 살짝 연하게 */
+  background-clip: text; /* 텍스트에 배경 적용 */
 `;
 
 const Header = ({ title, fontSize = '30px', hasBorder = false }: HeaderProps) => {

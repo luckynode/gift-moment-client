@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import cakeImage from '../../assets/Letter/cake.svg';
+import cakeImage from '../../assets/letters/cake.svg';
 import CakeItem from './CakeItem';
 
 type CakeItemType = {

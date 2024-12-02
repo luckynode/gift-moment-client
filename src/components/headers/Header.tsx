@@ -24,12 +24,15 @@ const HeaderTitle = styled.h1<{ fontSize: string }>`
   /* 글자 내부 색상 변화 */
   background: linear-gradient(to bottom, #924C57 0%, #B62F45 30%, #B72F54 60%, #924C57 100%); /* 중앙만 살짝 연하게 */
   background-clip: text; /* 텍스트에 배경 적용 */
+
+  /* 밑줄 조건부 스타일링 */
+  border-bottom: ${(props) => (props.hasBorder ? '4px solid #B72F54' : 'none')};
 `;
 
 const Header = ({ title, fontSize = '30px', hasBorder = false }: HeaderProps) => {
     return (
-        <HeaderContainer hasBorder={hasBorder}>
-            <HeaderTitle fontSize={fontSize}>{title}</HeaderTitle>
+        <HeaderContainer>
+            <HeaderTitle fontSize={fontSize} hasBorder={hasBorder}>{title}</HeaderTitle>
         </HeaderContainer>
     );
 };

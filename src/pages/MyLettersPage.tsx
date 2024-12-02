@@ -5,6 +5,8 @@ import Button from '../components/buttons/Button';
 import Cake from '../components/letters/Cake';
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import LetterDetailModal from "../components/letters/LetterDetailModal";
+
 import redFlower from '../assets/letters/red_flower.svg';
 import whiteStar from '../assets/letters/white_star.svg';
 import orangeFlower from '../assets/letters/orange_flower.svg';
@@ -58,24 +60,55 @@ const positions = [
 
 const ButtonContainer = styled.div`
   display: flex;
-  flex-direction: column;  
-  gap: 20px;  
-  width: 100%;  
-  align-items: center;  
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  align-items: center;
 `;
 
 const MyLettersPage = () => {
-    // TODO 백엔드 API로부터 오늘이 생일인지 여부 받아오기
-    const [isBirthday, setIsBirthday] = useState<boolean>(false);
 
+    const letters = [
+        {
+            id: 0,
+            to: "사랑하는 럭키에게",
+            from: "송이가",
+            content: "안녕 나는 너의 대학 동기 송이야 \n" +
+                "일단 생일을 너무 축하해♥️ \n" +
+                "\n" +
+                "우리 중앙 동아리 SOLUX에서 처음 만났을 때 기억나?? \n" +
+                "그때, 너랑 금방 친해질 수 있었던 게 정말 신기했어. \n" +
+                "\n" +
+                "늘 고맙고, 오늘은 생일이니까 코딩할 생각하지 말고, 맘껏 즐겨!!\n" +
+                "그리고 앞으로 나랑 계속 모각코 해줘야 돼 알겠지?? 😉\n" +
+                "\n" +
+                "조만간 또 보자! 생일 축하해!\n" +
+                "💟 💟 💟 💟 💟 ",
+        },
+    ];
+
+    const [isBirthday, setIsBirthday] = useState<boolean>(true);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedLetter, setSelectedLetter] = useState<{
+        id: number;
+        to: string;
+        from: string;
+        content: string;
+    } | null>(null);
+
+    // TODO 백엔드 API로부터 오늘이 생일인지 여부 받아오기
     //      생일이면 생일 축하 문구 페이지부터 띄우기
+    //      생일이 아니면 편지 상세보기 불가능
 
     // TODO 백엔드 API로부터 내 편지 개수 받아오기
     const [letterCount] = useState<number>(14);
 
-    // TODO 장신구 클릭 시 편지지 페이지로 이동
     const handleItemClick = (id: number) => {
         if (isBirthday) {
+            // TODO 백엔드 API로부터 편지 받아오기
+            const letter = letters.find((letter) => letter.id === id);
+            setSelectedLetter(letter); // 선택한 편지 데이터 설정
+            setIsModalOpen(true); // 모달 열기
         } else {
             toast.success("편지는 생일 이후에 공개됩니다! ☺️️", {
                 position: "top-center",
@@ -84,13 +117,15 @@ const MyLettersPage = () => {
         }
     };
 
+    const closeModal = () => setIsModalOpen(false); // 모달 닫기
+
     // 표시할 장신구 데이터 생성
     const items = ornamentImages.slice(0, letterCount).map((src, index) => ({
         id: index,
         src,
         top: positions[index].top,
         left: positions[index].left,
-        onClick: handleItemClick,
+        onClick: () => handleItemClick(index),
     }));
 
     const copyLinkToClipboard = () => {
@@ -101,7 +136,7 @@ const MyLettersPage = () => {
                 toast.success(
                     <>
                         링크가 복사되었습니다! <br />
-                        원하는 선물을 친구들에게 공유해 보세요! ☺️
+                        친구들에게 생일을 공유하세요! ☺️
                     </>,
                     {
                         position: "top-center",
@@ -116,13 +151,15 @@ const MyLettersPage = () => {
 
     return (
         <div>
-            <Header title="OOO님의 편지함" hasBorder={true} />
+            {/*TODO 백엔드 API 유저 정보 받아오기*/}
+            <Header title="경희님의 편지함"/>
             <Cake items={items} /> {/* items를 Cake에 전달 */}
             <ButtonContainer>
                 {/*TODO 마이페이지 이동 기능 구현*/}
                 <Button text="마이페이지" size="large" color="white" onClick={() => alert('마이페이지 이동')} />
                 <Button text="편지 링크 복사하기" size="large" color="black" onClick={copyLinkToClipboard} />
             </ButtonContainer>
+            <LetterDetailModal isOpen={isModalOpen} onClose={closeModal} letter={selectedLetter} />
         </div>
     );
 };

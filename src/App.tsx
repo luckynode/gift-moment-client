@@ -4,6 +4,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Home from './routes/home'
 import { useEffect } from 'react'
 import MyLettersPage from "./pages/MyLettersPage.tsx";
+import {ToastContainer} from "react-toastify";
 
 const GlobalStyles = createGlobalStyle`
 body {
@@ -57,6 +58,7 @@ function App() {
     <Wrapper className = 'store'>
       <GlobalStyles />
       <RouterProvider router={router} />
+      <ToastContainer />
     </Wrapper>
   )
 }

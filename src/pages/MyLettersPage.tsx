@@ -3,7 +3,8 @@ import styled from 'styled-components';
 import Header from '../components/headers/Header';
 import Button from '../components/buttons/Button';
 import Cake from '../components/letters/Cake';
-
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import redFlower from '../assets/letters/red_flower.svg';
 import whiteStar from '../assets/letters/white_star.svg';
 import orangeFlower from '../assets/letters/orange_flower.svg';
@@ -65,6 +66,8 @@ const ButtonContainer = styled.div`
 
 const MyLettersPage = () => {
     // TODO 백엔드 API로부터 오늘이 생일인지 여부 받아오기
+    const [isBirthday, setIsBirthday] = useState<boolean>(false);
+
     //      생일이면 생일 축하 문구 페이지부터 띄우기
 
     // TODO 백엔드 API로부터 내 편지 개수 받아오기
@@ -72,7 +75,13 @@ const MyLettersPage = () => {
 
     // TODO 장신구 클릭 시 편지지 페이지로 이동
     const handleItemClick = (id: number) => {
-        alert(`편지 ${id + 1} 상세 보기`);
+        if (isBirthday) {
+        } else {
+            toast.success("편지는 생일 이후에 공개됩니다! ☺️️", {
+                position: "top-center",
+                autoClose: 3000,
+            });
+        }
     };
 
     // 표시할 장신구 데이터 생성
@@ -89,7 +98,16 @@ const MyLettersPage = () => {
         const currentUrl = window.location.href; // 현재 URL 가져오기
         navigator.clipboard.writeText(currentUrl)  // URL을 클립보드에 복사
             .then(() => {
-                alert('링크가 복사되었습니다!');
+                toast.success(
+                    <>
+                        링크가 복사되었습니다! <br />
+                        원하는 선물을 친구들에게 공유해 보세요! ☺️
+                    </>,
+                    {
+                        position: "top-center",
+                        autoClose: 5000,
+                    }
+                );
             })
             .catch((err) => {
                 console.error('링크 복사 실패:', err);

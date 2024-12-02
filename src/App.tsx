@@ -3,6 +3,7 @@ import styled, { createGlobalStyle } from 'styled-components'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Home from './routes/home'
 import { useEffect } from 'react'
+import OAuth from './components/KakaoOauth'
 
 const GlobalStyles = createGlobalStyle`
 body {
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Home />
+  },
+  {
+    path: "/oauth/kakao",
+    element: <OAuth />
   }
 ])
 

@@ -31,6 +31,10 @@ export const Input = styled.input`
     border-radius: 8px;
 
     padding-left: 15px;
+
+    &:disabled {
+        background-color: #00000020;
+    }
 `
 
 export const Submit250 = styled.input`

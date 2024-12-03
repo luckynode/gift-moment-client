@@ -1,10 +1,46 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Detail, Form, Hug10, Hug18, Input, Submit250, Title, Wrapper } from "../components/SignupComponents";
+import axios from "axios";
 
 export default function SignUp() {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [birth, setBirth] = useState("");
+
+    const [isNameDisabled, setIsNameDisabled] = useState(false);
+    const [isEmailDisabled, setIsEmailDisabled] = useState(false);
+    const [isBirthDisabled, setIsBirthDisabled] = useState(false);
+
+    useEffect(() => {
+        // 토큰 설정 추가
+
+        const fetchData = async () => {
+            try {
+                const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}`);
+                const {name, birth, email} = response.data.data;
+
+                // data 존재하면 불러옴과 동시에 비활성화
+                if (name) {
+                    setName(name);
+                    setIsNameDisabled(true);
+                } 
+                
+                if (birth) {
+                    setBirth(birth);
+                    setIsBirthDisabled(true);
+                }
+
+                if (email) {
+                    setEmail(email);
+                    setIsEmailDisabled(true);
+                }
+            } catch (error) {
+                console.error("Data fetch error : ", error);
+            }
+        };
+
+        // fetchData();
+    }, []);
 
     const onChange = async (e : React.ChangeEvent<HTMLInputElement>) => {
         const { target : {name, value}} = e;
@@ -37,6 +73,7 @@ export default function SignUp() {
                         type="text"
                         placeholder="이름"
                         required
+                        disabled={isNameDisabled}
                     />
                     <Input 
                         onChange={onChange}
@@ -45,6 +82,7 @@ export default function SignUp() {
                         type="text"
                         placeholder="생년월일"
                         required
+                        disabled={isBirthDisabled}
                     />
                     <Input 
                         onChange = {onChange}
@@ -53,6 +91,7 @@ export default function SignUp() {
                         type="email"
                         placeholder="이메일"
                         required
+                        disabled={isEmailDisabled}
                     />
                 </Hug18>
                 <Hug10>

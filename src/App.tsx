@@ -11,18 +11,26 @@ body {
     background-color: #f2f2f2;
     display: flex;
     justify-content: center;
+    font-family: 'Pretendard', sans-serif;
+  }
+  button {
+    font-family: 'Pretendard', sans-serif;
+  }
+  input{
+    font-family: 'Lato', sans-serif;
   }
   :root {
        --vh: 100%;
    }
 `
 const Wrapper = styled.div`
-  max-width: 390px;
+  min-width: 390px;
   margin-left: auto;
   margin-right: auto;
   background-color: #FFECEC;
   display: flex;
   align-items: center;
+  justify-content: center;
   height: calc(var(--vh, 1vh) * 100);
 `
 

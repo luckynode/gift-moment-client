@@ -22,6 +22,8 @@ import heart from '../assets/letters/heart.svg';
 import yellowMusic from '../assets/letters/yellow_music.svg';
 import blackMusic from '../assets/letters/black_music.svg';
 import InstructionText from "../components/InstructionText.tsx";
+import {useNavigate} from "react-router-dom";
+import BackButton from "../components/buttons/BackButton.tsx";
 
 // 장신구 이미지 경로 배열
 const ornamentImages = [
@@ -44,21 +46,29 @@ const ornamentImages = [
 // 장신구 위치 배열
 // FIXME 장신구 위치는 px로 잡으면 반응형 어려워짐. %로 변경하는 것 고려해봐야 할듯
 const positions = [
-    { top: '125px', left: '35px' },  // redFlower
-    { top: '122px', left: '100px' },  // whiteStar
-    { top: '115px', left: '167px' },  // orangeFlower
-    { top: '120px', left: '225px' },  // sparkle
-    { top: '190px', left: '32px' },  // rainbowStar
-    { top: '185px', left: '102px' },  // cherry
-    { top: '185px', left: '165px' },  // cloud
-    { top: '180px', left: '232px' },  // blueEnvelope
-    { top: '250px', left: '20px' },  // mintEnvelope
-    { top: '245px', left: '95px' },  // whiteFlower
-    { top: '245px', left: '165px' },  // strawberry
-    { top: '245px', left: '230px' },  // heart
-    { top: '45px', left: '16px' },  // yellowMusic
-    { top: '45px', left: '240px' },  // blackMusic
+    {top: '125px', left: '35px'},  // redFlower
+    {top: '122px', left: '100px'},  // whiteStar
+    {top: '115px', left: '167px'},  // orangeFlower
+    {top: '120px', left: '225px'},  // sparkle
+    {top: '190px', left: '32px'},  // rainbowStar
+    {top: '185px', left: '102px'},  // cherry
+    {top: '185px', left: '165px'},  // cloud
+    {top: '180px', left: '232px'},  // blueEnvelope
+    {top: '250px', left: '20px'},  // mintEnvelope
+    {top: '245px', left: '95px'},  // whiteFlower
+    {top: '245px', left: '165px'},  // strawberry
+    {top: '245px', left: '230px'},  // heart
+    {top: '45px', left: '16px'},  // yellowMusic
+    {top: '45px', left: '240px'},  // blackMusic
 ];
+
+const HeaderWrapper = styled.div`
+  display: flex;
+  align-items: center; 
+  justify-content: center; 
+  padding: 10px 20px;
+  position: relative; 
+`;
 
 const ButtonContainer = styled.div`
   display: flex;
@@ -73,7 +83,6 @@ const ButtonContainer = styled.div`
 
 // NOTE 현재는 하드코딩된 값 사용. 나중에 동적으로 처리 필요
 const MyLettersPage = () => {
-
     const letters = [
         {
             id: 0,
@@ -142,7 +151,7 @@ const MyLettersPage = () => {
             .then(() => {
                 toast.success(
                     <>
-                        링크가 복사되었습니다! <br />
+                        링크가 복사되었습니다! <br/>
                         친구들에게 생일을 공유하세요! ☺️
                     </>,
                     {
@@ -159,17 +168,18 @@ const MyLettersPage = () => {
     return (
         <div>
             {/*TODO 백엔드 API 유저 정보 받아오기*/}
-            <Header title="경희님의 편지함"/>
-            {/*TODO "뒤로가기 버튼 추가"*/}
-
-            <Cake items={items} /> {/* items를 Cake에 전달 */}
-            <InstructionText iconText="Letter" message={`장신구를 클릭해 보세요!\n편지 내용을 볼 수 있습니다`} />
+            <HeaderWrapper>
+                <BackButton/>
+                <Header title="경희님의 편지함"/>
+            </HeaderWrapper>
+            <Cake items={items}/> {/* items를 Cake에 전달 */}
+            <InstructionText iconText="Letter" message={`장신구를 클릭해 보세요!\n편지 내용을 볼 수 있습니다`}/>
             <ButtonContainer>
                 {/*TODO 마이페이지 이동 기능 구현*/}
-                <Button text="위시리스트 보러 가기" size="large" color="white" onClick={() => alert('마이페이지 이동')} />
-                <Button text="편지 링크 복사하기" size="large" color="black" onClick={copyLinkToClipboard} />
+                <Button text="위시리스트 보러 가기" size="large" color="white" onClick={() => alert('마이페이지 이동')}/>
+                <Button text="편지 링크 복사하기" size="large" color="black" onClick={copyLinkToClipboard}/>
             </ButtonContainer>
-            <LetterDetailModal isOpen={isModalOpen} onClose={closeModal} letter={selectedLetter} />
+            <LetterDetailModal isOpen={isModalOpen} onClose={closeModal} letter={selectedLetter}/>
         </div>
     );
 };

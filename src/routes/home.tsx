@@ -1,6 +1,6 @@
 import styled from "styled-components"
-import logoimg from "/LOGO.svg"
-import introimg from "/INTRO.svg"
+import logoimg from "../assets/LOGO.svg"
+import introimg from "../assets/INTRO.svg"
 import KakaoBtn from "../components/Kakao"
 
 const Wrapper = styled.div`

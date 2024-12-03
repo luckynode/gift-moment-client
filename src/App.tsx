@@ -1,10 +1,11 @@
 import './App.css'
-import styled, { createGlobalStyle } from 'styled-components'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import styled, {createGlobalStyle} from 'styled-components'
+import {createBrowserRouter, RouterProvider} from 'react-router-dom'
 import Home from './routes/home'
-import { useEffect } from 'react'
+import {useEffect} from 'react'
 import MyLettersPage from "./pages/MyLettersPage.tsx";
 import {ToastContainer} from "react-toastify";
+import OAuth from './components/KakaoOauth'
 
 const GlobalStyles = createGlobalStyle`
   body {
@@ -17,7 +18,7 @@ const GlobalStyles = createGlobalStyle`
   :root {
     --vh: 100%;
   }
-  
+
   /* 스크롤바 스타일링 */
   ::-webkit-scrollbar {
     width: 8px; /* 스크롤바 너비 */
@@ -50,38 +51,43 @@ const Wrapper = styled.div`
 `
 
 const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Home />
-  },
-  {
-    path: "/my-letters",
-    element: <MyLettersPage />
-  },
+    {
+        path: "/",
+        element: <Home/>
+    },
+    {
+        path: "/oauth/kakao",
+        element: <OAuth/>
+    },
+    {
+        path: "/my-letters",
+        element: <MyLettersPage/>
+    },
 ])
 
 
 function App() {
-  function setScreenSize() {
-    let vh = window.innerHeight * 0.01;
-    document.documentElement.style.setProperty("--vh", `${vh}px`);
-  }
-  useEffect(() => {
-    setScreenSize();
-    window.addEventListener('resize', setScreenSize);
-    
-    return () => {
-        window.removeEventListener('resize', setScreenSize);
-    };
-}, []);
+    function setScreenSize() {
+        let vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty("--vh", `${vh}px`);
+    }
 
-  return (
-    <Wrapper className = 'store'>
-      <GlobalStyles />
-      <RouterProvider router={router} />
-      <ToastContainer />
-    </Wrapper>
-  )
+    useEffect(() => {
+        setScreenSize();
+        window.addEventListener('resize', setScreenSize);
+
+        return () => {
+            window.removeEventListener('resize', setScreenSize);
+        };
+    }, []);
+
+    return (
+        <Wrapper className='store'>
+            <GlobalStyles/>
+            <RouterProvider router={router}/>
+            <ToastContainer/>
+        </Wrapper>
+    )
 }
 
 export default App

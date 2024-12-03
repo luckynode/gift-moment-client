@@ -70,6 +70,7 @@ type LetterDetailModalProps = {
 };
 
 const LetterDetailModal = ({isOpen, onClose, letter,}: LetterDetailModalProps) => {
+    // TODO 스크롤 기능 추가 (contentBox와 ModalContent에 스크롤 적용)
     if (!isOpen || !letter) return null;
 
     return (

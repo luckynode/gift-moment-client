@@ -21,6 +21,7 @@ import strawberry from '../assets/letters/strawberry.svg';
 import heart from '../assets/letters/heart.svg';
 import yellowMusic from '../assets/letters/yellow_music.svg';
 import blackMusic from '../assets/letters/black_music.svg';
+import InstructionText from "../components/InstructionText.tsx";
 
 // 장신구 이미지 경로 배열
 const ornamentImages = [
@@ -41,21 +42,22 @@ const ornamentImages = [
 ];
 
 // 장신구 위치 배열
+// FIXME 장신구 위치는 px로 잡으면 반응형 어려워짐. %로 변경하는 것 고려해봐야 할듯
 const positions = [
-    { top: '135px', left: '54px' },  // redFlower
-    { top: '140px', left: '115px' },  // whiteStar
-    { top: '135px', left: '177px' },  // orangeFlower
-    { top: '135px', left: '235px' },  // sparkle
-    { top: '200px', left: '42.6px' },  // rainbowStar
-    { top: '200px', left: '110px' },  // cherry
-    { top: '200px', left: '181.47px' },  // cloud
-    { top: '200px', left: '252px' },  // blueEnvelope
-    { top: '260px', left: '30px' },  // mintEnvelope
-    { top: '260px', left: '105px' },  // whiteFlower
-    { top: '260px', left: '175px' },  // strawberry
-    { top: '260px', left: '240px' },  // heart
-    { top: '55px', left: '20px' },  // yellowMusic
-    { top: '61px', left: '250.57px' },  // blackMusic
+    { top: '125px', left: '35px' },  // redFlower
+    { top: '122px', left: '100px' },  // whiteStar
+    { top: '115px', left: '167px' },  // orangeFlower
+    { top: '120px', left: '225px' },  // sparkle
+    { top: '190px', left: '32px' },  // rainbowStar
+    { top: '185px', left: '102px' },  // cherry
+    { top: '185px', left: '165px' },  // cloud
+    { top: '180px', left: '232px' },  // blueEnvelope
+    { top: '250px', left: '20px' },  // mintEnvelope
+    { top: '245px', left: '95px' },  // whiteFlower
+    { top: '245px', left: '165px' },  // strawberry
+    { top: '245px', left: '230px' },  // heart
+    { top: '45px', left: '16px' },  // yellowMusic
+    { top: '45px', left: '240px' },  // blackMusic
 ];
 
 const ButtonContainer = styled.div`
@@ -64,8 +66,12 @@ const ButtonContainer = styled.div`
   gap: 20px;
   width: 100%;
   align-items: center;
+  margin-top: 10px;
+  margin-bottom: 30px;
 `;
 
+
+// NOTE 현재는 하드코딩된 값 사용. 나중에 동적으로 처리 필요
 const MyLettersPage = () => {
 
     const letters = [
@@ -110,6 +116,7 @@ const MyLettersPage = () => {
             setSelectedLetter(letter); // 선택한 편지 데이터 설정
             setIsModalOpen(true); // 모달 열기
         } else {
+            // TODO 토스트 메시지 예쁘게 수정
             toast.success("편지는 생일 이후에 공개됩니다! ☺️️", {
                 position: "top-center",
                 autoClose: 3000,
@@ -153,10 +160,13 @@ const MyLettersPage = () => {
         <div>
             {/*TODO 백엔드 API 유저 정보 받아오기*/}
             <Header title="경희님의 편지함"/>
+            {/*TODO "뒤로가기 버튼 추가"*/}
+
             <Cake items={items} /> {/* items를 Cake에 전달 */}
+            <InstructionText iconText="Letter" message={`장신구를 클릭해 보세요!\n편지 내용을 볼 수 있습니다`} />
             <ButtonContainer>
                 {/*TODO 마이페이지 이동 기능 구현*/}
-                <Button text="마이페이지" size="large" color="white" onClick={() => alert('마이페이지 이동')} />
+                <Button text="위시리스트 보러 가기" size="large" color="white" onClick={() => alert('마이페이지 이동')} />
                 <Button text="편지 링크 복사하기" size="large" color="black" onClick={copyLinkToClipboard} />
             </ButtonContainer>
             <LetterDetailModal isOpen={isModalOpen} onClose={closeModal} letter={selectedLetter} />

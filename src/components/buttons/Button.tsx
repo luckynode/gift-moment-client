@@ -11,7 +11,7 @@ type ButtonProps = {
 
 const StyledButton = styled.button<ButtonProps>`
   width: ${(props) =>
-          props.size === 'small' ? '100px' : props.size === 'medium' ? '150px' : '250px'};
+          props.size === 'small' ? '25%' : props.size === 'medium' ? '40%' : '60%'};
   height: 48px;
   background-color: ${(props) => (props.color === 'black' ? '#000' : '#fff')};
   color: ${(props) => (props.color === 'black' ? '#fff' : '#000')};
@@ -22,7 +22,7 @@ const StyledButton = styled.button<ButtonProps>`
   align-items: center;
   cursor: ${(props) => (props.disabled ? 'not-allowed' : 'pointer')};
   opacity: ${(props) => (props.disabled ? 0.5 : 1)};
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 600;
   transition: all 0.3s ease;
   font-family: 'Pretendard', sans-serif;

@@ -5,6 +5,7 @@ import Home from './routes/home'
 import { useEffect } from 'react'
 import OAuth from './components/KakaoOauth'
 import SignUp from './routes/signup'
+import Mywish from './routes/mywish'
 
 const GlobalStyles = createGlobalStyle`
 body {
@@ -47,6 +48,10 @@ const router = createBrowserRouter([
   {
     path: "/signup",
     element: <SignUp />
+  },
+  {
+    path: "/mywish",
+    element: <Mywish />
   }
 ])
 

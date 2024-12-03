@@ -179,7 +179,7 @@ const MyLettersPage = () => {
             <InstructionText iconText="Letter" message={`장신구를 클릭해 보세요!\n편지 내용을 볼 수 있습니다`}/>
             <ButtonContainer>
                 {/*TODO 마이페이지 이동 기능 구현*/}
-                <Button text="위시리스트 보러 가기" size="large" color="white" onClick={() => alert('마이페이지 이동')}/>
+                <Button text="마이페이지" size="large" color="white" onClick={() => alert('마이페이지 이동')}/>
                 <Button text="편지 링크 복사하기" size="large" color="black" onClick={copyLinkToClipboard}/>
             </ButtonContainer>
             <LetterDetailModal isOpen={isModalOpen} onClose={closeModal} letter={selectedLetter}/>

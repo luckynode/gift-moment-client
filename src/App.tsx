@@ -7,15 +7,36 @@ import MyLettersPage from "./pages/MyLettersPage.tsx";
 import {ToastContainer} from "react-toastify";
 
 const GlobalStyles = createGlobalStyle`
-body {
+  body {
     margin: 0;
     background-color: #f2f2f2;
     display: flex;
     justify-content: center;
-}
+  }
+
   :root {
-       --vh: 100%;
-   }
+    --vh: 100%;
+  }
+  
+  /* 스크롤바 스타일링 */
+  ::-webkit-scrollbar {
+    width: 8px; /* 스크롤바 너비 */
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #FFE6F0; /* 트랙 배경 */
+    border-radius: 10px; /* 둥근 모서리 */
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #FF99CC; /* 스크롤바 색상 */
+    border-radius: 10px; /* 둥근 모서리 */
+    height: 5px; /* 스크롤바 최소 길이 */
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #FF6699; /* 호버 시 색상 */
+  }
 `
 const Wrapper = styled.div`
   max-width: 390px;

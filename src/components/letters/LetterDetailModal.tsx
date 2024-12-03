@@ -17,10 +17,11 @@ const ModalContent = styled.div`
   background: linear-gradient(180deg, #FFFFFF 0%, #FFDDEE 80%, #FFFFFF 100%); /* 흰색-핑크-흰색 그라데이션 주기*/
   border-radius: 30px;
   width: 270px;
-  height: 460px;
   padding: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   position: relative;
+  max-height: 600px; /* 최대 높이 설정 */
+  //overflow-y: auto; /* 내용이 넘치면 스크롤 생성 */
 `;
 
 const CloseButton = styled.button`
@@ -41,7 +42,7 @@ const ToText = styled.h4`
 `;
 
 const FromText = styled.h4`
-  margin: 0;
+  margin: 10px;
   font-size: 18px;
   color: black;
   text-align: right;
@@ -55,6 +56,9 @@ const ContentBox = styled.div`
   white-space: pre-wrap; /* 줄바꿈을 그대로 반영 */
   font-size: 16px;
   color: black;
+  height: 70%;
+  max-height: 325px; /* 최대 높이 설정 */
+  overflow-y: auto; /* 내용이 넘치면 스크롤 생성 */
 `;
 
 
@@ -70,7 +74,6 @@ type LetterDetailModalProps = {
 };
 
 const LetterDetailModal = ({isOpen, onClose, letter,}: LetterDetailModalProps) => {
-    // TODO 스크롤 기능 추가 (contentBox와 ModalContent에 스크롤 적용)
     if (!isOpen || !letter) return null;
 
     return (

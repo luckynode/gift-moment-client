@@ -4,6 +4,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Home from './routes/home'
 import { useEffect } from 'react'
 import OAuth from './components/KakaoOauth'
+import SignUp from './routes/signup'
 
 const GlobalStyles = createGlobalStyle`
 body {
@@ -42,6 +43,10 @@ const router = createBrowserRouter([
   {
     path: "/oauth/kakao",
     element: <OAuth />
+  },
+  {
+    path: "/signup",
+    element: <SignUp />
   }
 ])
 

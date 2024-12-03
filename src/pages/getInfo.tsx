@@ -2,7 +2,11 @@ import { useEffect, useState } from "react"
 import { Detail, Form, Hug10, Hug18, Input, Submit250, Title, Wrapper } from "../components/SignupComponents";
 import axios from "axios";
 
-export default function GetInfo() {
+interface GetInfoProps {
+    onNext: () => void; // onNext 함수 타입 정의
+}
+
+export default function GetInfo({ onNext } : GetInfoProps) {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [birth, setBirth] = useState("");
@@ -56,6 +60,8 @@ export default function GetInfo() {
         try {
             // 테스트로 console 출력
             console.log(name, birth, email);
+
+            onNext();
         } catch (error) {
             console.error("회원가입 오류 : ", error);
         }

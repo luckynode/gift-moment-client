@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { Detail, Form, Hug10, Hug18, Input, Submit250, Title, Wrapper } from "../components/SignupComponents";
+import { Detail, Form, Hug10, Hug18, Input, Submit250, Title, Wrapper } from "../../components/SignupComponents";
 import axios from "axios";
 
 interface GetInfoProps {

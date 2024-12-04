@@ -55,6 +55,7 @@ export const Submit250 = styled.input`
 
     font-size: 20px;
     font-weight: 600;
+    font-family: 'Pretendard';
 
     &[type = "submit"] {
         cursor: pointer;

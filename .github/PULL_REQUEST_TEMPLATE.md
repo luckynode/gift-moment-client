@@ -1,5 +1,6 @@
-- 제목
-    [Feature/#이슈번호] : color system 구성 (예시)
+- 제목(예시)
+
+  Feature/이슈번호: color system 구성
 
 ## ✅ 𝗖𝗵𝗲𝗰𝗸-𝗟𝗶𝘀𝘁
 - merge할 브랜치의 위치를 확인해 주세요.(main❌/develop⭕)

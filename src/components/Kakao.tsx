@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import kimg from "/klogin.svg"
+import kimg from "../assets/home/klogin.svg"
 
 const Button = styled.button`
     display: flex;

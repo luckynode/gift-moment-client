@@ -11,6 +11,14 @@ export const Title = styled.div`
     color: #B6001E;
     font-weight: 700;
     font-size: 30px;
+    line-height: 50px;
+`
+
+export const SubTitle = styled.div`
+    font-family: 'Lato';
+    font-size: 20px;
+    color: #B6001E;
+    line-height: 50px;
 `
 
 export const Form = styled.form`
@@ -56,6 +64,26 @@ export const Submit250 = styled.input`
     }
 `
 
+export const Submit100 = styled.input`
+    width: 100px;
+    height: 48px;
+    background-color: #000000;
+    border-radius: 8px;
+    border: none;
+    color: white;
+
+    font-size: 20px;
+    font-weight: 600;
+
+    &[type = "submit"],
+    &[type = "button"] {
+        cursor: pointer;
+        &:hover {
+            opacity: 0.8;
+        };
+    }
+`
+
 export const Detail = styled.div`
     font-size: 12px;
     color: #000000;
@@ -66,7 +94,7 @@ export const Hug18 = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
+    gap: 18px;
     margin: 40px 0;
 `
 

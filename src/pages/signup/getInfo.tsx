@@ -17,6 +17,7 @@ export default function GetInfo({ onNext } : GetInfoProps) {
 
     useEffect(() => {
         // 토큰 설정 추가
+        // TODO 서버 토큰 header
 
         const fetchData = async () => {
             try {
@@ -60,6 +61,8 @@ export default function GetInfo({ onNext } : GetInfoProps) {
         try {
             // 테스트로 console 출력
             console.log(name, birth, email);
+
+            // TODO 서버 axios post.
 
             onNext();
         } catch (error) {

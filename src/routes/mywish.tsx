@@ -38,7 +38,7 @@ export default function Mywish() {
                 <Submit250
                     type="button"
                     value="위시리스트 보러가기"
-                    onClick={() => navigate("/signup")}
+                    onClick={() => navigate("/")}
                 />
             </Hug18>
         </Wrapper>

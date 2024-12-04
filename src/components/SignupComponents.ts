@@ -57,7 +57,8 @@ export const Submit250 = styled.input`
     font-weight: 600;
     font-family: 'Pretendard';
 
-    &[type = "submit"] {
+    &[type = "submit"],
+    &[type = "button"] {
         cursor: pointer;
         &:hover {
             opacity: 0.8;

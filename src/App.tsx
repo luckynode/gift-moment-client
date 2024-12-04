@@ -8,6 +8,7 @@ import {ToastContainer} from "react-toastify";
 import OAuth from './components/KakaoOauth'
 import SignUp from './routes/signup'
 import Mywish from './routes/mywish'
+import Login from './routes/login.tsx'
 
 const GlobalStyles = createGlobalStyle`
   body {
@@ -81,6 +82,10 @@ const router = createBrowserRouter([
       path: "/mywish",
       element: <Mywish />
     },
+    {
+      path: "/login",
+      element: <Login />
+    }
 ])
 
 

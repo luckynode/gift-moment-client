@@ -6,12 +6,13 @@ type ButtonProps = {
     color?: 'black' | 'white';
     onClick: () => void;
     disabled?: boolean;
+    type? : 'button' | 'submit';
 };
 
 
 const StyledButton = styled.button<ButtonProps>`
   width: ${(props) =>
-          props.size === 'small' ? '25%' : props.size === 'medium' ? '40%' : '60%'};
+          props.size === 'small' ? '100px' : props.size === 'medium' ? '150px' : '250px'};
   height: 48px;
   background-color: ${(props) => (props.color === 'black' ? '#000' : '#fff')};
   color: ${(props) => (props.color === 'black' ? '#fff' : '#000')};
@@ -48,9 +49,10 @@ const Button: React.FC<ButtonProps> = ({
                                            color = 'black',
                                            onClick,
                                            disabled = false,
+                                           type = 'submit',
                                        }) => {
     return (
-        <StyledButton size={size} color={color} onClick={onClick} disabled={disabled}>
+        <StyledButton text={text} size={size} color={color} onClick={onClick} disabled={disabled} type={type}>
             {text}
         </StyledButton>
     );

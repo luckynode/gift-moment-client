@@ -6,6 +6,9 @@ import {useEffect} from 'react'
 import MyLettersPage from "./pages/MyLettersPage.tsx";
 import {ToastContainer} from "react-toastify";
 import OAuth from './components/KakaoOauth'
+import SignUp from './routes/signup'
+import Mywish from './routes/mywish'
+import Login from './routes/login.tsx'
 
 const GlobalStyles = createGlobalStyle`
   body {
@@ -13,6 +16,13 @@ const GlobalStyles = createGlobalStyle`
     background-color: #f2f2f2;
     display: flex;
     justify-content: center;
+    font-family: 'Pretendard', sans-serif;
+  }
+  button {
+    font-family: 'Pretendard', sans-serif;
+  }
+  input{
+    font-family: 'Lato', sans-serif;
   }
 
   :root {
@@ -40,12 +50,13 @@ const GlobalStyles = createGlobalStyle`
   }
 `
 const Wrapper = styled.div`
-  max-width: 390px;
+  min-width: 390px;
   margin-left: auto;
   margin-right: auto;
   background-color: #FFECEC;
   display: flex;
   align-items: center;
+  justify-content: center;
   height: calc(var(--vh, 1vh) * 100);
   font-family: 'Pretendard', sans-serif;
 `
@@ -63,6 +74,18 @@ const router = createBrowserRouter([
         path: "/my-letters",
         element: <MyLettersPage/>
     },
+    {
+      path: "/signup",
+      element: <SignUp />
+    },
+    {
+      path: "/mywish",
+      element: <Mywish />
+    },
+    {
+      path: "/login",
+      element: <Login />
+    }
 ])
 
 

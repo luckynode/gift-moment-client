@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
-import { Detail, Form, Hug10, Hug18, Input, Submit250, Title, Wrapper } from "../../components/SignupComponents";
+import { Detail, Form, Hug10, Hug18, Input, Title, Wrapper } from "../../components/SignupComponents";
 import axios from "axios";
+import Button from "../../components/buttons/Button";
 
 interface GetInfoProps {
     onNext: () => void; // onNext 함수 타입 정의
@@ -104,9 +105,12 @@ export default function GetInfo({ onNext } : GetInfoProps) {
                     />
                 </Hug18>
                 <Hug10>
-                    <Submit250
-                        type="submit" 
-                        value="선물 등록하러 가기"
+                    <Button 
+                        type="submit"
+                        text="선물 등록하러 가기"
+                        size="large"
+                        color="black"
+                        onClick={() => {}}
                     />
                     <Detail>선물은 최대 5개까지 등록 가능합니다.</Detail>
                 </Hug10>

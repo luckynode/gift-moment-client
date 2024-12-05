@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Form, Hug18, Input, Submit100, SubTitle, Title, Wrapper } from "../../components/SignupComponents";
+import { Form, Hug18, Input, SubTitle, Title, Wrapper } from "../../components/SignupComponents";
+import Button from "../../components/buttons/Button";
 
 interface GetInfoProps {
     onNext: () => void;
@@ -53,9 +54,12 @@ export default function AccountInput({ onNext } : GetInfoProps){
                         placeholder="계좌번호"
                         required
                     />
-                    <Submit100
-                        type="submit" 
-                        value="등록"    
+                    <Button 
+                        type="submit"
+                        text="등록"
+                        size="small"
+                        color="black"
+                        onClick={()=> {}}
                     />
                 </Hug18>
             </Form>

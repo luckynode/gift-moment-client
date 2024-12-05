@@ -41,7 +41,7 @@ export const Input = styled.input`
     padding-left: 15px;
 
     &:disabled {
-        background-color: #00000020;
+        background-color: #FFFFFF90;
     }
 `
 

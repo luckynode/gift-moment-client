@@ -3,6 +3,13 @@ import { Title, Wrapper, Input, Hug18 } from "../components/SignupComponents";
 import Button from "../components/buttons/Button";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import styled from "styled-components";
+
+const Row18 = styled.div`
+    display: flex;
+    flex-direction: row;
+    gap: 18px;
+`
 
 // TODO data type 확인
 
@@ -102,20 +109,22 @@ export default function Mypage() {
                     placeholder="계좌번호"
                     disabled
                 />
-                <Button 
-                    type="button"
-                    text="편집"
-                    size="small"
-                    color="white"
-                    onClick={() => {navigate("/mypage/edit")}}
-                />
-                <Button 
-                    type="button"
-                    text="로그아웃"
-                    size="small"
-                    color="black"
-                    onClick={handleLogout}
-                />
+                <Row18>
+                    <Button 
+                        type="button"
+                        text="편집"
+                        size="small"
+                        color="white"
+                        onClick={() => {navigate("/mypage/edit")}}
+                    />
+                    <Button 
+                        type="button"
+                        text="로그아웃"
+                        size="small"
+                        color="black"
+                        onClick={handleLogout}
+                    />
+                </Row18>
             </Hug18>
         </Wrapper>
     )

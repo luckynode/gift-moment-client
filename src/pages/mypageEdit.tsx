@@ -3,6 +3,22 @@ import { Title, Wrapper, Input, Hug18, Form } from "../components/SignupComponen
 import Button from "../components/buttons/Button";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import styled from "styled-components";
+
+const Leave = styled.div`
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+
+    color: #B6001E;
+    cursor: pointer;
+    text-align: center;
+
+    font-size: 18px;
+    text-decoration: underline;
+`
 
 
 // TODO data type 확인
@@ -70,7 +86,24 @@ export default function EditMypage() {
         }
     }
 
+    const handleLeave = async () => {
+        try {
+            // TODO accesstoken 설정
+            // TODO 탈퇴 안내 모달 등 논의
+            
+            await axios.patch(`${import.meta.env.VITE_BACKEND_URL}/auth/leave`, {
+                headers: {
+                    // Authorization: `Bearer ${accessToken}`,
+                }
+            });
+            navigate("/");
+        } catch (error) {
+            console.error("Leave Gift-moment Error : ", error);
+        }
+    }
+
     return(
+        <div>
         <Wrapper>
             <Title>마이페이지</Title>
             <Form onSubmit={onSubmit}>
@@ -121,5 +154,7 @@ export default function EditMypage() {
                 </Hug18>
             </Form>
         </Wrapper>
+        <Leave onClick={handleLeave}> 탈퇴 </Leave>
+        </div>
     )
 } 

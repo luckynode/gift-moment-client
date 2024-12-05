@@ -9,6 +9,7 @@ import OAuth from './components/KakaoOauth'
 import SignUp from './routes/signup'
 import Mywish from './routes/mywish'
 import Login from './routes/login.tsx'
+import Mypage from './pages/mypage.tsx'
 
 const GlobalStyles = createGlobalStyle`
   body {
@@ -85,6 +86,10 @@ const router = createBrowserRouter([
     {
       path: "/login",
       element: <Login />
+    },
+    {
+      path: "/mypage",
+      element: <Mypage />
     }
 ])
 

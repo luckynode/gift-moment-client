@@ -15,6 +15,7 @@ interface User {
 }
 
 export default function Mypage() {
+    // 값 불러올 때 초기값 설정
     // const [user, setUser] = useState<User>({
     //     name: '이름',
     //     birth: '0',
@@ -25,8 +26,24 @@ export default function Mypage() {
 
     const [user, setUser] = useState<User | null>(null); // 초기값을 null로 설정
 
-
     const navigate = useNavigate();
+
+    const handleLogout = async () => {
+        try {
+            // TODO accesstoken 설정
+            
+            await axios.get(`${import.meta.env.VITE_BACKEND_URL}/auth/logout`, {
+                headers: {
+                    // Authorization: `Bearer ${accessToken}`,
+                }
+            });
+
+            // TODO accessToken, refrestToken 제거
+            navigate("/");
+        } catch (error) {
+            console.error("Logout Error : ", error);
+        }
+    }
 
     useEffect(()=> {
         const fetchData = async() => {
@@ -97,7 +114,7 @@ export default function Mypage() {
                     text="로그아웃"
                     size="small"
                     color="black"
-                    onClick={() => {navigate("/mypage/edit")}}
+                    onClick={handleLogout}
                 />
             </Hug18>
         </Wrapper>

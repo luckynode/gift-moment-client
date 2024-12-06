@@ -12,31 +12,25 @@ const Form = styled.form`
   gap: 25px;
 `;
 
-const TextAreaContainer = styled.div`
-  position: relative;
-`;
-
-const TextArea = styled.textarea`
+const TextArea = styled.textarea<{ error?: boolean }>`
   width: 280px;
-  background: #fff9e6;
+  background: #FFF9E6;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   height: 400px;
   font-size: 15px;
-  border: 1px solid #ddd;
-  border-radius: 10px;
+  border: 1px solid ${(props) => (props.error ? 'red' : '#ddd')};
+  border-radius: 20px;
   resize: none;
   padding: 20px 25px;
 
   &:focus {
-    outline: none; 
-    border: 1px solid #ddd; 
+    outline: none;
+    border: 1px solid #ddd;
   }
 `;
 
 const CharacterCount = styled.div`
-  position: absolute;
-  bottom: 20px;
-  right: 20px;
+  text-align: right;
   font-size: 14px;
   color: #808192;
 `;
@@ -63,23 +57,48 @@ const Label = styled.label`
   font-weight: bold;
 `;
 
-const Input = styled.input`
+const Input = styled.input<{ error?: boolean }>`
   flex: 1;
   padding: 8px 10px;
-  border-radius: 10px;
+  border-radius: 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  border: 1px solid #ddd;
+  border: 1px solid ${(props) => (props.error ? 'red' : '#ddd')};
   margin-left: 5px;
   color: black;
   min-height: 20px;
   outline: none;
-  font-family: 'Lato', sans-serif;
+
+  &:focus {
+    outline: none;
+    border: 1px solid #ddd;
+  }
+`;
+
+const ErrorMessage = styled.div`
+  color: red;
+  font-size: 14px;
+  margin-left: 10px;
+`;
+
+const InputContainer = styled.div`
+  display: flex;
+  flex-direction: column; /* 세로 정렬 */
+  width: 100%;
+  gap: 5px; /* 입력 필드와 오류 메시지 간격 */
 `;
 
 const WriteLetter = () => {
     const [to, setTo] = useState('');
     const [message, setMessage] = useState('');
     const [from, setFrom] = useState('');
+
+    const [toError, setToError] = useState(false);
+    const [messageError, setMessageError] = useState(false);
+    const [fromError, setFromError] = useState(false);
+
+    const handleFocus = (setter: (value: boolean) => void) => {
+        setter(false); // 에러 상태 초기화
+    };
 
     const handleInputChange = (setter: (value: string) => void, value: string, maxLength: number) => {
         if (value.length <= maxLength) {
@@ -89,6 +108,27 @@ const WriteLetter = () => {
 
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        // 순차적으로 에러를 처리
+        if (!to) {
+            setToError(true);
+            return;
+        } else {
+            setToError(false);
+        }
+
+        if (!message) {
+            setMessageError(true);
+            return;
+        } else {
+            setMessageError(false);
+        }
+
+        if (!from) {
+            setFromError(true);
+            return;
+        } else {
+            setFromError(false);
+        }
         try {
             console.log(to, message, from);
             // TODO: 서버 axios post
@@ -101,45 +141,55 @@ const WriteLetter = () => {
         <div>
             <BackButton/>
             <Form onSubmit={onSubmit}>
-                {/* TO */}
+                {/* 편지 받는 사람 */}
                 <InputRow>
                     <Label>TO</Label>
-                    <Input
-                        name="to"
-                        value={to}
-                        placeholder="받는 사람 (20자 이내)"
-                        required
-                        onChange={(e) => handleInputChange(setTo, e.target.value, 20)}
-                    />
+                    <InputContainer>
+                        <Input
+                            name="to"
+                            value={to}
+                            placeholder="받는 사람 (20자 이내)"
+                            error={toError} // error 상태 전달
+                            onFocus={() => handleFocus(setToError)} // focus 시 에러 초기화
+                            onChange={(e) => handleInputChange(setTo, e.target.value, 20)}
+                        />
+                        {toError && <ErrorMessage>편지 받는 사람을 입력해주세요!</ErrorMessage>}
+                    </InputContainer>
                 </InputRow>
 
+                {/* 편지 내용 */}
                 <MessageColumn>
-                    {/* MESSAGE */}
                     <Label>MESSAGE</Label>
-                    <TextAreaContainer>
+                    <InputContainer>
                         <TextArea
                             placeholder="생일 축하 메시지를 작성하세요!"
                             value={message}
-                            required
+                            error={messageError} // error 상태 전달
+                            onFocus={() => handleFocus(setMessageError)} // focus 시 에러 초기화
                             onChange={(e) => handleInputChange(setMessage, e.target.value, 500)}
                         />
                         <CharacterCount>{`${message.length}/500`}</CharacterCount>
-                    </TextAreaContainer>
+                        {messageError && <ErrorMessage>생일 편지를 작성해주세요!</ErrorMessage>}
+                    </InputContainer>
                 </MessageColumn>
 
-                {/* FROM */}
+                {/* 편지 보내는 사람 */}
                 <InputRow>
                     <Label>FROM</Label>
-                    <Input
-                        name="from"
-                        value = {from}
-                        placeholder="보내는 사람 (20자 이내)"
-                        required
-                        onChange={(e) => handleInputChange(setFrom, e.target.value, 20)}
-                    />
+                    <InputContainer>
+                        <Input
+                            name="from"
+                            value={from}
+                            placeholder="보내는 사람 (20자 이내)"
+                            error={fromError} // error 상태 전달
+                            onFocus={() => handleFocus(setFromError)} // focus 시 에러 초기화
+                            onChange={(e) => handleInputChange(setFrom, e.target.value, 20)}
+                        />
+                        {fromError && <ErrorMessage>편지 보내는 사람을 입력해주세요!</ErrorMessage>}
+                    </InputContainer>
                 </InputRow>
                 {/* 완료 버튼 */}
-                <Button type="submit" text="완료" size="small" color="black"/>
+                <Button type="submit" text="완료" size="small" color="black" onClick={() => {}}/>
             </Form>
         </div>
     );

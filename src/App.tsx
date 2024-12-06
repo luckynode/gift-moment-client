@@ -3,7 +3,7 @@ import styled, {createGlobalStyle} from 'styled-components'
 import {createBrowserRouter, RouterProvider} from 'react-router-dom'
 import Home from './routes/home'
 import {useEffect} from 'react'
-import MyLettersPage from "./pages/MyLettersPage.tsx";
+import MyLetters from "./pages/MyLetters.tsx";
 import {ToastContainer} from "react-toastify";
 import OAuth from './components/KakaoOauth'
 import SignUp from './routes/signup'
@@ -79,7 +79,7 @@ const router = createBrowserRouter([
     },
     {
         path: "/my-letters",
-        element: <MyLettersPage/>
+        element: <MyLetters/>
     },
     {
         path: "/signup",

@@ -74,7 +74,9 @@ const ButtonContainer = styled.div`
 
 
 // NOTE 현재는 하드코딩된 값 사용. 나중에 동적으로 처리 필요
-const MyLettersPage = () => {
+const MyLetters = () => {
+    const navigate = useNavigate();
+
     const letters = [
         {
             id: 0,
@@ -168,8 +170,7 @@ const MyLettersPage = () => {
             <Cake items={items}/> {/* items를 Cake에 전달 */}
             <InstructionText iconText="Letter" message={`장신구를 클릭해 보세요!\n편지 내용을 볼 수 있습니다`}/>
             <ButtonContainer>
-                {/*TODO 마이페이지 이동 기능 구현*/}
-                <Button text="마이페이지" size="large" color="white" onClick={() => alert('마이페이지 이동')}/>
+                <Button text="마이페이지" size="large" color="white" onClick={() => navigate("/mypage")}/>
                 <Button text="편지 링크 복사하기" size="large" color="black" onClick={copyLinkToClipboard}/>
             </ButtonContainer>
             <LetterDetailModal isOpen={isModalOpen} onClose={closeModal} letter={selectedLetter}/>
@@ -177,4 +178,4 @@ const MyLettersPage = () => {
     );
 };
 
-export default MyLettersPage;
+export default MyLetters;

@@ -10,6 +10,7 @@ import SignUp from './routes/signup'
 import Mywish from './routes/mywish'
 import Login from './routes/login.tsx'
 import GuestLetters from "./routes/GuestLetters.tsx";
+import WriteLetter from "./pages/WriteLetter.tsx";
 
 const GlobalStyles = createGlobalStyle`
   body {
@@ -22,7 +23,7 @@ const GlobalStyles = createGlobalStyle`
   button {
     font-family: 'Pretendard', sans-serif;
   }
-  input{
+  input, textarea{
     font-family: 'Lato', sans-serif;
   }
 
@@ -90,6 +91,10 @@ const router = createBrowserRouter([
     {
         path: "/guest-letters",
         element: <GuestLetters />
+    },
+    {
+        path: "/write-letter",
+        element: <WriteLetter />
     }
 ])
 

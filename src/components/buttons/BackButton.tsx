@@ -3,10 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import arrowLeft from '../../assets/letters/arrow_left.svg'; // 이미지 파일 경로
 
 const BackButtonWrapper = styled.div`
+  position: fixed;
+  top: 30px;
+  left: 50%;
+  padding-right: 320px;
+  transform: translateX(-50%);
+  z-index: 1000;
   cursor: pointer;
-  position: absolute;
-  padding-top: 30px; /* header 높이만큼 padding 추가 */
-  left: 30px; /* 왼쪽 상단 고정 */
   &:hover {
     opacity: 0.7;
   }

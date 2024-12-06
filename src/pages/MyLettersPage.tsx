@@ -46,20 +46,20 @@ const ornamentImages = [
 // 장신구 위치 배열
 // FIXME 장신구 위치는 px로 잡으면 반응형 어려워짐. %로 변경하는 것 고려해봐야 할듯
 const positions = [
-    {top: '125px', left: '35px'},  // redFlower
-    {top: '122px', left: '100px'},  // whiteStar
-    {top: '115px', left: '167px'},  // orangeFlower
-    {top: '120px', left: '225px'},  // sparkle
-    {top: '190px', left: '32px'},  // rainbowStar
-    {top: '185px', left: '102px'},  // cherry
-    {top: '185px', left: '165px'},  // cloud
-    {top: '180px', left: '232px'},  // blueEnvelope
-    {top: '250px', left: '20px'},  // mintEnvelope
-    {top: '245px', left: '95px'},  // whiteFlower
-    {top: '245px', left: '165px'},  // strawberry
-    {top: '245px', left: '230px'},  // heart
-    {top: '45px', left: '16px'},  // yellowMusic
-    {top: '45px', left: '240px'},  // blackMusic
+    {top: '125px', left: '55px'},  // redFlower
+    {top: '122px', left: '120px'},  // whiteStar
+    {top: '115px', left: '187px'},  // orangeFlower
+    {top: '120px', left: '245px'},  // sparkle
+    {top: '190px', left: '52px'},  // rainbowStar
+    {top: '185px', left: '122px'},  // cherry
+    {top: '185px', left: '185px'},  // cloud
+    {top: '180px', left: '252px'},  // blueEnvelope
+    {top: '250px', left: '40px'},  // mintEnvelope
+    {top: '245px', left: '115px'},  // whiteFlower
+    {top: '245px', left: '185px'},  // strawberry
+    {top: '245px', left: '250px'},  // heart
+    {top: '45px', left: '36px'},  // yellowMusic
+    {top: '45px', left: '260px'},  // blackMusic
 ];
 
 const HeaderWrapper = styled.div`

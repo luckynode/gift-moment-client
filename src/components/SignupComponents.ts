@@ -8,17 +8,27 @@ export const Wrapper = styled.div`
 `
 
 export const Title = styled.div`
-    color: #B6001E;
     font-weight: 700;
     font-size: 30px;
     line-height: 50px;
+
+    color: transparent;
+    display: inline-block;
+
+    background: linear-gradient(to bottom, #924C57 0%, #B62F45 30%, #B72F54 60%, #924C57 100%); /* 중앙만 살짝 연하게 */
+    background-clip: text;
 `
 
 export const SubTitle = styled.div`
     font-family: 'Lato';
     font-size: 20px;
-    color: #B6001E;
     line-height: 50px;
+    
+    color: transparent;
+    display: inline-block;
+
+    background: linear-gradient(to bottom, #924C57 0%, #B62F45 30%, #B72F54 60%, #924C57 100%); /* 중앙만 살짝 연하게 */
+    background-clip: text;
 `
 
 export const Form = styled.form`
@@ -41,7 +51,7 @@ export const Input = styled.input`
     padding-left: 15px;
 
     &:disabled {
-        background-color: #00000020;
+        background-color: #FFFFFF90;
     }
 `
 

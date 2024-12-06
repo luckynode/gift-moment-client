@@ -12,6 +12,8 @@ import Login from './routes/login.tsx'
 import GuestLetters from "./routes/GuestLetters.tsx";
 import WriteLetter from "./pages/WriteLetter.tsx";
 import LetterSentConfirm from "./routes/LetterSentConfirm.tsx";
+import Mypage from './pages/mypage.tsx'
+import EditMypage from './pages/mypageEdit.tsx'
 
 const GlobalStyles = createGlobalStyle`
   body {
@@ -21,10 +23,12 @@ const GlobalStyles = createGlobalStyle`
     justify-content: center;
     font-family: 'Pretendard', sans-serif;
   }
+
   button {
     font-family: 'Pretendard', sans-serif;
   }
-  input, textarea{
+
+  input, textarea {
     font-family: 'Lato', sans-serif;
   }
 
@@ -78,28 +82,36 @@ const router = createBrowserRouter([
         element: <MyLettersPage/>
     },
     {
-      path: "/signup",
-      element: <SignUp />
+        path: "/signup",
+        element: <SignUp/>
     },
     {
-      path: "/mywish",
-      element: <Mywish />
+        path: "/mywish",
+        element: <Mywish/>
     },
     {
-      path: "/login",
-      element: <Login />
+        path: "/login",
+        element: <Login/>
     },
     {
         path: "/guest-letters",
-        element: <GuestLetters />
+        element: <GuestLetters/>
     },
     {
         path: "/write-letter",
-        element: <WriteLetter />
+        element: <WriteLetter/>
     },
     {
         path: "/letter-sent-confirm",
-        element: <LetterSentConfirm />
+        element: <LetterSentConfirm/>
+    },
+    {
+        path: "/mypage",
+        element: <Mypage/>
+    },
+    {
+        path: "/mypage/edit",
+        element: <EditMypage/>
     }
 ])
 

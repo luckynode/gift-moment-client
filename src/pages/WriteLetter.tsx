@@ -63,16 +63,16 @@ const Label = styled.label`
   font-weight: bold;
 `;
 
-const Input = styled.div`
+const Input = styled.input`
   flex: 1;
-  font-size: 15px;
-  border-bottom: 2px solid black;
-  padding: 5px 2px 5px 2px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: 1px solid #ddd;
   margin-left: 5px;
   color: black;
   min-height: 20px;
   outline: none;
-  transition: border-color 0.3s ease;
   font-family: 'Lato', sans-serif;
 `;
 
@@ -80,6 +80,12 @@ const WriteLetter = () => {
     const [to, setTo] = useState('');
     const [message, setMessage] = useState('');
     const [from, setFrom] = useState('');
+
+    const handleInputChange = (setter: (value: string) => void, value: string, maxLength: number) => {
+        if (value.length <= maxLength) {
+            setter(value); // 입력 길이가 제한 내에 있을 경우만 상태 업데이트
+        }
+    };
 
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -99,9 +105,11 @@ const WriteLetter = () => {
                 <InputRow>
                     <Label>TO</Label>
                     <Input
-                        contentEditable
-                        data-placeholder="받는 사람"
-                        onInput={(e) => setTo((e.target as HTMLDivElement).textContent || '')}
+                        name="to"
+                        value={to}
+                        placeholder="받는 사람 (20자 이내)"
+                        required
+                        onChange={(e) => handleInputChange(setTo, e.target.value, 20)}
                     />
                 </InputRow>
 
@@ -112,7 +120,8 @@ const WriteLetter = () => {
                         <TextArea
                             placeholder="생일 축하 메시지를 작성하세요!"
                             value={message}
-                            onChange={(e) => setMessage(e.target.value)}
+                            required
+                            onChange={(e) => handleInputChange(setMessage, e.target.value, 500)}
                         />
                         <CharacterCount>{`${message.length}/500`}</CharacterCount>
                     </TextAreaContainer>
@@ -122,9 +131,11 @@ const WriteLetter = () => {
                 <InputRow>
                     <Label>FROM</Label>
                     <Input
-                        contentEditable
-                        data-placeholder="보내는 사람"
-                        onInput={(e) => setFrom((e.target as HTMLDivElement).textContent || '')}
+                        name="from"
+                        value = {from}
+                        placeholder="보내는 사람 (20자 이내)"
+                        required
+                        onChange={(e) => handleInputChange(setFrom, e.target.value, 20)}
                     />
                 </InputRow>
                 {/* 완료 버튼 */}

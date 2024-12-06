@@ -4,6 +4,7 @@ import Button from "../components/buttons/Button";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
+import BackButton from "../components/buttons/BackButton";
 
 const Leave = styled.div`
     position: fixed;
@@ -104,6 +105,7 @@ export default function EditMypage() {
 
     return(
         <div>
+        <BackButton />
         <Wrapper>
             <Title>마이페이지</Title>
             <Form onSubmit={onSubmit}>

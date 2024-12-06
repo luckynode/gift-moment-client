@@ -4,6 +4,7 @@ import Button from "../components/buttons/Button";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
+import BackButton from "../components/buttons/BackButton";
 
 const Row18 = styled.div`
     display: flex;
@@ -71,6 +72,8 @@ export default function Mypage() {
     }, []);
 
     return(
+        <>
+        <BackButton />
         <Wrapper>
             <Title>마이페이지</Title>
             <Hug18>
@@ -127,5 +130,6 @@ export default function Mypage() {
                 </Row18>
             </Hug18>
         </Wrapper>
+        </>
     )
 } 

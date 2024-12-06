@@ -62,14 +62,6 @@ const positions = [
     {top: '45px', left: '260px'},  // blackMusic
 ];
 
-const HeaderWrapper = styled.div`
-  display: flex;
-  align-items: center; 
-  justify-content: center; 
-  padding: 10px 20px;
-  position: relative; 
-`;
-
 const ButtonContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -171,10 +163,8 @@ const MyLettersPage = () => {
     return (
         <div>
             {/*TODO 백엔드 API 유저 정보 받아오기*/}
-            <HeaderWrapper>
-                <BackButton/>
-                <Header title="경희님의 편지함"/>
-            </HeaderWrapper>
+            <BackButton/>
+            <Header title="경희님의 편지함"/>
             <Cake items={items}/> {/* items를 Cake에 전달 */}
             <InstructionText iconText="Letter" message={`장신구를 클릭해 보세요!\n편지 내용을 볼 수 있습니다`}/>
             <ButtonContainer>

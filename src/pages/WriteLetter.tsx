@@ -2,6 +2,7 @@ import BackButton from "../components/buttons/BackButton.tsx";
 import {useState} from "react";
 import Button from "../components/buttons/Button.tsx";
 import styled from "styled-components";
+import {useNavigate} from "react-router-dom";
 
 const Form = styled.form`
   margin: 60px 20px 20px 20px;
@@ -91,6 +92,7 @@ const WriteLetter = () => {
     const [to, setTo] = useState('');
     const [message, setMessage] = useState('');
     const [from, setFrom] = useState('');
+    const navigate = useNavigate();
 
     const [toError, setToError] = useState(false);
     const [messageError, setMessageError] = useState(false);
@@ -131,6 +133,7 @@ const WriteLetter = () => {
         }
         try {
             console.log(to, message, from);
+            navigate("/letter-sent-confirm");
             // TODO: 서버 axios post
         } catch (error) {
             console.error("정보 제출 오류 : ", error);
@@ -189,7 +192,8 @@ const WriteLetter = () => {
                     </InputContainer>
                 </InputRow>
                 {/* 완료 버튼 */}
-                <Button type="submit" text="완료" size="small" color="black" onClick={() => {}}/>
+                <Button type="submit" text="완료" size="small" color="black" onClick={() => {
+                }}/>
             </Form>
         </div>
     );

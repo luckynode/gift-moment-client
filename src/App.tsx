@@ -11,6 +11,7 @@ import Mywish from './routes/mywish'
 import Login from './routes/login.tsx'
 import GuestLetters from "./routes/GuestLetters.tsx";
 import WriteLetter from "./pages/WriteLetter.tsx";
+import LetterSentConfirm from "./routes/LetterSentConfirm.tsx";
 
 const GlobalStyles = createGlobalStyle`
   body {
@@ -95,6 +96,10 @@ const router = createBrowserRouter([
     {
         path: "/write-letter",
         element: <WriteLetter />
+    },
+    {
+        path: "/letter-sent-confirm",
+        element: <LetterSentConfirm />
     }
 ])
 

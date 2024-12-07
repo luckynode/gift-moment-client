@@ -16,13 +16,12 @@ type CakeProps = {
 
 const CakeWrapper = styled.div`
   position: relative;
-  width: 100%;
-  height: 100%; 
+  width: 360px;
+  height: 420px; 
   display: flex;
   align-items: center; 
-  justify-content: center; 
-  margin-top: 30px;
-  margin-bottom: 10px;
+  justify-content: center;
+  margin: 30px 20px 10px 20px;
 `;
 
 const CakeImage = styled.img`

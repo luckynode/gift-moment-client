@@ -62,14 +62,6 @@ const positions = [
     {top: '45px', left: '260px'},  // blackMusic
 ];
 
-const HeaderWrapper = styled.div`
-  display: flex;
-  align-items: center; 
-  justify-content: center; 
-  padding: 10px 20px;
-  position: relative; 
-`;
-
 const ButtonContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -77,12 +69,13 @@ const ButtonContainer = styled.div`
   width: 100%;
   align-items: center;
   margin-top: 10px;
-  margin-bottom: 30px;
 `;
 
 
 // NOTE 현재는 하드코딩된 값 사용. 나중에 동적으로 처리 필요
-const MyLettersPage = () => {
+const MyLetters = () => {
+    const navigate = useNavigate();
+
     const letters = [
         {
             id: 0,
@@ -171,15 +164,12 @@ const MyLettersPage = () => {
     return (
         <div>
             {/*TODO 백엔드 API 유저 정보 받아오기*/}
-            <HeaderWrapper>
-                <BackButton/>
-                <Header title="경희님의 편지함"/>
-            </HeaderWrapper>
+            <BackButton/>
+            <Header title="경희님의 편지함"/>
             <Cake items={items}/> {/* items를 Cake에 전달 */}
             <InstructionText iconText="Letter" message={`장신구를 클릭해 보세요!\n편지 내용을 볼 수 있습니다`}/>
             <ButtonContainer>
-                {/*TODO 마이페이지 이동 기능 구현*/}
-                <Button text="마이페이지" size="large" color="white" onClick={() => alert('마이페이지 이동')}/>
+                <Button text="마이페이지" size="large" color="white" onClick={() => navigate("/mypage")}/>
                 <Button text="편지 링크 복사하기" size="large" color="black" onClick={copyLinkToClipboard}/>
             </ButtonContainer>
             <LetterDetailModal isOpen={isModalOpen} onClose={closeModal} letter={selectedLetter}/>
@@ -187,4 +177,4 @@ const MyLettersPage = () => {
     );
 };
 
-export default MyLettersPage;
+export default MyLetters;

@@ -3,12 +3,15 @@ import styled, {createGlobalStyle} from 'styled-components'
 import {createBrowserRouter, RouterProvider} from 'react-router-dom'
 import Home from './routes/home'
 import {useEffect} from 'react'
-import MyLettersPage from "./pages/MyLettersPage.tsx";
+import MyLetters from "./pages/MyLetters.tsx";
 import {ToastContainer} from "react-toastify";
 import OAuth from './components/KakaoOauth'
 import SignUp from './routes/signup'
 import Mywish from './routes/mywish'
 import Login from './routes/login.tsx'
+import GuestLetters from "./routes/GuestLetters.tsx";
+import WriteLetter from "./pages/WriteLetter.tsx";
+import LetterSentConfirm from "./routes/LetterSentConfirm.tsx";
 import Mypage from './pages/mypage.tsx'
 import EditMypage from './pages/mypageEdit.tsx'
 
@@ -20,10 +23,12 @@ const GlobalStyles = createGlobalStyle`
     justify-content: center;
     font-family: 'Pretendard', sans-serif;
   }
+
   button {
     font-family: 'Pretendard', sans-serif;
   }
-  input{
+
+  input, textarea {
     font-family: 'Lato', sans-serif;
   }
 
@@ -74,27 +79,39 @@ const router = createBrowserRouter([
     },
     {
         path: "/my-letters",
-        element: <MyLettersPage/>
+        element: <MyLetters/>
     },
     {
-      path: "/signup",
-      element: <SignUp />
+        path: "/signup",
+        element: <SignUp/>
     },
     {
-      path: "/mywish",
-      element: <Mywish />
+        path: "/mywish",
+        element: <Mywish/>
     },
     {
-      path: "/login",
-      element: <Login />
+        path: "/login",
+        element: <Login/>
     },
     {
-      path: "/mypage",
-      element: <Mypage />
+        path: "/guest-letters",
+        element: <GuestLetters/>
     },
     {
-      path: "/mypage/edit",
-      element: <EditMypage />
+        path: "/write-letter",
+        element: <WriteLetter/>
+    },
+    {
+        path: "/letter-sent-confirm",
+        element: <LetterSentConfirm/>
+    },
+    {
+        path: "/mypage",
+        element: <Mypage/>
+    },
+    {
+        path: "/mypage/edit",
+        element: <EditMypage/>
     }
 ])
 

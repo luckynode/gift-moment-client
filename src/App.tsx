@@ -62,7 +62,6 @@ const Wrapper = styled.div`
   margin-right: auto;
   background-color: #FFECEC;
   display: flex;
-  align-items: center;
   justify-content: center;
   height: calc(var(--vh, 1vh) * 100);
   font-family: 'Pretendard', sans-serif;

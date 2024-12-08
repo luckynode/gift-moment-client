@@ -15,6 +15,7 @@ import LetterSentConfirm from "./routes/LetterSentConfirm.tsx";
 import Mypage from './pages/mypage.tsx'
 import EditMypage from './pages/mypageEdit.tsx'
 import WishList from './routes/WishList.tsx'
+import UserWishList from './routes/UserWishList.tsx'
 
 const GlobalStyles = createGlobalStyle`
   body {
@@ -116,6 +117,10 @@ const router = createBrowserRouter([
     {
       path: "/wishlist",
       element: <WishList />
+    },
+    {
+      path: "/wishlist/:userId",
+      element: <UserWishList />
     }
 ])
 

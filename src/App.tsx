@@ -14,6 +14,7 @@ import WriteLetter from "./pages/WriteLetter.tsx";
 import LetterSentConfirm from "./routes/LetterSentConfirm.tsx";
 import Mypage from './pages/mypage.tsx'
 import EditMypage from './pages/mypageEdit.tsx'
+import WishList from './routes/WishList.tsx'
 
 const GlobalStyles = createGlobalStyle`
   body {
@@ -111,6 +112,10 @@ const router = createBrowserRouter([
     {
         path: "/mypage/edit",
         element: <EditMypage/>
+    },
+    {
+      path: "/wishlist",
+      element: <WishList />
     }
 ])
 

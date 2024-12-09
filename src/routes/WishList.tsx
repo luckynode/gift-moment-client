@@ -5,6 +5,7 @@ import WishItem from "../components/WishItem";
 import eximg from "../assets/wishlist/example.jpg"
 import { useEffect, useState } from "react";
 import axios from "axios";
+import plus from "../assets/wishlist/plus.svg";
 
 const Wrapper = styled.div`
     display: flex;
@@ -26,10 +27,15 @@ const Subtitle = styled.div`
 const ListWrapper = styled.div`
     display: flex;
     flex-direction: column;
+    align-items: center;
     margin: 40px 0;
     gap: 40px;
 `
 
+const AddButton = styled.img`
+    width: 50px;
+    margin-bottom: 60px;
+`
 
 // TODO 백 api 명세서 확인 후 재구성
 interface WishListData {
@@ -109,6 +115,16 @@ export default function WishList() {
                     ))}
                     
                     {/* 5개보다 작을 때 추가 버튼 */}
+                    {wishData?.item_num < 5 && (
+                        <AddButton 
+                            src={plus}
+                        />
+                    )}
+                    
+                    {/* TODO 기능확인용 버튼 제거 */}
+                    <AddButton 
+                        src={plus}
+                    />
                 </ListWrapper>
             </Wrapper>
         </>

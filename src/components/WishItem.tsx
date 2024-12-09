@@ -2,6 +2,7 @@ import { styled } from "styled-components"
 import blue from "../assets/wishlist/progress_blue.svg"
 import green from "../assets/wishlist/progress_green.svg"
 import red from "../assets/wishlist/progress_red.svg"
+import { useNavigate } from "react-router-dom"
 
 const Wrapper = styled.div`
     display: flex;
@@ -73,6 +74,8 @@ interface WishItemProps {
 }
 
 export default function WishItem({id, item_image,item_name, percent, state}: WishItemProps) {
+    const navigate = useNavigate();
+    
     // state 아이콘, progress bar 색상 설정
     let iconSrc;
     if (state === '종료') {
@@ -83,14 +86,16 @@ export default function WishItem({id, item_image,item_name, percent, state}: Wis
         iconSrc = blue;
     }
 
-    // TODO onClick 시 선물 삭제/수정 페이지로 이동
+    const handleClick = () => {
+        navigate(`/wishlist/${id}`);
+    };
 
     return (
         <>
             {/* 사진
                 이름 % 진행중
                 progress bar */}
-            <Wrapper>
+            <Wrapper onClick={handleClick}>
                 <ItemImg src={item_image}/>
                 <Info>
                     <Name>{item_name}</Name>

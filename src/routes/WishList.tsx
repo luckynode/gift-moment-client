@@ -87,6 +87,7 @@ export default function WishList() {
                 <Subtitle>{wishData?.birth || '00월 00일'} D-{wishData?.dday || '00'}</Subtitle>
                 <Header title={`${wishData?.name || '김이름'}님의 위시리스트`} /> 
                 <ListWrapper>
+                    {/* TODO 예시 컴포넌트 제거*/}
                     {/* 예시 컴포넌트 */}
                     <WishItem
                         id = {1}

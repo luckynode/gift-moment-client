@@ -41,6 +41,7 @@ const Name = styled.div`
 `
     
 const Progress = styled.div`
+    font-family: 'Lato';
     display: flex;
     flex-direction: row;
     color: #6F6F6F;

@@ -73,14 +73,14 @@ const StateIcon = styled.img`
 `
 
 interface WishItemProps {
-    id: number;
+    item_id: number;
     item_image: string;
     item_name: string;
     percent: number;
     state: string;
 }
 
-export default function WishItem({id, item_image,item_name, percent, state}: WishItemProps) {
+export default function WishItem({item_id, item_image, item_name, percent, state}: WishItemProps) {
     const navigate = useNavigate();
     
     // state 아이콘, progress bar 색상 설정
@@ -97,7 +97,7 @@ export default function WishItem({id, item_image,item_name, percent, state}: Wis
     }
 
     const handleClick = () => {
-        navigate(`/wishlist/${id}`);
+        navigate(`/wishlist/item/${item_id}`);
     };
 
     return (

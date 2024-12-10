@@ -44,7 +44,7 @@ interface WishListData {
     dday: number;
     item_num: number;
     items: Array<{
-        id: number;
+        item_id: number;
         item_image: string;
         item_name: string;
         percent: number;
@@ -59,11 +59,11 @@ export default function WishList() {
         dday: 0,
         item_num: 5,
         items: [
-            { id: 1, item_image: eximg, item_name: "아이폰1", percent: 30, state: "진행 중" },
-            { id: 2, item_image: eximg, item_name: "아이폰2", percent: 70, state: "종료" },
-            { id: 3, item_image: eximg, item_name: "아이폰3", percent: 100, state: "완료" },
-            { id: 4, item_image: eximg, item_name: "아이폰4", percent: 67, state: "진행 중" },
-            { id: 5, item_image: eximg, item_name: "아이폰5", percent: 45, state: "종료" },
+            { item_id: 1, item_image: eximg, item_name: "아이폰1", percent: 30, state: "진행 중" },
+            { item_id: 2, item_image: eximg, item_name: "아이폰2", percent: 70, state: "종료" },
+            { item_id: 3, item_image: eximg, item_name: "아이폰3", percent: 100, state: "완료" },
+            { item_id: 4, item_image: eximg, item_name: "아이폰4", percent: 67, state: "진행 중" },
+            { item_id: 5, item_image: eximg, item_name: "아이폰5", percent: 45, state: "종료" },
         ],
     });
 
@@ -96,8 +96,8 @@ export default function WishList() {
                     {/* map 으로 개수만큼 반복 */}
                     {wishData?.items.map((items) => (
                         <WishItem
-                            key={items.id}
-                            id={items.id}
+                            key={items.item_id}
+                            item_id={items.item_id}
                             item_image={items.item_image}
                             item_name={items.item_name}
                             percent={items.percent}

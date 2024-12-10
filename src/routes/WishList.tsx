@@ -104,14 +104,13 @@ export default function WishList() {
                             state={items.state}
                         />
                     ))}
-                    
-                    {/* 5개보다 작을 때 추가 버튼 */}
-                    {wishData?.item_num < 5 && (
-                        <AddButton 
-                            src={plus}
-                        />
-                    )}
                 </ListWrapper>
+                {/* 5개보다 작을 때 추가 버튼 */}
+                {wishData?.item_num < 5 && (
+                    <AddButton 
+                        src={plus}
+                    />
+                )}
             </Wrapper>
         </>
     )

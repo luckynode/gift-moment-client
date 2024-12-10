@@ -57,12 +57,18 @@ export default function WishList() {
         name: "김이름",
         birth: "00월 00일",
         dday: 0,
-        item_num: 0,
+        item_num: 5,
         items: [
-            { id: 1, item_image: eximg, item_name: "아이폰", percent: 30, state: "진행 중" }
+            { id: 1, item_image: eximg, item_name: "아이폰1", percent: 30, state: "진행 중" },
+            { id: 2, item_image: eximg, item_name: "아이폰2", percent: 70, state: "종료" },
+            { id: 3, item_image: eximg, item_name: "아이폰3", percent: 100, state: "완료" },
+            { id: 4, item_image: eximg, item_name: "아이폰4", percent: 67, state: "진행 중" },
+            { id: 5, item_image: eximg, item_name: "아이폰5", percent: 45, state: "종료" },
         ],
     });
 
+
+    // TODO FetchData 주석 제거
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -77,7 +83,7 @@ export default function WishList() {
             }
         };
 
-        fetchData();
+        // fetchData();
     }, []);
 
     return (
@@ -87,22 +93,6 @@ export default function WishList() {
                 <Subtitle>{wishData?.birth || '00월 00일'} D-{wishData?.dday || '00'}</Subtitle>
                 <Header title={`${wishData?.name || '김이름'}님의 위시리스트`} /> 
                 <ListWrapper>
-                    {/* TODO 예시 컴포넌트 제거*/}
-                    {/* 예시 컴포넌트 */}
-                    <WishItem
-                        id = {1}
-                        item_image = {eximg}
-                        item_name = "아이폰"
-                        percent = {30}
-                        state = "진행 중"
-                    />
-                    <WishItem
-                        id = {2}
-                        item_image = {eximg}
-                        item_name = "아이폰"
-                        percent = {75}
-                        state = "종료"
-                    />
                     {/* map 으로 개수만큼 반복 */}
                     {wishData?.items.map((items) => (
                         <WishItem
@@ -121,11 +111,6 @@ export default function WishList() {
                             src={plus}
                         />
                     )}
-                    
-                    {/* TODO 기능확인용 버튼 제거 */}
-                    <AddButton 
-                        src={plus}
-                    />
                 </ListWrapper>
             </Wrapper>
         </>

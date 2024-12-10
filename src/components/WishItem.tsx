@@ -8,7 +8,6 @@ const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
     padding: 10px;
-    background-color: #92c3ff; // 확인용
 `
 
 const ItemImg = styled.img`

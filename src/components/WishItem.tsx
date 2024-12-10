@@ -48,11 +48,18 @@ const Progress = styled.div`
     font-size: 10px
 `
 
-const ProgressBar = styled.div`
+const ProgressBarBg = styled.div`
     width: 250px;
     height: 8px;
     background-color: #E0E0E0;
     margin-top: 5px;
+    border-radius: 64px;
+`
+
+const ProgressBar = styled.div<{percent: number, color: string}>`
+    width: ${props => props.percent}%;
+    height: 8px;
+    background-color: ${props => props.color};
     border-radius: 64px;
 `
 
@@ -78,13 +85,16 @@ export default function WishItem({id, item_image,item_name, percent, state}: Wis
     const navigate = useNavigate();
     
     // state 아이콘, progress bar 색상 설정
-    let iconSrc;
+    let iconSrc, barcolor;
     if (state === '종료') {
         iconSrc = red;
+        barcolor = '#DA1E28'
     } else if (state === '완료') {
         iconSrc = green;
+        barcolor = '#198038'
     } else {
         iconSrc = blue;
+        barcolor = '#0043CE'
     }
 
     const handleClick = () => {
@@ -105,7 +115,9 @@ export default function WishItem({id, item_image,item_name, percent, state}: Wis
                         <Progress>{percent}% {state}</Progress>
                     </State>
                 </Info>
-                <ProgressBar />
+                <ProgressBarBg>
+                    <ProgressBar percent={percent} color={barcolor}/>
+                </ProgressBarBg>
            </Wrapper>
         </>
     )

@@ -70,7 +70,7 @@ const LinkText = styled.a`
 const CheckBtn = styled.div`
     display: flex;
     flex-direction: row;
-    margin-top: 10px;
+    margin-top: 20px;
     margin-bottom: 40px;
     gap: 20px;
 `

@@ -77,11 +77,10 @@ interface UserWishData {
     dday: number;
     item_id: number;
     item_image: string;
-    item_name: string;
 }
 
 interface GetInfoProps {
-    onNext: () => void; // onNext 함수 타입 정의
+    onNext: (price: string) => void; // onNext 함수 타입 정의
 }
 
 export default function InputPrice({ onNext } : GetInfoProps) {
@@ -93,7 +92,6 @@ export default function InputPrice({ onNext } : GetInfoProps) {
         dday: 0,
         item_id: 1,
         item_image: eximg,
-        item_name: "아이폰1",
     });
 
     const [price, setPrice] = useState("");
@@ -116,12 +114,11 @@ export default function InputPrice({ onNext } : GetInfoProps) {
         // fetchData();
     }, []);
 
-    const onChange = async (e : React.ChangeEvent<HTMLInputElement>) => {
-        const { target : {name, value}} = e;
+    // TODO 최대 금액 논의 (상품 값으로 지정 후 해당 금액 넘으면 알림?)
 
-        if (name === "price") {
-            setPrice(value);
-        }
+    const onChange = async (e : React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+        setPrice(value);
     }
 
     const onSubmit = async (e : React.FormEvent<HTMLFormElement>) => {
@@ -131,9 +128,8 @@ export default function InputPrice({ onNext } : GetInfoProps) {
             // 테스트로 console 출력
             console.log("가격: ", price);
 
-            // TODO 서버 axios post.
-
-            onNext();
+            // 다음 페이지로 정보 넘기기
+            onNext(price);
         } catch (error) {
             console.error("금액 전송 오류: ", error);
         }

@@ -219,7 +219,7 @@ export default function UserWishCheck() {
                 <Header title={`${wishData?.name} 님에게 선물하기`} fontSize="25px"/>
                 <CheckBtn>
                     <Button text="좋아요!" size="small" color="black" onClick={() => {navigate("send")}}/>
-                    <Button text="괜찮아요" size="small" color="white" onClick={() => {}}/>
+                    <Button text="괜찮아요" size="small" color="white" onClick={() => {navigate(-1)}}/>
                 </CheckBtn>
                 <Congrats>
                     <CongratsTitle>축하해준 친구들</CongratsTitle>

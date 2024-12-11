@@ -197,7 +197,7 @@ export default function UserWishCheck() {
         };
 
         // fetchData();
-    })
+    }, [])
 
     return (
         <>

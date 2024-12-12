@@ -173,11 +173,11 @@ export default function UserWishCheck() {
         item_link: "https://www.apple.com/kr/",
         item_info: "선물 소개란입니다.",
         Friends: [
-            { friend_profile: "", friend_name: "김친구", friend_percent: 50 },
-            { friend_profile: "", friend_name: "김친구", friend_percent: 50 },
-            { friend_profile: "", friend_name: "김친구", friend_percent: 50 },
-            { friend_profile: "", friend_name: "김친구", friend_percent: 50 },
-            { friend_profile: "", friend_name: "김친구", friend_percent: 50 },
+            { friend_profile: "", friend_name: "친구1", friend_percent: 20 },
+            { friend_profile: "", friend_name: "친구2", friend_percent: 10 },
+            { friend_profile: "", friend_name: "친구3", friend_percent: 5 },
+            { friend_profile: "", friend_name: "친구4", friend_percent: 10 },
+            { friend_profile: "", friend_name: "친구5", friend_percent: 15 },
         ]
     });
 

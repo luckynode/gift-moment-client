@@ -57,7 +57,6 @@ export default function UserWishList() {
             { item_id: 2, item_image: eximg, item_name: "아이폰2"},
             { item_id: 3, item_image: eximg, item_name: "아이폰3"},
             { item_id: 4, item_image: eximg, item_name: "아이폰4"},
-            { item_id: 5, item_image: eximg, item_name: "아이폰5"},
         ],
     });
 

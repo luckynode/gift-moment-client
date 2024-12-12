@@ -105,8 +105,13 @@ export default function PriceCheck({price} : PriceCheckProps) {
         try {
             // 테스트로 console 출력
             console.log("가격: ", price);
+            navigate("confirm")
+        } catch (error) {
+            console.error("금액 전송 오류: ", error);
+        }
 
-            // TODO 서버 axios post.
+        /*
+        // TODO 서버 axios post.
             try {
                 await axios.post(`${import.meta.env.VITE_BACKEND_URL}/wishlist/${userId}/item/${itemId}/send`,
                     { price: price },
@@ -118,9 +123,7 @@ export default function PriceCheck({price} : PriceCheckProps) {
             } catch (error) {
                 console.error("금액 전송 오류: ", error);
             }
-        } catch (error) {
-            console.error("금액 전송 오류: ", error);
-        }
+        */
     }
     
     return (

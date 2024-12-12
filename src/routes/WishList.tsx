@@ -69,6 +69,7 @@ export default function WishList() {
 
 
     // TODO FetchData 주석 제거
+    // TODO 생일 당일 처리방법 추가
     useEffect(() => {
         const fetchData = async () => {
             try {

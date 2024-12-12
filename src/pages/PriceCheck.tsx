@@ -42,11 +42,17 @@ const Img = styled.img`
     border-radius: 10px;
 `
 
-const Row = styled.div`
+const Gap = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+`
+
+const Row = styled.form`
     display: flex;
     flex-direction: row;
     gap: 10px;
-    margin: 20px 0;
+    margin: 30px 0;
 `
 
 // TODO 백엔드에서 받아올 데이터 형식에 맞게 수정
@@ -126,10 +132,12 @@ export default function PriceCheck({price} : PriceCheckProps) {
                 <Info>
                     <Img src={wishData?.item_image}/>
                 </Info>
-                <Header title={`${wishData?.name} 님에게 ${price}원을`} fontSize="25px"/>
-                <Header title="송금하시겠습니까?" fontSize="25px"/>
-                <Row>
-                    <Button size="small" color="black" text="네" onClick={() => {onSubmit}}/>
+                <Gap>
+                    <Header title={`${wishData?.name} 님에게 ${price}원을`} fontSize="25px"/>
+                    <Header title="송금하시겠습니까?" fontSize="25px"/>
+                </Gap>
+                <Row onSubmit={onSubmit}>
+                    <Button size="small" color="black" text="네" onClick={() => {}} type="submit"/>
                     <Button size="small" color="white" text="아니요" onClick={() => {navigate(-1)}}/>
                 </Row>
             </Wrapper>

@@ -6,6 +6,7 @@ import {useNavigate, useParams} from "react-router-dom";
 import {useState} from "react";
 import eximg from "../assets/wishlist/example.jpg";
 import Button from "../components/buttons/Button.tsx";
+import { ornamentImages } from '../assets/ornamentImages';
 
 const List = styled.div`
   display: flex;
@@ -45,11 +46,13 @@ const Card = styled.div`
 `
 
 const CardImg = styled.img`
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
-  background-color: blue;
-  width: 50px;
-  height: 50px;
-`
+  border: 1px solid #C8C8C8;
+  object-fit: contain;
+  padding: 5px;
+`;
 
 const CardName = styled.div`
   display: flex;
@@ -193,9 +196,9 @@ const MyWishDetail = () => {
                     <CongratsTitle>축하해준 친구들</CongratsTitle>
                     <List>
                         {/* map으로 개수만큼 반복 */}
-                        {wishData?.Friends.map((friend) => (
-                            <Card>
-                                <CardImg src={friend.friend_profile}/>
+                        {wishData?.Friends.map((friend, index) => (
+                            <Card key={friend.friend_name}>
+                                <CardImg src={ornamentImages[index % ornamentImages.length]} />
                                 <CardName>
                                     <FriendName>{friend.friend_name}</FriendName>
                                     <FreindPercent>{friend.friend_price.toLocaleString()}원</FreindPercent> {/* 3자리마다 콤마 추가 */}

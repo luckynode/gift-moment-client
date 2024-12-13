@@ -35,6 +35,16 @@ const CustomInput = styled(Input)`
   border: 1px solid ${(props) => (props.error ? 'red' : '#ddd')};
 `;
 
+const PriceInput = styled(Input)`
+  padding-right: 50px;
+  text-align: right; /* 선물 가격만 오른쪽 정렬하기 */
+
+  &::placeholder {
+    text-align: left; /* placeholder는 그대로 왼쪽 정렬 */
+  }
+`;
+
+
 const ErrorMessage = styled.div`
   color: red;
   font-size: 14px;
@@ -45,6 +55,21 @@ const InputContainer = styled.div`
   flex-direction: column; /* 세로 정렬 */
   width: 100%;
   gap: 5px; /* 입력 필드와 오류 메시지 간격 */
+`;
+
+const CurrencyLabel = styled.span`
+  position: absolute;
+  right: 20px;
+  color: black;
+  font-size: 20px;
+  font-weight: 700; /* bold */
+`;
+
+const PriceInputWrapper = styled.div`
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
 `;
 
 const AddWish = () => {
@@ -59,10 +84,29 @@ const AddWish = () => {
     const [wishPriceError, setWishPriceError] = useState(false);
     const [wishLinkError, setWishLinkError] = useState(false);
     const [wishDescriptionError, setWishDescriptionError] = useState(false);
-    const isNumeric = (value: string) => /^\d*$/.test(value); // 숫자만 허용
 
     const handleFocus = (setter: (value: boolean) => void) => {
         setter(false); // 에러 상태 초기화
+    };
+
+    // 가격 입력 시 숫자만 입력하도록 처리
+    const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+
+        // 숫자와 콤마만 남기기
+        const numericValue = value.replace(/[^0-9]/g, "");
+
+        if (numericValue !== value.replace(/,/g, "")) { // 콤마는 허용해주기
+            // 숫자 외의 문자가 입력된 경우 에러 처리
+            setWishPriceError(true);
+        } else {
+            // 유효한 입력이면 에러 해제
+            setWishPriceError(false);
+        }
+
+        // 3개 숫자 간격으로 콤마 추가
+        const formattedValue = numericValue.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        setWishPrice(formattedValue);
     };
 
     const handleInputChange = (
@@ -118,7 +162,9 @@ const AddWish = () => {
         }
 
         try {
-            console.log(wishName, wishPrice, wishLink, setWishDescriptionError);
+            // TODO 나중에 숫자만 서버에 전송하기 위해 콤마 제거
+            console.log("Formatted Price:", wishPrice.replace(/,/g, ""));
+            console.log(wishName, wishLink, setWishDescriptionError);
             navigate("/wishlist/add/confirm");
             // TODO: 서버 axios post
         } catch (error) {
@@ -145,22 +191,17 @@ const AddWish = () => {
                         {wishNameError && <ErrorMessage>선물 이름을 입력해주세요!</ErrorMessage>}
                     </InputContainer>
                     <InputContainer>
-                        <CustomInput
-                            name="wishPrice"
-                            value={wishPrice}
-                            type="text"
-                            placeholder="선물 가격"
-                            error={wishPriceError} // error 상태 전달
-                            onFocus={() => handleFocus(setWishPriceError)} // focus 시 에러 초기화
-                            onChange={(e) =>
-                                handleInputChange(
-                                    setWishPrice,
-                                    e.target.value,
-                                    20,
-                                    isNumeric,
-                                    setWishPriceError
-                                )
-                            }/>
+                        <PriceInputWrapper>
+                            <PriceInput
+                                name="wishPrice"
+                                value={wishPrice}
+                                type="text"
+                                placeholder="선물 가격"
+                                error={wishPriceError} // error 상태 전달
+                                onFocus={() => handleFocus(setWishPriceError)} // focus 시 에러 초기화
+                                onChange={handlePriceChange}/>
+                            <CurrencyLabel>원</CurrencyLabel>
+                        </PriceInputWrapper>
                         {wishPriceError && <ErrorMessage>선물 가격을 숫자로 입력해주세요!</ErrorMessage>}
                     </InputContainer>
                     <InputContainer>

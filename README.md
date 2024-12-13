@@ -8,8 +8,8 @@
 
 | 이름        | 역할               | 담당 파트           |
 |-------------|--------------------|---------------------|
-| [김선화](https://github.com/sunhwaaRj) | Frontend            | 회원, 선물 결제    |
-| [노경희](https://github.com/khee2) | Frontend            | 편지함, 위시리스트   |
+| [김선화](https://github.com/sunhwaaRj) | Frontend            | 회원, 위시리스트, 송금하기    |
+| [노경희](https://github.com/khee2) | Frontend            | 편지함, 선물, 송금받기  |
 
 </br>
 

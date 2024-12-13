@@ -16,7 +16,7 @@ const List = styled.div`
   width: 363px;
   gap: 15px;
 `
-const Input = styled.div`
+export const WishInput = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
@@ -191,7 +191,7 @@ const MyWishDetail = () => {
                     </Input>
                     <Input>{wishData?.item_info}</Input>
                 </Info>
-                <Button text="편집" size="small" color="white" onClick={() => {navigate(-1)}}/>
+                <Button type="button" text="편집" size="small" color="white" onClick={() => {navigate(`/wishlist/item/${itemId}/modify`)}} />
                 <Congrats>
                     <CongratsTitle>축하해준 친구들</CongratsTitle>
                     <List>

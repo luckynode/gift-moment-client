@@ -119,7 +119,7 @@ const AddWish = () => {
 
         try {
             console.log(wishName, wishPrice, wishLink, setWishDescriptionError);
-            navigate("/add-wish-confirm");
+            navigate("/wishlist/add/confirm");
             // TODO: 서버 axios post
         } catch (error) {
             console.error("정보 제출 오류 : ", error);

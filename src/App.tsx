@@ -19,7 +19,9 @@ import UserWishList from './routes/UserWishList.tsx'
 import GiftAmount from './pages/GiftAmount.tsx'
 import UserWishCheck from './pages/UserWishCheck.tsx'
 import SendConfirm from './pages/SendConfirm.tsx'
+import AddWishItem from "./routes/AddWishItem.tsx";
 import AddWish from "./routes/AddWish.tsx";
+import AddWishConfirm from "./routes/AddWishConfirm.tsx";
 
 const GlobalStyles = createGlobalStyle`
   body {
@@ -142,6 +144,10 @@ const router = createBrowserRouter([
     {
         path: "/wishlist/add",
         element: <AddWish/>
+    },
+    {
+        path: "/wishlist/add/confirm",
+        element: <AddWishConfirm/>
     }
 ])
 

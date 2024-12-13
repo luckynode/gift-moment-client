@@ -3,14 +3,14 @@ import styled, {createGlobalStyle} from 'styled-components'
 import {createBrowserRouter, RouterProvider} from 'react-router-dom'
 import Home from './routes/home'
 import {useEffect} from 'react'
-import MyLetters from "./pages/MyLetters.tsx";
+import MyLetters from "./routes/MyLetters.tsx";
 import {ToastContainer} from "react-toastify";
 import OAuth from './components/KakaoOauth'
 import SignUp from './routes/signup'
 import Mywish from './routes/mywish'
 import Login from './routes/login.tsx'
 import GuestLetters from "./routes/GuestLetters.tsx";
-import WriteLetter from "./pages/WriteLetter.tsx";
+import WriteLetter from "./routes/WriteLetter.tsx";
 import LetterSentConfirm from "./routes/LetterSentConfirm.tsx";
 import Mypage from './pages/mypage.tsx'
 import EditMypage from './pages/mypageEdit.tsx'

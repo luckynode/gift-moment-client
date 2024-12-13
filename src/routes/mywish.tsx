@@ -41,7 +41,7 @@ export default function Mywish() {
                     type="button"
                     text="위시리스트 보러가기"
                     size="large"
-                    onClick={() => navigate("/")}
+                    onClick={() => navigate("/wishlist")}
                 />
             </Hug18>
         </Wrapper>

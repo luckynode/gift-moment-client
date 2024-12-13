@@ -8,7 +8,6 @@ const Wrapper = styled.div`
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    height: 750px;
 `
 
 const Logo = styled.img`

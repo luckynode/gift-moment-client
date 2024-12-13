@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import arrowLeft from '../../assets/letters/arrow_left.svg'; // 이미지 파일 경로
 
 const BackButtonWrapper = styled.div`
-  position: fixed;
+  position: absolute;
   top: 30px;
   left: 50%;
   padding-right: 320px;

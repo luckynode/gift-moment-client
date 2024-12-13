@@ -14,6 +14,11 @@ import WriteLetter from "./pages/WriteLetter.tsx";
 import LetterSentConfirm from "./routes/LetterSentConfirm.tsx";
 import Mypage from './pages/mypage.tsx'
 import EditMypage from './pages/mypageEdit.tsx'
+import WishList from './routes/WishList.tsx'
+import UserWishList from './routes/UserWishList.tsx'
+import GiftAmount from './pages/GiftAmount.tsx'
+import UserWishCheck from './pages/UserWishCheck.tsx'
+import SendConfirm from './pages/SendConfirm.tsx'
 
 const GlobalStyles = createGlobalStyle`
   body {
@@ -63,7 +68,8 @@ const Wrapper = styled.div`
   background-color: #FFECEC;
   display: flex;
   justify-content: center;
-  height: calc(var(--vh, 1vh) * 100);
+  min-height: calc(var(--vh, 1vh) * 100);
+  height: 100%;
   font-family: 'Pretendard', sans-serif;
 `
 
@@ -111,6 +117,26 @@ const router = createBrowserRouter([
     {
         path: "/mypage/edit",
         element: <EditMypage/>
+    },
+    {
+      path: "/wishlist",
+      element: <WishList />
+    },
+    {
+      path: "/wishlist/:userId",
+      element: <UserWishList />
+    },
+    {
+      path: "/wishlist/:userId/item/:itemId",
+      element: <UserWishCheck />
+    },
+    {
+      path: "/wishlist/:userId/item/:itemId/send",
+      element: <GiftAmount />
+    },
+    {
+      path: "/wishlist/:userId/item/:itemId/send/confirm",
+      element: <SendConfirm />
     }
 ])
 

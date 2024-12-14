@@ -9,6 +9,7 @@ import Button from "../components/buttons/Button.tsx";
 import {RowButtonContainer} from "../routes/LetterSentConfirm.tsx";
 import {WishInput} from "./MyWishDetail.tsx";
 import WishImgDetail from "../assets/wishlist/wish_img_detail.svg";
+import MyWishDeleteConfirm from "../routes/MyWishDeleteConfirm.tsx";
 
 const WishDisabledInput = styled(WishInput)`
   background: #EEE2E2;
@@ -161,11 +162,22 @@ const MyWishModify = () => {
     const [wishLinkError, setWishLinkError] = useState(false);
     const [wishDescriptionError, setWishDescriptionError] = useState(false);
 
+    const [isModalOpen, setIsModalOpen] = useState(false); // 모달 표시 여부
 
     const handleFocus = (setter: (value: boolean) => void) => {
         setter(false); // 에러 상태 초기화
     };
 
+    const handleDeleteConfirm = () => {
+        console.log("삭제 확인 버튼 클릭");
+        // TODO: 삭제 API 호출
+        setIsModalOpen(false);
+        navigate("/wishlist");
+    };
+
+    const handleDeleteCancel = () => {
+        setIsModalOpen(false);
+    };
 
     const handleInputChange = (
         setter: (value: string) => void,
@@ -298,10 +310,18 @@ const MyWishModify = () => {
                     </InputContainer>
                 </Info>
                 <RowButtonContainer>
-                    <Button type="button" text="삭제" size="small" color="white" onClick={handleDelete}/>
+                    <Button type="button" text="삭제" size="small" color="white" onClick={() => setIsModalOpen(true)}/>
                     <Button type="button" text="완료" size="small" color="black" onClick={handleComplete}/>
                 </RowButtonContainer>
             </Wrapper>
+
+            {/* 삭제 확인 모달 */}
+            {isModalOpen && (
+                <MyWishDeleteConfirm
+                    onConfirm={handleDeleteConfirm}
+                    onCancel={handleDeleteCancel}
+                />
+            )}
         </>
     )
 }

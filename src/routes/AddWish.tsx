@@ -1,10 +1,12 @@
 import BackButton from "../components/buttons/BackButton.tsx";
 import Header from "../components/headers/Header.tsx";
 import {Form, Hug18, Input} from "../components/SignupComponents.ts";
-import {useState} from "react";
+import {useMemo, useState} from "react";
 import styled from "styled-components";
 import Button from "../components/buttons/Button.tsx";
 import {useNavigate} from "react-router-dom";
+import WishImg from "../assets/wishlist/wish_img_input.svg";
+import { useEffect } from "react";
 
 const Wrapper = styled.div`
   display: flex;
@@ -12,6 +14,13 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: flex-start;
   padding-top: 70px;
+`
+const Info = styled.div`
+  gap: 20px;
+  margin: 40px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `
 export const TextArea = styled.textarea`
   box-sizing: border-box;
@@ -32,12 +41,13 @@ export const TextArea = styled.textarea`
 `;
 
 const CustomInput = styled(Input)`
-  border: 1px solid ${(props) => (props.error ? 'red' : '#ddd')};
+  border: 1px solid ${(props) => (props.error ? 'red' : '#C8C8C8')};
 `;
 
 const PriceInput = styled(Input)`
   padding-right: 50px;
   text-align: right; /* 선물 가격만 오른쪽 정렬하기 */
+  border: 1px solid ${(props) => (props.error ? 'red' : '#C8C8C8')};
 
   &::placeholder {
     text-align: left; /* placeholder는 그대로 왼쪽 정렬 */
@@ -57,6 +67,13 @@ const InputContainer = styled.div`
   gap: 5px; /* 입력 필드와 오류 메시지 간격 */
 `;
 
+const FileInputContainer = styled.div`
+  display: flex;
+  flex-direction: column; /* 세로 정렬 */
+  gap: 5px; /* 입력 필드와 오류 메시지 간격 */
+`;
+
+
 const CurrencyLabel = styled.span`
   position: absolute;
   right: 20px;
@@ -72,6 +89,26 @@ const PriceInputWrapper = styled.div`
   align-items: center;
 `;
 
+const ImageUploadWrapper = styled.div<{ image?: string }>`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  cursor: pointer;
+  border-radius: 8px;
+  width: 220px;
+  height: 150px;
+  background-image: url(${(props) => props.image});
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+`;
+
+const HiddenInput = styled.input`
+  display: none;
+`;
+
 const AddWish = () => {
 
     const [wishName, setWishName] = useState("");
@@ -84,6 +121,33 @@ const AddWish = () => {
     const [wishPriceError, setWishPriceError] = useState(false);
     const [wishLinkError, setWishLinkError] = useState(false);
     const [wishDescriptionError, setWishDescriptionError] = useState(false);
+    const [wishImage, setWishImage] = useState<File | null>(null);
+    const [wishImageError, setWishImageError] = useState(false);
+
+    // 이미지 URL 메모화
+    const imageUrl = useMemo(() => {
+        return wishImage ? URL.createObjectURL(wishImage) : WishImg;
+    }, [wishImage]);
+
+    useEffect(() => {
+        return () => {
+            if (wishImage) {
+                URL.revokeObjectURL(imageUrl); // wishImage가 변경될 때 메모리 해제
+            }
+        };
+    }, [wishImage, imageUrl]);
+
+    const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files && e.target.files[0]) {
+            setWishImage(e.target.files[0]);
+            setWishImageError(false); // 에러 초기화
+        }
+    };
+
+    // 이미지 업로드 버튼 클릭 시 input[type="file"]이 클릭되도록 함
+    const openFilePicker = () => {
+        document.querySelector<HTMLInputElement>('input[type="file"]')?.click();
+    };
 
     const handleFocus = (setter: (value: boolean) => void) => {
         setter(false); // 에러 상태 초기화
@@ -132,6 +196,12 @@ const AddWish = () => {
 
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        if (!wishImage) {
+            setWishImageError(true);
+            return;
+        } else {
+            setWishImageError(false);
+        }
         // 순차적으로 에러를 처리
         if (!wishName) {
             setWishNameError(true);
@@ -161,6 +231,7 @@ const AddWish = () => {
             setWishDescriptionError(false);
         }
 
+
         try {
             // TODO 나중에 숫자만 서버에 전송하기 위해 콤마 제거
             console.log("Formatted Price:", wishPrice.replace(/,/g, ""));
@@ -177,7 +248,17 @@ const AddWish = () => {
             <BackButton/>
             <Header title="선물을 등록해주세요!"/>
             <Form onSubmit={onSubmit}>
-                <Hug18>
+                <Info>
+                    <FileInputContainer>
+                        <ImageUploadWrapper image={imageUrl} onClick={openFilePicker}>
+                            <HiddenInput
+                                type="file"
+                                accept="image/*"
+                                onChange={handleImageUpload}
+                            />
+                        </ImageUploadWrapper>
+                        {wishImageError && <ErrorMessage>이미지를 하나 선택해주세요!</ErrorMessage>}
+                    </FileInputContainer>
                     <InputContainer>
                         <CustomInput
                             name="wishName"
@@ -212,7 +293,7 @@ const AddWish = () => {
                             placeholder="선물 링크"
                             error={wishLinkError} // error 상태 전달
                             onFocus={() => handleFocus(setWishLinkError)} // focus 시 에러 초기화
-                            onChange={(e) => handleInputChange(setWishLink, e.target.value, 300)}
+                            onChange={(e) => handleInputChange(setWishLink, e.target.value, 2000)}
                         />
                         {wishLinkError && <ErrorMessage>구매하려는 선물 링크를 입력해주세요!</ErrorMessage>}
                     </InputContainer>
@@ -228,7 +309,7 @@ const AddWish = () => {
                         />
                         {wishDescriptionError && <ErrorMessage>선물에 대해 간략히 설명해주세요️!</ErrorMessage>}
                     </InputContainer>
-                </Hug18>
+                </Info>
                 <Button
                     type="submit"
                     text="등록"

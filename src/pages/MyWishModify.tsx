@@ -3,11 +3,12 @@ import Header from "../components/headers/Header.tsx";
 import {Input, Wrapper} from "../components/SignupComponents.ts";
 import styled from "styled-components";
 import {useNavigate, useParams} from "react-router-dom";
-import {useState} from "react";
+import {useCallback, useEffect, useMemo, useState} from "react";
 import eximg from "../assets/wishlist/example.jpg";
 import Button from "../components/buttons/Button.tsx";
 import {RowButtonContainer} from "../routes/LetterSentConfirm.tsx";
 import {WishInput} from "./MyWishDetail.tsx";
+import WishImgDetail from "../assets/wishlist/wish_img_detail.svg";
 
 const WishDisabledInput = styled(WishInput)`
   background: #EEE2E2;
@@ -82,6 +83,32 @@ const CustomInput = styled(Input)`
   border: 1px solid ${(props) => (props.error ? 'red' : '#ddd')};
 `;
 
+const FileInputContainer = styled.div`
+  display: flex;
+  flex-direction: column; /* 세로 정렬 */
+  gap: 5px; /* 입력 필드와 오류 메시지 간격 */
+`;
+
+const ImageUploadWrapper = styled.div<{ image?: string }>`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  cursor: pointer;
+  border-radius: 8px;
+  width: 300px;
+  height: 300px;
+  background-image: url(${(props) => props.image});
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+`;
+
+const HiddenInput = styled.input`
+  display: none;
+`;
+
 // TODO 추후 api명세서에 따라 수정
 interface MyWishDetailData {
     userid: number;
@@ -124,11 +151,16 @@ const MyWishModify = () => {
         ]
     });
 
+    const [wishImage, setWishImage] = useState<File | null>(null); // 업로드용 파일
+    const wishImageUrl = wishImage ? URL.createObjectURL(wishImage) : wishData.item_image || WishImgDetail; // 미리보기용 URL
+    const [wishImageUrlError, setWishImageUrlError] = useState(false);
+
     const [wishLink, setWishLink] = useState(wishData.item_link);
     const [wishDescription, setWishDescription] = useState(wishData.item_info);
 
     const [wishLinkError, setWishLinkError] = useState(false);
     const [wishDescriptionError, setWishDescriptionError] = useState(false);
+
 
     const handleFocus = (setter: (value: boolean) => void) => {
         setter(false); // 에러 상태 초기화
@@ -137,22 +169,22 @@ const MyWishModify = () => {
 
     const handleInputChange = (
         setter: (value: string) => void,
-        value: string,
         maxLength: number,
-        validator?: (value: string) => boolean,
-        errorSetter?: (value: boolean) => void
+        errorSetter: (value: boolean) => void
     ) => {
-        // 최대 길이를 넘어가지 않을 경우
-        if (value.length <= maxLength) {
-            // validator가 있고, 값이 유효하지 않을 경우
-            if (validator && !validator(value)) {
-                errorSetter && errorSetter(true); // 에러 상태 설정
-                return;
-            }
+        return (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+            const value = e.target.value;
 
-            setter(value); // 값 업데이트
-            errorSetter && errorSetter(false); // 에러 초기화
-        }
+            // 입력 값 설정
+            setter(value);
+
+            // 길이 초과 여부 확인
+            if (value.length > maxLength) {
+                errorSetter(true);
+            } else {
+                errorSetter(false);
+            }
+        };
     };
 
     const handleDelete = async () => {
@@ -167,10 +199,14 @@ const MyWishModify = () => {
 
     // FIXME AddWish.tsx와 공통된 부분 함수로 묶어서 사용하기
     // FIXME input값 하나 업데이트인데, 코드가 너무 복잡해짐
-    const handleComplete = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
+    const handleComplete = async () => {
         // 순차적으로 에러를 처리
-
+        if (!wishImageUrl) {
+            setWishImageUrlError(true);
+            return;
+        } else {
+            setWishImageUrlError(false);
+        }
         if (!wishLink.trim()) {
             setWishLinkError(true);
             return;
@@ -194,6 +230,27 @@ const MyWishModify = () => {
         }
     };
 
+    useEffect(() => {
+        return () => {
+            if (wishImageUrl.startsWith("blob:")) {
+                URL.revokeObjectURL(wishImageUrl); // 이미지 미리보기 url (Blob URL)을 해제하기
+            }
+        };
+    }, [wishImageUrl]);
+
+    const handleImageUpload = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files && e.target.files[0]) {
+            setWishImage(e.target.files[0]); // 파일 저장
+            setWishImageUrlError(false);
+        }
+    }, []);
+
+    // 이미지 업로드 버튼 클릭 시 input[type="file"]이 클릭되도록 함
+    const openFilePicker = () => {
+        document.querySelector<HTMLInputElement>('input[type="file"]')?.click();
+    };
+
+
     return (
         <>
             <BackButton/>
@@ -201,9 +258,16 @@ const MyWishModify = () => {
                 <Subtitle>{wishData?.birth} D-{wishData?.dday}</Subtitle>
                 <Header title={`${wishData?.name}님의 위시아이템`}/>
                 <Info>
-                    {/* 선물 사진은 수정 가능 */}
-                    <Img src={wishData?.item_image}/>
-
+                    <FileInputContainer>
+                        <ImageUploadWrapper image={wishImageUrl} onClick={openFilePicker}>
+                            <HiddenInput
+                                type="file"
+                                accept="image/*"
+                                onChange={handleImageUpload}
+                            />
+                        </ImageUploadWrapper>
+                        {wishImageUrlError && <ErrorMessage>이미지를 하나 선택해주세요!</ErrorMessage>}
+                    </FileInputContainer>
                     {/* 선물명과 가격은 수정 못함 */}
                     <WishDisabledInput>{wishData?.item_name}</WishDisabledInput>
                     <WishDisabledInput>{wishData?.item_price} 원</WishDisabledInput>
@@ -216,7 +280,7 @@ const MyWishModify = () => {
                             placeholder="선물 링크"
                             error={wishLinkError} // 에러 상태 전달
                             onFocus={() => handleFocus(setWishLinkError)} // 에러 초기화
-                            onChange={(e) => setWishLink(e.target.value)} // 상태 업데이트
+                            onChange={handleInputChange(setWishLink, 2000, setWishLinkError)}
                         />
                         {wishLinkError && <ErrorMessage>구매하려는 선물 링크를 입력해주세요!</ErrorMessage>}
                     </InputContainer>
@@ -228,7 +292,7 @@ const MyWishModify = () => {
                             placeholder="선물 소개"
                             error={wishDescriptionError} // error 상태 전달
                             onFocus={() => handleFocus(setWishDescriptionError)} // focus 시 에러 초기화
-                            onChange={(e) => handleInputChange(setWishDescription, e.target.value, 100)}
+                            onChange={handleInputChange(setWishDescription, 100, setWishDescriptionError)}
                         />
                         {wishDescriptionError && <ErrorMessage>선물에 대해 간략히 설명해주세요️!</ErrorMessage>}
                     </InputContainer>

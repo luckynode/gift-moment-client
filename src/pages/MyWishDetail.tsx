@@ -62,7 +62,7 @@ const CardName = styled.div`
 `
 
 const FriendName = styled.div`
-  font-family: 'Lato',serif;
+  font-family: 'Lato';
   font-weight: 700;
   font-size: 12px;
   text-align: center;
@@ -70,11 +70,9 @@ const FriendName = styled.div`
 `
 
 const FreindPercent = styled.div`
-  font-family: 'Lato',serif;
-  font-style: normal;
+  font-family: 'Lato';
   font-weight: 500;
   font-size: 12px;
-  text-align: center;
   color: #000000;
 `
 
@@ -182,14 +180,14 @@ const MyWishDetail = () => {
                 <Header title={`${wishData?.name}님의 위시아이템`}/>
                 <Info>
                     <Img src={wishData?.item_image}/>
-                    <Input>{wishData?.item_name}</Input>
-                    <Input>{wishData?.item_price} 원</Input>
-                    <Input>
+                    <WishInput>{wishData?.item_name}</WishInput>
+                    <WishInput>{wishData?.item_price} 원</WishInput>
+                    <WishInput>
                         <LinkText href={wishData?.item_link}>
                             {wishData?.item_link}
                         </LinkText>
-                    </Input>
-                    <Input>{wishData?.item_info}</Input>
+                    </WishInput>
+                    <WishInput>{wishData?.item_info}</WishInput>
                 </Info>
                 <Button type="button" text="편집" size="small" color="white" onClick={() => {navigate(`/wishlist/item/${itemId}/modify`)}} />
                 <Congrats>

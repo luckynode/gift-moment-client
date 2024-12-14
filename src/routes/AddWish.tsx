@@ -6,7 +6,7 @@ import styled from "styled-components";
 import Button from "../components/buttons/Button.tsx";
 import {useNavigate} from "react-router-dom";
 import WishImg from "../assets/wishlist/wish_img_input.svg";
-import { useEffect } from "react";
+import {useEffect} from "react";
 
 const Wrapper = styled.div`
   display: flex;
@@ -14,6 +14,7 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: flex-start;
   padding-top: 70px;
+  padding-bottom: 70px;
 `
 const Info = styled.div`
   gap: 20px;
@@ -173,32 +174,25 @@ const AddWish = () => {
         setWishPrice(formattedValue);
     };
 
-    const handleInputChange = useCallback(
-        (
-            setter: (value: string) => void,
-            maxLength: number,
-            validator?: (value: string) => boolean,
-            errorSetter?: (value: boolean) => void
-        ) => {
-            return (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-                const value = e.target.value;
+    const handleInputChange = (
+        setter: (value: string) => void,
+        maxLength: number,
+        errorSetter: (value: boolean) => void
+    ) => {
+        return (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+            const value = e.target.value;
 
-                // 최대 길이를 넘어가지 않을 경우
-                if (value.length <= maxLength) {
-                    // validator가 있고, 값이 유효하지 않을 경우
-                    if (validator && !validator(value)) {
-                        errorSetter && errorSetter(true); // 에러 상태 설정
-                        return;
-                    }
+            // 입력 값 설정
+            setter(value);
 
-                    setter(value); // 값 업데이트
-                    errorSetter && errorSetter(false); // 에러 초기화
-                }
-            };
-        },
-        []
-    );
-
+            // 길이 초과 여부 확인
+            if (value.length > maxLength) {
+                errorSetter(true);
+            } else {
+                errorSetter(false);
+            }
+        };
+    };
 
 
     const onSubmit = useCallback((e: React.FormEvent<HTMLFormElement>) => {
@@ -274,7 +268,7 @@ const AddWish = () => {
                             placeholder="선물명"
                             error={wishNameError} // error 상태 전달
                             onFocus={() => handleFocus(setWishNameError)} // focus 시 에러 초기화
-                            onChange={(e) => handleInputChange(setWishName, e.target.value, 20)}
+                            onChange={(e) => handleInputChange(setWishName, 20, setWishNameError)}
                         />
                         {wishNameError && <ErrorMessage>선물 이름을 입력해주세요!</ErrorMessage>}
                     </InputContainer>
@@ -300,7 +294,7 @@ const AddWish = () => {
                             placeholder="선물 링크"
                             error={wishLinkError} // error 상태 전달
                             onFocus={() => handleFocus(setWishLinkError)} // focus 시 에러 초기화
-                            onChange={(e) => handleInputChange(setWishLink, e.target.value, 2000)}
+                            onChange={(e) => handleInputChange(setWishLink, 2000, setWishLinkError)}
                         />
                         {wishLinkError && <ErrorMessage>구매하려는 선물 링크를 입력해주세요!</ErrorMessage>}
                     </InputContainer>
@@ -312,7 +306,7 @@ const AddWish = () => {
                             placeholder="선물 소개"
                             error={wishDescriptionError} // error 상태 전달
                             onFocus={() => handleFocus(setWishDescriptionError)} // focus 시 에러 초기화
-                            onChange={(e) => handleInputChange(setWishDescription, e.target.value, 100)}
+                            onChange={(e) => handleInputChange(setWishDescription, 100, setWishDescriptionError)}
                         />
                         {wishDescriptionError && <ErrorMessage>선물에 대해 간략히 설명해주세요️!</ErrorMessage>}
                     </InputContainer>

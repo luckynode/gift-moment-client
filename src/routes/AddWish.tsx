@@ -1,7 +1,7 @@
 import BackButton from "../components/buttons/BackButton.tsx";
 import Header from "../components/headers/Header.tsx";
 import {Form, Hug18, Input} from "../components/SignupComponents.ts";
-import {useMemo, useState} from "react";
+import {useCallback, useMemo, useState} from "react";
 import styled from "styled-components";
 import Button from "../components/buttons/Button.tsx";
 import {useNavigate} from "react-router-dom";
@@ -137,12 +137,12 @@ const AddWish = () => {
         };
     }, [wishImage, imageUrl]);
 
-    const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleImageUpload = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files[0]) {
             setWishImage(e.target.files[0]);
             setWishImageError(false); // 에러 초기화
         }
-    };
+    }, []);
 
     // 이미지 업로드 버튼 클릭 시 input[type="file"]이 클릭되도록 함
     const openFilePicker = () => {
@@ -173,28 +173,35 @@ const AddWish = () => {
         setWishPrice(formattedValue);
     };
 
-    const handleInputChange = (
-        setter: (value: string) => void,
-        value: string,
-        maxLength: number,
-        validator?: (value: string) => boolean,
-        errorSetter?: (value: boolean) => void
-    ) => {
-        // 최대 길이를 넘어가지 않을 경우
-        if (value.length <= maxLength) {
-            // validator가 있고, 값이 유효하지 않을 경우
-            if (validator && !validator(value)) {
-                errorSetter && errorSetter(true); // 에러 상태 설정
-                return;
-            }
+    const handleInputChange = useCallback(
+        (
+            setter: (value: string) => void,
+            maxLength: number,
+            validator?: (value: string) => boolean,
+            errorSetter?: (value: boolean) => void
+        ) => {
+            return (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+                const value = e.target.value;
 
-            setter(value); // 값 업데이트
-            errorSetter && errorSetter(false); // 에러 초기화
-        }
-    };
+                // 최대 길이를 넘어가지 않을 경우
+                if (value.length <= maxLength) {
+                    // validator가 있고, 값이 유효하지 않을 경우
+                    if (validator && !validator(value)) {
+                        errorSetter && errorSetter(true); // 에러 상태 설정
+                        return;
+                    }
+
+                    setter(value); // 값 업데이트
+                    errorSetter && errorSetter(false); // 에러 초기화
+                }
+            };
+        },
+        []
+    );
 
 
-    const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+
+    const onSubmit = useCallback((e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (!wishImage) {
             setWishImageError(true);
@@ -241,7 +248,7 @@ const AddWish = () => {
         } catch (error) {
             console.error("정보 제출 오류 : ", error);
         }
-    };
+    }, [wishImage, navigate]);
 
     return (
         <Wrapper>

@@ -153,7 +153,12 @@ const MyWishModify = () => {
     });
 
     const [wishImage, setWishImage] = useState<File | null>(null); // 업로드용 파일
-    const wishImageUrl = wishImage ? URL.createObjectURL(wishImage) : wishData.item_image || WishImgDetail; // 미리보기용 URL
+
+    // useMemo를 사용하여 wishImageUrl을 캐싱함
+    const wishImageUrl = useMemo(
+        () => (wishImage ? URL.createObjectURL(wishImage) : wishData.item_image || WishImgDetail),
+        [wishImage, wishData.item_image]
+    );
     const [wishImageUrlError, setWishImageUrlError] = useState(false);
 
     const [wishLink, setWishLink] = useState(wishData.item_link);
@@ -244,11 +249,11 @@ const MyWishModify = () => {
 
     useEffect(() => {
         return () => {
-            if (wishImageUrl.startsWith("blob:")) {
-                URL.revokeObjectURL(wishImageUrl); // 이미지 미리보기 url (Blob URL)을 해제하기
+            if (wishImage && wishImageUrl.startsWith("blob:")) {
+                URL.revokeObjectURL(wishImageUrl); // Blob URL 메모리 해제
             }
         };
-    }, [wishImageUrl]);
+    }, [wishImage, wishImageUrl]);
 
     const handleImageUpload = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files[0]) {

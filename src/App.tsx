@@ -20,6 +20,7 @@ import GiftAmount from './pages/GiftAmount.tsx'
 import UserWishCheck from './pages/UserWishCheck.tsx'
 import SendConfirm from './pages/SendConfirm.tsx'
 import BirthdayMessage from "./routes/BirthdayMessage.tsx";
+import PaymentRequest from "./routes/PaymentRequest.tsx";
 
 const GlobalStyles = createGlobalStyle`
   body {
@@ -142,6 +143,10 @@ const router = createBrowserRouter([
     {
         path: "/birthday-message",
         element: <BirthdayMessage/>
+    },
+    {
+        path: "/payment-request",
+        element: <PaymentRequest/>
     }
 ])
 

@@ -4,15 +4,7 @@ import styled from "styled-components";
 import {useNavigate} from "react-router-dom";
 import mascot from "../assets/home/mascot.svg"
 import {ColumnButtonContainer} from "../pages/MyLetters.tsx";
-
-export const Wrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  height: 750px;
-  gap: 30px;
-`
+import {Wrapper} from "./LetterSentConfirm.tsx";
 
 export const RowButtonContainer = styled.div`
   display: flex;

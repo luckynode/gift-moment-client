@@ -19,6 +19,7 @@ import UserWishList from './routes/UserWishList.tsx'
 import GiftAmount from './pages/GiftAmount.tsx'
 import UserWishCheck from './pages/UserWishCheck.tsx'
 import SendConfirm from './pages/SendConfirm.tsx'
+import BirthdayMessage from "./routes/BirthdayMessage.tsx";
 
 const GlobalStyles = createGlobalStyle`
   body {
@@ -137,6 +138,10 @@ const router = createBrowserRouter([
     {
       path: "/wishlist/:userId/item/:itemId/send/confirm",
       element: <SendConfirm />
+    },
+    {
+        path: "/birthday-message",
+        element: <BirthdayMessage/>
     }
 ])
 

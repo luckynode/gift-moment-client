@@ -21,6 +21,7 @@ import UserWishCheck from './pages/UserWishCheck.tsx'
 import SendConfirm from './pages/SendConfirm.tsx'
 import BirthdayMessage from "./routes/BirthdayMessage.tsx";
 import PaymentRequest from "./routes/PaymentRequest.tsx";
+import PaymentRequestComplete from "./routes/PaymentRequestComplete.tsx";
 
 const GlobalStyles = createGlobalStyle`
   body {
@@ -147,7 +148,11 @@ const router = createBrowserRouter([
     {
         path: "/payment-request",
         element: <PaymentRequest/>
-    }
+    },
+    {
+        path: "/payment-request-complete",
+        element: <PaymentRequestComplete/>
+    },
 ])
 
 

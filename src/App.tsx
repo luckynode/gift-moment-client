@@ -142,10 +142,6 @@ const router = createBrowserRouter([
       element: <SendConfirm />
     },
     {
-        path: "/birthday-message",
-        element: <BirthdayMessage/>
-    },
-    {
         path: "/payment-request",
         element: <PaymentRequest/>
     },

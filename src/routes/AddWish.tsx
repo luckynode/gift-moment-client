@@ -1,7 +1,7 @@
 import BackButton from "../components/buttons/BackButton.tsx";
 import Header from "../components/headers/Header.tsx";
 import {Form, Hug18, Input} from "../components/SignupComponents.ts";
-import {useCallback, useMemo, useState} from "react";
+import {useCallback, useMemo, useRef, useState} from "react";
 import styled from "styled-components";
 import Button from "../components/buttons/Button.tsx";
 import {useNavigate} from "react-router-dom";
@@ -104,6 +104,16 @@ const ImageUploadWrapper = styled.div<{ image?: string }>`
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
+  &:hover::after {
+    content: '이미지 업로드';
+    position: absolute;
+    bottom: 10px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 12px;
+  }
 `;
 
 const HiddenInput = styled.input`
@@ -124,6 +134,7 @@ const AddWish = () => {
     const [wishDescriptionError, setWishDescriptionError] = useState(false);
     const [wishImage, setWishImage] = useState<File | null>(null);
     const [wishImageError, setWishImageError] = useState(false);
+    const fileInputRef = useRef<HTMLInputElement>(null);
 
     // 이미지 URL 메모화
     const imageUrl = useMemo(() => {
@@ -145,9 +156,10 @@ const AddWish = () => {
         }
     }, []);
 
-    // 이미지 업로드 버튼 클릭 시 input[type="file"]이 클릭되도록 함
     const openFilePicker = () => {
-        document.querySelector<HTMLInputElement>('input[type="file"]')?.click();
+        if (fileInputRef.current) {
+            fileInputRef.current.click();
+        }
     };
 
     const handleFocus = (setter: (value: boolean) => void) => {
@@ -253,6 +265,7 @@ const AddWish = () => {
                     <FileInputContainer>
                         <ImageUploadWrapper image={imageUrl} onClick={openFilePicker}>
                             <HiddenInput
+                                ref={fileInputRef}
                                 type="file"
                                 accept="image/*"
                                 onChange={handleImageUpload}

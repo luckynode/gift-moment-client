@@ -114,7 +114,7 @@ const ImageUploadWrapper = styled.div<{ image?: string }>`
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.2); /* 투명도 20% 검은색 */
+    background: rgba(0, 0, 0, 0.1); /* 투명도 10% 검은색 */
     border-radius: 8px;
     z-index: 1; /* 카메라 아이콘 위에 표시되도록 */
   }
@@ -123,8 +123,8 @@ const ImageUploadWrapper = styled.div<{ image?: string }>`
   &::after {
     content: "";
     position: absolute;
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
     background-image: url(${cameraIcon});
     background-size: contain;
     background-repeat: no-repeat;

@@ -56,6 +56,11 @@ interface WishListData {
 export default function WishList() {
     const navigate = useNavigate();
 
+    // 아이템 클릭 시 상세 페이지로 이동
+    const handleItemClick = (itemId: number) => {
+        navigate(`/wishlist/item/${itemId}`);
+    };
+
     const handleAddButtonClick = () => {
         navigate("/wishlist/add");
     };
@@ -109,6 +114,7 @@ export default function WishList() {
                             item_name={items.item_name}
                             percent={items.percent}
                             state={items.state}
+                            onClick={() => handleItemClick(items.item_id)}
                         />
                     ))}
                 </ListWrapper>

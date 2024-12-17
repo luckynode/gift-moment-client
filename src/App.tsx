@@ -19,7 +19,8 @@ import UserWishList from './routes/UserWishList.tsx'
 import GiftAmount from './pages/GiftAmount.tsx'
 import UserWishCheck from './pages/UserWishCheck.tsx'
 import SendConfirm from './pages/SendConfirm.tsx'
-import AddWishItem from "./routes/AddWishItem.tsx";
+import MyWishDetail from "./pages/MyWishDetail.tsx";
+import MyWishModify from "./pages/MyWishModify.tsx";
 import AddWish from "./routes/AddWish.tsx";
 import AddWishConfirm from "./routes/AddWishConfirm.tsx";
 
@@ -140,6 +141,14 @@ const router = createBrowserRouter([
     {
       path: "/wishlist/:userId/item/:itemId/send/confirm",
       element: <SendConfirm />
+    },
+    {
+        path: "/wishlist/item/:itemId",
+        element: <MyWishDetail/>
+    },
+    {
+        path: "/wishlist/item/:itemId/modify",
+        element: <MyWishModify/>
     },
     {
         path: "/wishlist/add",

@@ -3,13 +3,14 @@ import Header from "../components/headers/Header.tsx";
 import {Input, Wrapper} from "../components/SignupComponents.ts";
 import styled from "styled-components";
 import {useNavigate, useParams} from "react-router-dom";
-import {useCallback, useEffect, useMemo, useState} from "react";
+import {useCallback, useEffect, useMemo, useRef, useState} from "react";
 import eximg from "../assets/wishlist/example.jpg";
 import Button from "../components/buttons/Button.tsx";
 import {RowButtonContainer} from "../routes/LetterSentConfirm.tsx";
 import {WishInput} from "./MyWishDetail.tsx";
 import WishImgDetail from "../assets/wishlist/wish_img_detail.svg";
 import MyWishDeleteConfirm from "../routes/MyWishDeleteConfirm.tsx";
+import cameraIcon from "../assets/wishlist/wish_img_modify.svg";
 
 const WishDisabledInput = styled(WishInput)`
   background: #EEE2E2;
@@ -104,6 +105,34 @@ const ImageUploadWrapper = styled.div<{ image?: string }>`
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
+
+  /* 투명한 검은색 오버레이 */
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.2); /* 투명도 20% 검은색 */
+    border-radius: 8px;
+    z-index: 1; /* 카메라 아이콘 위에 표시되도록 */
+  }
+
+  /* 카메라 아이콘 */
+  &::after {
+    content: "";
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    background-image: url(${cameraIcon});
+    background-size: contain;
+    background-repeat: no-repeat;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2; /* 검은색 배경 오버레이 위에 표시되도록 */
+  }
 `;
 
 const HiddenInput = styled.input`
@@ -168,6 +197,7 @@ const MyWishModify = () => {
     const [wishDescriptionError, setWishDescriptionError] = useState(false);
 
     const [isModalOpen, setIsModalOpen] = useState(false); // 모달 표시 여부
+    const fileInputRef = useRef<HTMLInputElement>(null);
 
     const handleFocus = (setter: (value: boolean) => void) => {
         setter(false); // 에러 상태 초기화
@@ -264,9 +294,10 @@ const MyWishModify = () => {
 
     // 이미지 업로드 버튼 클릭 시 input[type="file"]이 클릭되도록 함
     const openFilePicker = () => {
-        document.querySelector<HTMLInputElement>('input[type="file"]')?.click();
+        if (fileInputRef.current) {
+            fileInputRef.current.click();
+        }
     };
-
 
     return (
         <>
@@ -278,6 +309,7 @@ const MyWishModify = () => {
                     <FileInputContainer>
                         <ImageUploadWrapper image={wishImageUrl} onClick={openFilePicker}>
                             <HiddenInput
+                                ref={fileInputRef}
                                 type="file"
                                 accept="image/*"
                                 onChange={handleImageUpload}

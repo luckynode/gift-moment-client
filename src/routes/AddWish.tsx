@@ -7,6 +7,7 @@ import Button from "../components/buttons/Button.tsx";
 import {useNavigate} from "react-router-dom";
 import WishImg from "../assets/wishlist/wish_img_input.svg";
 import {useEffect} from "react";
+import cameraIcon from "../assets/wishlist/wish_img_modify.svg";
 
 const Wrapper = styled.div`
   display: flex;
@@ -104,17 +105,38 @@ const ImageUploadWrapper = styled.div<{ image?: string }>`
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
-  &:hover::after {
-    content: '이미지 업로드';
-    position: absolute;
-    bottom: 10px;
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
-    padding: 5px 10px;
-    border-radius: 5px;
-    font-size: 12px;
-  }
+
+  /* 투명한 검은색 오버레이 & 가운데 카메라 이미지 배치 */
+  ${(props) =>
+          props.image && props.image !== WishImg && props.image.trim() !== "" ? `
+        &::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: rgba(0, 0, 0, 0.2);
+          border-radius: 8px;
+          z-index: 1;
+        }
+
+        &::after {
+          content: "";
+          position: absolute;
+          width: 60px;
+          height: 60px;
+          background-image: url(${cameraIcon});
+          background-size: contain;
+          background-repeat: no-repeat;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          z-index: 2;
+        }
+      ` : ""}
 `;
+
 
 const HiddenInput = styled.input`
   display: none;

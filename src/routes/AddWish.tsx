@@ -116,7 +116,7 @@ const ImageUploadWrapper = styled.div<{ image?: string }>`
           left: 0;
           width: 100%;
           height: 100%;
-          background: rgba(0, 0, 0, 0.2);
+          background: rgba(0, 0, 0, 0.1);
           border-radius: 8px;
           z-index: 1;
         }
@@ -124,8 +124,8 @@ const ImageUploadWrapper = styled.div<{ image?: string }>`
         &::after {
           content: "";
           position: absolute;
-          width: 60px;
-          height: 60px;
+          width: 50px;
+          height: 50px;
           background-image: url(${cameraIcon});
           background-size: contain;
           background-repeat: no-repeat;

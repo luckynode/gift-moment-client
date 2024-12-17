@@ -61,6 +61,9 @@ export default function WishList() {
         navigate(`/wishlist/item/${itemId}`);
     };
 
+    const handleAddButtonClick = () => {
+        navigate("/wishlist/add");
+    };
     const [wishData, setWishData] = useState<WishListData>({
         name: "김이름",
         birth: "00월 00일",
@@ -119,6 +122,7 @@ export default function WishList() {
                 {wishData?.item_num < 5 && (
                     <AddButton 
                         src={plus}
+                        onClick={handleAddButtonClick} 
                     />
                 )}
             </Wrapper>

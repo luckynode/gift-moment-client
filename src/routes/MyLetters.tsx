@@ -13,7 +13,8 @@ import InstructionText from "../components/InstructionText.tsx";
 import {useNavigate} from "react-router-dom";
 import BackButton from "../components/buttons/BackButton.tsx";
 
-const ButtonContainer = styled.div`
+
+export const ColumnButtonContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -119,10 +120,10 @@ const MyLetters = () => {
             <Header title="경희님의 편지함"/>
             <Cake items={items}/> {/* items를 Cake에 전달 */}
             <InstructionText iconText="Letter" message={`장신구를 클릭해 보세요!\n편지 내용을 볼 수 있습니다`}/>
-            <ButtonContainer>
+            <ColumnButtonContainer>
                 <Button text="마이페이지" size="large" color="white" onClick={() => navigate("/mypage")}/>
                 <Button text="편지 링크 복사하기" size="large" color="black" onClick={copyLinkToClipboard}/>
-            </ButtonContainer>
+            </ColumnButtonContainer>
             <LetterDetailModal isOpen={isModalOpen} onClose={closeModal} letter={selectedLetter}/>
         </div>
     );

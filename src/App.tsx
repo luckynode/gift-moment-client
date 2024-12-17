@@ -19,6 +19,8 @@ import UserWishList from './routes/UserWishList.tsx'
 import GiftAmount from './pages/GiftAmount.tsx'
 import UserWishCheck from './pages/UserWishCheck.tsx'
 import SendConfirm from './pages/SendConfirm.tsx'
+import PaymentRequest from "./routes/PaymentRequest.tsx";
+import PaymentRequestComplete from "./routes/PaymentRequestComplete.tsx";
 import MyWishDetail from "./pages/MyWishDetail.tsx";
 import MyWishModify from "./pages/MyWishModify.tsx";
 import AddWish from "./routes/AddWish.tsx";
@@ -123,24 +125,32 @@ const router = createBrowserRouter([
         element: <EditMypage/>
     },
     {
-      path: "/wishlist",
-      element: <WishList />
+        path: "/wishlist",
+        element: <WishList/>
     },
     {
-      path: "/wishlist/:userId",
-      element: <UserWishList />
+        path: "/wishlist/:userId",
+        element: <UserWishList/>
     },
     {
-      path: "/wishlist/:userId/item/:itemId",
-      element: <UserWishCheck />
+        path: "/wishlist/:userId/item/:itemId",
+        element: <UserWishCheck/>
     },
     {
-      path: "/wishlist/:userId/item/:itemId/send",
-      element: <GiftAmount />
+        path: "/wishlist/:userId/item/:itemId/send",
+        element: <GiftAmount/>
     },
     {
-      path: "/wishlist/:userId/item/:itemId/send/confirm",
-      element: <SendConfirm />
+        path: "/wishlist/:userId/item/:itemId/send/confirm",
+        element: <SendConfirm/>
+    },
+    {
+        path: "/payment-request",
+        element: <PaymentRequest/>
+    },
+    {
+        path: "/payment-request-complete",
+        element: <PaymentRequestComplete/>
     },
     {
         path: "/wishlist/item/:itemId",

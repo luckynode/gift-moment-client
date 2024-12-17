@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import Header from '../components/headers/Header';
-import Button from '../components/buttons/Button';
-import Cake from '../components/letters/Cake';
+import Header from '../components/headers/Header.tsx';
+import Button from '../components/buttons/Button.tsx';
+import Cake from '../components/letters/Cake.tsx';
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import LetterDetailModal from "../components/letters/LetterDetailModal";
+import LetterDetailModal from "../components/letters/LetterDetailModal.tsx";
 
 import redFlower from '../assets/letters/red_flower.svg';
 import whiteStar from '../assets/letters/white_star.svg';

@@ -6,6 +6,7 @@ import eximg from "../assets/wishlist/example.jpg"
 import { useEffect, useState } from "react";
 import axios from "axios";
 import plus from "../assets/wishlist/plus.svg";
+import {useNavigate} from "react-router-dom";
 
 const Wrapper = styled.div`
     display: flex;
@@ -53,6 +54,16 @@ interface WishListData {
 }
 
 export default function WishList() {
+    const navigate = useNavigate();
+
+    // 아이템 클릭 시 상세 페이지로 이동
+    const handleItemClick = (itemId: number) => {
+        navigate(`/wishlist/item/${itemId}`);
+    };
+
+    const handleAddButtonClick = () => {
+        navigate("/wishlist/add");
+    };
     const [wishData, setWishData] = useState<WishListData>({
         name: "김이름",
         birth: "00월 00일",
@@ -103,6 +114,7 @@ export default function WishList() {
                             item_name={items.item_name}
                             percent={items.percent}
                             state={items.state}
+                            onClick={() => handleItemClick(items.item_id)}
                         />
                     ))}
                 </ListWrapper>
@@ -110,6 +122,7 @@ export default function WishList() {
                 {wishData?.item_num < 5 && (
                     <AddButton 
                         src={plus}
+                        onClick={handleAddButtonClick} 
                     />
                 )}
             </Wrapper>

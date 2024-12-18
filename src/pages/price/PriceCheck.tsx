@@ -104,6 +104,7 @@ export default function PriceCheck({price} : PriceCheckProps) {
 
         try {
             // 테스트로 console 출력
+            // string -> number 변환
             console.log("가격: ", price);
             navigate("confirm")
         } catch (error) {
@@ -136,7 +137,7 @@ export default function PriceCheck({price} : PriceCheckProps) {
                     <Img src={wishData?.item_image}/>
                 </Info>
                 <Gap>
-                    <Header title={`${wishData?.name} 님에게 ${price}원을`} fontSize="25px"/>
+                    <Header title={`${wishData?.name} 님에게 ${Number(price).toLocaleString()}원을`} fontSize="25px"/>
                     <Header title="송금하시겠습니까?" fontSize="25px"/>
                 </Gap>
                 <Row onSubmit={onSubmit}>

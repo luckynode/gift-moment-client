@@ -208,7 +208,7 @@ export default function UserWishDetail() {
                 <Info>
                     <Img src={wishData?.item_image}/>
                     <Input>{wishData?.item_name}</Input>
-                    <Input>{wishData?.item_price} 원</Input>
+                    <Input>{wishData?.item_price.toLocaleString()} 원</Input>
                     <Input>
                         <LinkText href={wishData?.item_link}>
                             {wishData?.item_link}

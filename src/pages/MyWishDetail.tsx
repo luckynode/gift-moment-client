@@ -180,7 +180,7 @@ const MyWishDetail = () => {
                 <Info>
                     <Img src={wishData?.item_image}/>
                     <WishInput>{wishData?.item_name}</WishInput>
-                    <WishInput>{wishData?.item_price} 원</WishInput>
+                    <WishInput>{wishData?.item_price.toLocaleString()} 원</WishInput>
                     <WishInput>
                         <LinkText href={wishData?.item_link}>
                             {wishData?.item_link}

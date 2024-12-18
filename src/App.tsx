@@ -5,7 +5,7 @@ import Home from './routes/Home.tsx'
 import {useEffect} from 'react'
 import MyLetters from "./routes/MyLetters.tsx";
 import {ToastContainer} from "react-toastify";
-import OAuth from './components/KakaoOauth'
+import OAuth from './components/oauth/KakaoOauth.tsx'
 import SignUp from './routes/SignUp.tsx'
 import Mywish from './routes/MyWish.tsx'
 import Login from './routes/Login.tsx'

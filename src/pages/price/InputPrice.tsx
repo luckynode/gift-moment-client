@@ -80,7 +80,7 @@ interface UserWishData {
 }
 
 interface GetInfoProps {
-    onNext: (price: string) => void; // onNext 함수 타입 정의
+    onNext: (price: number) => void; // onNext 함수 타입 정의
 }
 
 export default function InputPrice({ onNext } : GetInfoProps) {
@@ -94,7 +94,7 @@ export default function InputPrice({ onNext } : GetInfoProps) {
         item_image: eximg,
     });
 
-    const [price, setPrice] = useState("");
+    const [price, setPrice] = useState<number>(0);
 
     // TODO FetchData 주석 제거 
     useEffect(() => {
@@ -115,9 +115,10 @@ export default function InputPrice({ onNext } : GetInfoProps) {
     }, []);
 
     // TODO 최대 금액 논의 (상품 값으로 지정 후 해당 금액 넘으면 알림?)
+    // TODO 0 원 이하이면 알림 문구
 
     const onChange = async (e : React.ChangeEvent<HTMLInputElement>) => {
-        const value = e.target.value;
+        const value = Number(e.target.value);
         setPrice(value);
     }
 

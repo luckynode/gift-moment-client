@@ -1,6 +1,6 @@
 import BackButton from "../components/buttons/BackButton.tsx";
 import Header from "../components/headers/Header.tsx";
-import {Input, Wrapper} from "../components/SignupComponents.ts";
+import {Input} from "../components/SignupComponents.ts";
 import styled from "styled-components";
 import {useNavigate, useParams} from "react-router-dom";
 import {useCallback, useEffect, useMemo, useRef, useState} from "react";

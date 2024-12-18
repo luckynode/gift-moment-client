@@ -104,7 +104,7 @@ export default function EditMypage() {
     }
 
     return(
-        <div>
+        <>
         <BackButton />
         <Wrapper>
             <Title>마이페이지</Title>
@@ -157,6 +157,6 @@ export default function EditMypage() {
             </Form>
         </Wrapper>
         <Leave onClick={handleLeave}> 탈퇴 </Leave>
-        </div>
+        </>
     )
 } 

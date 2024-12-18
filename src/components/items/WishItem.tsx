@@ -1,7 +1,7 @@
 import { styled } from "styled-components"
-import blue from "../assets/wishlist/progress_blue.svg"
-import green from "../assets/wishlist/progress_green.svg"
-import red from "../assets/wishlist/progress_red.svg"
+import blue from "../../assets/wishlist/progress_blue.svg"
+import green from "../../assets/wishlist/progress_green.svg"
+import red from "../../assets/wishlist/progress_red.svg"
 import { useNavigate } from "react-router-dom"
 
 const Wrapper = styled.div`

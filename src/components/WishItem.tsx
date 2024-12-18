@@ -78,9 +78,10 @@ interface WishItemProps {
     item_name: string;
     percent: number;
     state: string;
+    onClick: () => void;
 }
 
-export default function WishItem({item_id, item_image, item_name, percent, state}: WishItemProps) {
+export default function WishItem({item_id, item_image, item_name, percent, state, onClick}: WishItemProps) {
     const navigate = useNavigate();
     
     // state 아이콘, progress bar 색상 설정
@@ -98,6 +99,7 @@ export default function WishItem({item_id, item_image, item_name, percent, state
 
     const handleClick = () => {
         navigate(`/wishlist/item/${item_id}`);
+        onClick();
     };
 
     return (

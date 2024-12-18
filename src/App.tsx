@@ -1,19 +1,19 @@
 import './App.css'
 import styled, {createGlobalStyle} from 'styled-components'
 import {createBrowserRouter, RouterProvider} from 'react-router-dom'
-import Home from './routes/home'
+import Home from './routes/Home.tsx'
 import {useEffect} from 'react'
 import MyLetters from "./routes/MyLetters.tsx";
 import {ToastContainer} from "react-toastify";
 import OAuth from './components/KakaoOauth'
-import SignUp from './routes/signup'
-import Mywish from './routes/mywish'
-import Login from './routes/login.tsx'
+import SignUp from './routes/SignUp.tsx'
+import Mywish from './routes/MyWish.tsx'
+import Login from './routes/Login.tsx'
 import GuestLetters from "./routes/GuestLetters.tsx";
 import WriteLetter from "./routes/WriteLetter.tsx";
 import LetterSentConfirm from "./routes/LetterSentConfirm.tsx";
-import Mypage from './pages/mypage.tsx'
-import EditMypage from './pages/mypageEdit.tsx'
+import Mypage from './pages/MyPage.tsx'
+import EditMypage from './pages/MyPageEdit.tsx'
 import WishList from './routes/WishList.tsx'
 import UserWishList from './routes/UserWishList.tsx'
 import GiftAmount from './pages/GiftAmount.tsx'

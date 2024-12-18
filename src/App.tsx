@@ -16,9 +16,9 @@ import Mypage from './pages/MyPage.tsx'
 import EditMypage from './pages/MyPageEdit.tsx'
 import WishList from './routes/WishList.tsx'
 import UserWishList from './routes/UserWishList.tsx'
-import GiftAmount from './pages/GiftAmount.tsx'
-import UserWishCheck from './pages/UserWishCheck.tsx'
-import SendConfirm from './pages/SendConfirm.tsx'
+import GiftAmount from './pages/price/GiftAmount.tsx'
+import UserWishDetail from './pages/UserWishDetail.tsx'
+import SendConfirm from './pages/price/SendConfirm.tsx'
 import PaymentRequest from "./routes/PaymentRequest.tsx";
 import PaymentRequestComplete from "./routes/PaymentRequestComplete.tsx";
 import MyWishDetail from "./pages/MyWishDetail.tsx";
@@ -134,7 +134,7 @@ const router = createBrowserRouter([
     },
     {
         path: "/wishlist/:userId/item/:itemId",
-        element: <UserWishCheck/>
+        element: <UserWishDetail/>
     },
     {
         path: "/wishlist/:userId/item/:itemId/send",

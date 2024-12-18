@@ -1,10 +1,10 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { styled } from "styled-components";
-import BackButton from "../components/buttons/BackButton";
-import eximg from "../assets/wishlist/example.jpg"
-import Header from "../components/headers/Header";
-import Button from "../components/buttons/Button";
+import BackButton from "../../components/buttons/BackButton";
+import eximg from "../../assets/wishlist/example.jpg"
+import Header from "../../components/headers/Header";
+import Button from "../../components/buttons/Button";
 import axios from "axios";
 
 const Wrapper = styled.div`

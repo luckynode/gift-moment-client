@@ -158,7 +158,7 @@ interface UserWishData {
     }>
 }
 
-export default function UserWishCheck() {
+export default function UserWishDetail() {
     const navigate = useNavigate();
     const { userId, itemId } = useParams<{ userId: string, itemId: string }>();
     const [wishData, setWishData] = useState<UserWishData>({

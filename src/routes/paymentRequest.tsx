@@ -2,7 +2,7 @@ import Header from "../components/headers/Header.tsx";
 import styled from "styled-components";
 import {useNavigate} from "react-router-dom";
 import Button from "../components/buttons/Button.tsx";
-import {Wrapper} from "./lletterSentConfirm.tsx";
+import {Wrapper} from "./letterSentConfirm.tsx";
 import BackButton from "../components/buttons/BackButton.tsx";
 
 const PaymentWrapper = styled(Wrapper)`

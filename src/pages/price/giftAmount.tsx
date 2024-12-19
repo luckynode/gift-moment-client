@@ -1,6 +1,6 @@
 import { useState } from "react";
-import InputPrice from "./iinputPrice";
-import PriceCheck from "./ppriceCheck";
+import InputPrice from "./inputPrice";
+import PriceCheck from "./priceCheck";
 
 export default function GiftAmount() {
     const [page, setPage] = useState('input');

@@ -5,14 +5,20 @@ import Button from '../components/buttons/Button.tsx';
 import Cake from '../components/letters/Cake.tsx';
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import LetterDetailModal from "../components/letters/LetterDetailModal";
-import { ornamentImages } from '../assets/ornamentImages';
-import { ornamentPositions } from '../assets/ornamentImages';
+import LetterDetailModal from "../components/letters/LetterDetailModal.tsx";
+import { ornamentImages } from '../assets/ornamentImages.ts';
+import { ornamentPositions } from '../assets/ornamentImages.ts';
 
 import InstructionText from "../components/InstructionText.tsx";
 import {useNavigate} from "react-router-dom";
 import BackButton from "../components/buttons/BackButton.tsx";
 
+export const Wrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+`
 
 export const ColumnButtonContainer = styled.div`
   display: flex;
@@ -114,7 +120,8 @@ const MyLetters = () => {
     };
 
     return (
-        <div>
+        <>
+        <Wrapper>
             {/*TODO 백엔드 API 유저 정보 받아오기*/}
             <BackButton/>
             <Header title="경희님의 편지함"/>
@@ -125,7 +132,8 @@ const MyLetters = () => {
                 <Button text="편지 링크 복사하기" size="large" color="black" onClick={copyLinkToClipboard}/>
             </ColumnButtonContainer>
             <LetterDetailModal isOpen={isModalOpen} onClose={closeModal} letter={selectedLetter}/>
-        </div>
+        </Wrapper>
+        </>
     );
 };
 

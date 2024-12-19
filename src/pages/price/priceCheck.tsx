@@ -1,10 +1,10 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { styled } from "styled-components";
-import BackButton from "../components/buttons/BackButton";
-import eximg from "../assets/wishlist/example.jpg"
-import Header from "../components/headers/Header";
-import Button from "../components/buttons/Button";
+import BackButton from "../../components/buttons/BackButton";
+import eximg from "../../assets/wishlist/example.jpg"
+import Header from "../../components/headers/Header";
+import Button from "../../components/buttons/Button";
 import axios from "axios";
 
 const Wrapper = styled.div`
@@ -42,31 +42,17 @@ const Img = styled.img`
     border-radius: 10px;
 `
 
-const Form = styled.form`
+const Gap = styled.div`
     display: flex;
     flex-direction: column;
-    align-items: center;
+    gap: 15px;
 `
 
-const Input = styled.input`
+const Row = styled.form`
     display: flex;
-    align-items: flex-start;
-    justify-content: center;
-
-    width: 330px;
-    min-height: 50px;
-    box-sizing: border-box;
-    padding: 10px;
-    margin-top: 20px;
-    margin-bottom: 40px;
-
-    font-size: 20px;
-    font-family: 'Lato';
-    font-weight: 500;
-
-    background: #FFFFFF;
-    border: 1px solid #C8C8C8;
-    border-radius: 8px;
+    flex-direction: row;
+    gap: 10px;
+    margin: 30px 0;
 `
 
 // TODO 백엔드에서 받아올 데이터 형식에 맞게 수정
@@ -79,11 +65,12 @@ interface UserWishData {
     item_image: string;
 }
 
-interface GetInfoProps {
-    onNext: (price: string) => void; // onNext 함수 타입 정의
+interface PriceCheckProps {
+    price: string;
 }
 
-export default function InputPrice({ onNext } : GetInfoProps) {
+export default function PriceCheck({price} : PriceCheckProps) {
+    const navigate = useNavigate();
     const { userId, itemId } = useParams<{ userId: string, itemId: string }>();
     const [wishData, setWishData] = useState<UserWishData>({
         userid: 1,
@@ -93,8 +80,6 @@ export default function InputPrice({ onNext } : GetInfoProps) {
         item_id: 1,
         item_image: eximg,
     });
-
-    const [price, setPrice] = useState("");
 
     // TODO FetchData 주석 제거 
     useEffect(() => {
@@ -114,25 +99,32 @@ export default function InputPrice({ onNext } : GetInfoProps) {
         // fetchData();
     }, []);
 
-    // TODO 최대 금액 논의 (상품 값으로 지정 후 해당 금액 넘으면 알림?)
-
-    const onChange = async (e : React.ChangeEvent<HTMLInputElement>) => {
-        const value = e.target.value;
-        setPrice(value);
-    }
-
     const onSubmit = async (e : React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         try {
             // 테스트로 console 출력
+            // string -> number 변환
             console.log("가격: ", price);
-
-            // 다음 페이지로 정보 넘기기
-            onNext(price);
+            navigate("confirm")
         } catch (error) {
             console.error("금액 전송 오류: ", error);
         }
+
+        /*
+        // TODO 서버 axios post.
+            try {
+                await axios.post(`${import.meta.env.VITE_BACKEND_URL}/wishlist/${userId}/item/${itemId}/send`,
+                    { price: price },
+                )
+
+                // TODO 실제 결제 페이지 이동
+
+                console.log("금액 전송 : ", price);
+            } catch (error) {
+                console.error("금액 전송 오류: ", error);
+            }
+        */
     }
     
     return (
@@ -144,11 +136,14 @@ export default function InputPrice({ onNext } : GetInfoProps) {
                 <Info>
                     <Img src={wishData?.item_image}/>
                 </Info>
-                <Header title="얼마를 송금하시겠어요?" fontSize="25px"/>
-                <Form onSubmit={onSubmit}>
-                    <Input onChange={onChange} placeholder="금액" name="price" value={price} type="number" required/>
-                    <Button type="submit" size="small" color="black" text="완료" onClick={() => {}}/>
-                </Form>
+                <Gap>
+                    <Header title={`${wishData?.name} 님에게 ${Number(price).toLocaleString()}원을`} fontSize="25px"/>
+                    <Header title="송금하시겠습니까?" fontSize="25px"/>
+                </Gap>
+                <Row onSubmit={onSubmit}>
+                    <Button size="small" color="black" text="네" onClick={() => {}} type="submit"/>
+                    <Button size="small" color="white" text="아니요" onClick={() => {navigate(-1)}}/>
+                </Row>
             </Wrapper>
         </>
     )

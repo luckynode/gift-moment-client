@@ -5,7 +5,7 @@ import Header from "../components/headers/Header";
 import eximg from "../assets/wishlist/example.jpg"
 import { useEffect, useState } from "react";
 import axios from "axios";
-import UserWishItem from "../components/UserWishItem";
+import UserWishItem from "../components/items/UserWishItem";
 
 const Wrapper = styled.div`
     display: flex;

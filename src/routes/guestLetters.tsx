@@ -1,15 +1,22 @@
 import {useState} from 'react';
 import styled from 'styled-components';
-import Header from '../components/headers/Header';
-import Button from '../components/buttons/Button';
-import Cake from '../components/letters/Cake';
+import Header from '../components/headers/Header.tsx';
+import Button from '../components/buttons/Button.tsx';
+import Cake from '../components/letters/Cake.tsx';
 import "react-toastify/dist/ReactToastify.css";
-import { ornamentImages } from '../assets/ornamentImages';
-import { ornamentPositions } from '../assets/ornamentImages';
+import { ornamentImages } from '../assets/ornamentImages.ts';
+import { ornamentPositions } from '../assets/ornamentImages.ts';
 
 import InstructionText from "../components/InstructionText.tsx";
 import {useNavigate} from "react-router-dom";
 import BackButton from "../components/buttons/BackButton.tsx";
+
+export const Wrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+`
 
 const ButtonContainer = styled.div`
   display: flex;
@@ -39,7 +46,8 @@ const GuestLetters = () => {
     }));
 
     return (
-        <div>
+        <>
+        <Wrapper>
             {/*TODO 백엔드 API 유저 정보 받아오기*/}
             <BackButton/>
             <Header title="경희님의 편지함"/>
@@ -50,7 +58,8 @@ const GuestLetters = () => {
                         onClick={() => navigate("/write-letter")}/>
                 <Button type="button" text="위시리스트 보러 가기" size="large" color="black" onClick={() => navigate("/")}/>
             </ButtonContainer>
-        </div>
+        </Wrapper>
+        </>
     );
 };
 

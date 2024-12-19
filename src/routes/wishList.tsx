@@ -1,7 +1,7 @@
 import { styled } from "styled-components";
 import BackButton from "../components/buttons/BackButton";
 import Header from "../components/headers/Header";
-import WishItem from "../components/WishItem";
+import WishItem from "../components/items/WishItem";
 import eximg from "../assets/wishlist/example.jpg"
 import { useEffect, useState } from "react";
 import axios from "axios";

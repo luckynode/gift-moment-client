@@ -1,15 +1,15 @@
 import BackButton from "../components/buttons/BackButton.tsx";
 import Header from "../components/headers/Header.tsx";
-import {Input, Wrapper} from "../components/SignupComponents.ts";
+import {Input} from "../components/SignupComponents.ts";
 import styled from "styled-components";
 import {useNavigate, useParams} from "react-router-dom";
 import {useCallback, useEffect, useMemo, useRef, useState} from "react";
 import eximg from "../assets/wishlist/example.jpg";
 import Button from "../components/buttons/Button.tsx";
-import {RowButtonContainer} from "../routes/LetterSentConfirm.tsx";
-import {WishInput} from "./MyWishDetail.tsx";
+import {RowButtonContainer} from "../routes/letterSentConfirm.tsx";
+import {WishInput} from "./myWishDetail.tsx";
 import WishImgDetail from "../assets/wishlist/wish_img_detail.svg";
-import MyWishDeleteConfirm from "../routes/MyWishDeleteConfirm.tsx";
+import MyWishDeleteConfirm from "../routes/myWishDeleteConfirm.tsx";
 import cameraIcon from "../assets/wishlist/wish_img_modify.svg";
 
 const WishDisabledInput = styled(WishInput)`

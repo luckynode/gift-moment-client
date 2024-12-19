@@ -1,12 +1,11 @@
 import BackButton from "../components/buttons/BackButton.tsx";
 import Header from "../components/headers/Header.tsx";
-import {Wrapper} from "../components/SignupComponents.ts";
 import styled from "styled-components";
 import {useNavigate, useParams} from "react-router-dom";
 import {useState} from "react";
 import eximg from "../assets/wishlist/example.jpg";
 import Button from "../components/buttons/Button.tsx";
-import { ornamentImages } from '../assets/ornamentImages';
+import { ornamentImages } from '../assets/ornamentImages.ts';
 
 const List = styled.div`
   display: flex;
@@ -181,7 +180,7 @@ const MyWishDetail = () => {
                 <Info>
                     <Img src={wishData?.item_image}/>
                     <WishInput>{wishData?.item_name}</WishInput>
-                    <WishInput>{wishData?.item_price} 원</WishInput>
+                    <WishInput>{wishData?.item_price.toLocaleString()} 원</WishInput>
                     <WishInput>
                         <LinkText href={wishData?.item_link}>
                             {wishData?.item_link}

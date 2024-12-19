@@ -2,7 +2,7 @@ import Header from "../components/headers/Header.tsx";
 import styled from "styled-components";
 import {useNavigate} from "react-router-dom";
 import mascot from "../assets/home/mascot.svg"
-import {Wrapper} from "./LetterSentConfirm.tsx";
+import {Wrapper} from "./letterSentConfirm.tsx";
 
 export const Mascot = styled.img`
   width: 45%;

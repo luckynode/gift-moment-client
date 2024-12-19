@@ -37,8 +37,8 @@ export default function Mywish() {
     }, []);
 
     const buttons = [
-        { text: "편지함 보러 가기", size: "large", onClick: () => navigate("/my-letters") },
-        { text: "위시리스트 보러 가기", size: "large", onClick: () => navigate("/wishlist") },
+        { text: "편지함 보러 가기", size: "large" as 'large', onClick: () => navigate("/my-letters") },
+        { text: "위시리스트 보러 가기", size: "large" as 'large', onClick: () => navigate("/wishlist") },
     ];
 
     // 생일 여부에 따른 조건부 렌더링

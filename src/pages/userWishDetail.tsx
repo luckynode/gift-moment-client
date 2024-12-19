@@ -158,7 +158,7 @@ interface UserWishData {
     }>
 }
 
-export default function UserWishCheck() {
+export default function UserWishDetail() {
     const navigate = useNavigate();
     const { userId, itemId } = useParams<{ userId: string, itemId: string }>();
     const [wishData, setWishData] = useState<UserWishData>({
@@ -208,7 +208,7 @@ export default function UserWishCheck() {
                 <Info>
                     <Img src={wishData?.item_image}/>
                     <Input>{wishData?.item_name}</Input>
-                    <Input>{wishData?.item_price} 원</Input>
+                    <Input>{wishData?.item_price.toLocaleString()} 원</Input>
                     <Input>
                         <LinkText href={wishData?.item_link}>
                             {wishData?.item_link}

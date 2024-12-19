@@ -1,6 +1,6 @@
 import styled from "styled-components"
-import logoimg from "../assets/home/LOGO.svg"
-import introimg from "../assets/home/INTRO.svg"
+import logoimg from "../assets/home/logo.svg"
+import introimg from "../assets/home/intro.svg"
 import KakaoBtn from "../components/oauth/Kakao"
 
 const Wrapper = styled.div`
@@ -8,7 +8,6 @@ const Wrapper = styled.div`
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    height: 750px;
 `
 
 const Logo = styled.img`

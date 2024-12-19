@@ -6,10 +6,10 @@ import {useNavigate, useParams} from "react-router-dom";
 import {useCallback, useEffect, useMemo, useRef, useState} from "react";
 import eximg from "../assets/wishlist/example.jpg";
 import Button from "../components/buttons/Button.tsx";
-import {RowButtonContainer} from "../routes/LetterSentConfirm.tsx";
-import {WishInput} from "./MyWishDetail.tsx";
+import {RowButtonContainer} from "../routes/lletterSentConfirm.tsx";
+import {WishInput} from "./mmyWishDetail.tsx";
 import WishImgDetail from "../assets/wishlist/wish_img_detail.svg";
-import MyWishDeleteConfirm from "../routes/MyWishDeleteConfirm.tsx";
+import MyWishDeleteConfirm from "../routes/mmyWishDeleteConfirm.tsx";
 import cameraIcon from "../assets/wishlist/wish_img_modify.svg";
 
 const WishDisabledInput = styled(WishInput)`

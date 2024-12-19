@@ -1,11 +1,11 @@
 import {useState} from 'react';
 import styled from 'styled-components';
-import Header from '../components/headers/Header';
-import Button from '../components/buttons/Button';
-import Cake from '../components/letters/Cake';
+import Header from '../components/headers/Header.tsx';
+import Button from '../components/buttons/Button.tsx';
+import Cake from '../components/letters/Cake.tsx';
 import "react-toastify/dist/ReactToastify.css";
-import { ornamentImages } from '../assets/ornamentImages';
-import { ornamentPositions } from '../assets/ornamentImages';
+import { ornamentImages } from '../assets/ornamentImages.ts';
+import { ornamentPositions } from '../assets/ornamentImages.ts';
 
 import InstructionText from "../components/InstructionText.tsx";
 import {useNavigate} from "react-router-dom";

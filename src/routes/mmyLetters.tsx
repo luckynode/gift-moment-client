@@ -5,9 +5,9 @@ import Button from '../components/buttons/Button.tsx';
 import Cake from '../components/letters/Cake.tsx';
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import LetterDetailModal from "../components/letters/LetterDetailModal";
-import { ornamentImages } from '../assets/ornamentImages';
-import { ornamentPositions } from '../assets/ornamentImages';
+import LetterDetailModal from "../components/letters/LetterDetailModal.tsx";
+import { ornamentImages } from '../assets/ornamentImages.ts';
+import { ornamentPositions } from '../assets/ornamentImages.ts';
 
 import InstructionText from "../components/InstructionText.tsx";
 import {useNavigate} from "react-router-dom";

@@ -1,7 +1,7 @@
 import { useState } from "react"
-import GetInfo from "../pages/signup/GetInfo";
-import AccountInput from "../pages/signup/AccountInput";
-import AccountCheck from "../pages/signup/AccountCheck";
+import GetInfo from "../pages/signup/ggetInfo";
+import AccountInput from "../pages/signup/aaccountInput";
+import AccountCheck from "../pages/signup/aaccountCheck";
 
 export default function SignUp() {
     const [page, setPage] = useState('getinfo');

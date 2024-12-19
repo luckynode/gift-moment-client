@@ -5,7 +5,7 @@ import {useNavigate, useParams} from "react-router-dom";
 import {useState} from "react";
 import eximg from "../assets/wishlist/example.jpg";
 import Button from "../components/buttons/Button.tsx";
-import { ornamentImages } from '../assets/ornamentImages';
+import { ornamentImages } from '../assets/ornamentImages.ts';
 
 const List = styled.div`
   display: flex;

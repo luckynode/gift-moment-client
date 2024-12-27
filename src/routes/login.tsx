@@ -1,6 +1,6 @@
 import styled from "styled-components"
 import logoimg from "../assets/home/logo.svg"
-import introimg from "../assets/home/intro.svg"
+import introimg from "../assets/home/intro2.svg"
 import KakaoBtn from "../components/oauth/Kakao"
 import Confetti from 'react-confetti'
 
@@ -32,7 +32,6 @@ export default function Login() {
                 colors={['#F6416C', '#00B8A9', '#FFDE7D', '#F8F3D4']}
             />
             <Logo src={logoimg} />
-            {/* TODO 로그인 멘트 변경 이미지 변경 */}
             <Intro src={introimg} />
             <KakaoBtn />
         </Wrapper>

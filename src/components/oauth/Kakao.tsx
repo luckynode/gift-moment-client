@@ -14,6 +14,7 @@ const Button = styled.button`
     background: url(${kimg}) no-repeat center center;
     border: none;
     cursor: pointer;
+    z-index: 2;
     
     &:hover {
         opacity: 0.7;

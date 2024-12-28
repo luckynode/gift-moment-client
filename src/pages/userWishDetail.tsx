@@ -230,7 +230,7 @@ export default function UserWishDetail() {
                                 <CardImg src={ornamentImages[index % ornamentImages.length]} />
                                 <CardName>
                                     <FriendName>{friend.friend_name}</FriendName>
-                                    <FreindPercent>{friend.friend_percent}원</FreindPercent> {/* 3자리마다 콤마 추가 */}
+                                    <FreindPercent>{friend.friend_percent}%</FreindPercent>
                                 </CardName>
                             </Card>
                         ))}

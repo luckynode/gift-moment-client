@@ -4,6 +4,7 @@ import Header from "../components/headers/Header";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import eximg from "../assets/wishlist/example.jpg"
+import { ornamentImages } from '../assets/ornamentImages.ts';
 import Button from "../components/buttons/Button";
 import axios from "axios";
 
@@ -110,7 +111,6 @@ const Card = styled.div`
 
 const CardImg = styled.img`
     border-radius: 50%;
-    background-color: blue;
     width: 50px;
     height: 50px;
 `
@@ -225,12 +225,12 @@ export default function UserWishDetail() {
                     <CongratsTitle>축하해준 친구들</CongratsTitle>
                     <List>
                         {/* map으로 개수만큼 반복 */}
-                        {wishData?.Friends.map((friend) => (
-                            <Card>
-                                <CardImg src={friend.friend_profile}/>
+                        {wishData?.Friends.map((friend, index) => (
+                            <Card key={friend.friend_name}>
+                                <CardImg src={ornamentImages[index % ornamentImages.length]} />
                                 <CardName>
                                     <FriendName>{friend.friend_name}</FriendName>
-                                    <FreindPercent>{friend.friend_percent}%</FreindPercent>
+                                    <FreindPercent>{friend.friend_percent}원</FreindPercent> {/* 3자리마다 콤마 추가 */}
                                 </CardName>
                             </Card>
                         ))}

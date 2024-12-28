@@ -12,7 +12,7 @@ type ButtonProps = {
 
 const StyledButton = styled.button<ButtonProps>`
   width: ${(props) =>
-          props.size === 'small' ? '100px' : props.size === 'medium' ? '150px' : '250px'};
+          props.size === 'small' ? '110px' : props.size === 'medium' ? '150px' : '250px'};
   height: 48px;
   background-color: ${(props) => (props.color === 'black' ? '#000' : '#fff')};
   color: ${(props) => (props.color === 'black' ? '#fff' : '#000')};

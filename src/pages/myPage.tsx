@@ -16,10 +16,10 @@ const Row18 = styled.div`
 
 interface User {
     name: string;
-    birth: string;
+    birth_date: string;
     email: string;
-    bank: string;
-    account: string;
+    bank_code: string;
+    account_number: string;
 }
 
 export default function Mypage() {
@@ -57,10 +57,11 @@ export default function Mypage() {
         const fetchData = async() => {
             try {
                 // TODO accesstoken 설정
-
-                const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/mypage`, {
+                const jwt_token = localStorage.getItem("jwt_token");
+                
+                const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/mypage`, {
                     headers: {
-                        // Authorization: `Bearer ${accessToken}`,
+                        Authorization: `Bearer ${jwt_token}`,
                     },
                 });
                 setUser(response.data.data);
@@ -86,7 +87,7 @@ export default function Mypage() {
                 />
                 <Input 
                     name="birth"
-                    value={user?.birth || '000000'}
+                    value={user?.birth_date || '000000'}
                     type="text"
                     placeholder="생년월일"
                     disabled
@@ -100,14 +101,14 @@ export default function Mypage() {
                 />
                 <Input 
                     name="bank"
-                    value={user?.bank || '숙명은행'}
+                    value={user?.bank_code || '숙명은행'}
                     type="text"
                     placeholder="은행"
                     disabled
                 />
                 <Input 
                     name="account"
-                    value={user?.account || '000000000000'}
+                    value={user?.account_number || '000000000000'}
                     type="text"
                     placeholder="계좌번호"
                     disabled

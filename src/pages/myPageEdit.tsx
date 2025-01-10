@@ -20,14 +20,14 @@ const Leave = styled.div`
     font-size: 18px;
     text-decoration: underline;
 `
-
-
-// TODO data type 확인
+interface ChangedFields {
+    [key: string]: string | undefined;
+}
 
 export default function EditMypage() {
     const [userData, setUserData] = useState({
         name: '김눈송',
-        birth_date: '000000',
+        birth_date: '2000-01-01',
         email: "email@email.com",
         bank: "숙명은행",
         account: '000000000000',
@@ -39,7 +39,6 @@ export default function EditMypage() {
     useEffect(()=> {
         const fetchData = async() => {
             try {
-                // TODO accesstoken 설정
                 const jwt_token = localStorage.getItem("jwt_token");
 
                 const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/mypage`, {
@@ -55,21 +54,39 @@ export default function EditMypage() {
         };
         fetchData();
     }, []);
+    const [changedFields, setChangedFields] = useState<{ [key: string]: any }>({});
 
     const onChange = async (e : React.ChangeEvent<HTMLInputElement>) => {
-        const { target : {name, value}} = e;
+        const { name, value } = e.target;
 
-        setUserData(prevState => ({
-            ...prevState, // 이전 상태를 복사
-            [name]: value, // 변경된 필드 업데이트
-        }));    }
+        setUserData(prevState => {
+            const updatedData = {...prevState, [name]: value};
+
+            // 변경 필드 추적
+            setChangedFields(prevFields => ({
+                ...prevFields,
+                [name]: value,
+            }));
+
+            return updatedData;
+        });
+    }
     
 
     const onSubmit = async (e :  React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
+        const updateData: ChangedFields = {};
+
+        // 변경된 필드 추가
+        for (const key in changedFields) {
+            if(changedFields[key]){
+                updateData[key] = changedFields[key];
+            }
+        }
+
         try {
-            // TODO accesstoken 설정
+            // TODO 주석제거
             const jwt_token = localStorage.getItem("jwt_token");
 
             // await axios.patch(`${import.meta.env.VITE_BACKEND_URL}/api/v1/mypage`,userData, {
@@ -80,7 +97,7 @@ export default function EditMypage() {
             // });
 
             // TEST 콘솔에 데이터 확인
-            console.log(userData);
+            console.log("수정내용:", updateData);
             alert("정보 수정 완료");
             navigate("/mypage");
             
@@ -92,7 +109,6 @@ export default function EditMypage() {
 
     const handleLeave = async () => {
         try {
-            // TODO accesstoken 설정
             const jwt_token = localStorage.getItem("jwt_token");
 
             // TODO 탈퇴 안내 모달 등 논의

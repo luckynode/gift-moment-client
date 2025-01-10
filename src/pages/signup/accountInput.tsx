@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Form, Hug18, Input, SubTitle, Title, Wrapper } from "../../components/SignupComponents";
 import Button from "../../components/buttons/Button";
+import axios from "axios";
 
 interface GetInfoProps {
     onNext: () => void;
@@ -23,7 +24,18 @@ export default function AccountInput({ onNext } : GetInfoProps){
             // test로 콘솔 출력
             console.log(bank, account);
 
+            const jwt_token = localStorage.getItem("jwt_token");
+
             // TODO 서버 axios post
+            axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/auth/account`, {
+                bank_code: bank,
+                account_number: account,
+            }, {
+                headers: {
+                    Authorization: `Bearer ${jwt_token}`,
+                    'Content-Type': 'application/json', // Content-Type 설정
+                }
+            });
 
             onNext();
         } catch (error) {
@@ -52,6 +64,7 @@ export default function AccountInput({ onNext } : GetInfoProps){
                         name="account"
                         value={account}
                         placeholder="계좌번호"
+                        type="number"
                         required
                     />
                     <Button 

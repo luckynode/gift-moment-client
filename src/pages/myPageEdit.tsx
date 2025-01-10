@@ -27,7 +27,7 @@ const Leave = styled.div`
 export default function EditMypage() {
     const [userData, setUserData] = useState({
         name: '김눈송',
-        birth: '000000',
+        birth_date: '000000',
         email: "email@email.com",
         bank: "숙명은행",
         account: '000000000000',
@@ -40,14 +40,15 @@ export default function EditMypage() {
         const fetchData = async() => {
             try {
                 // TODO accesstoken 설정
+                const jwt_token = localStorage.getItem("jwt_token");
 
-                const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/mypage`, {
+                const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/mypage`, {
                     headers: {
-                        // Authorization: `Bearer ${accessToken}`,
+                        Authorization: `Bearer ${jwt_token}`,
                     },
                 });
-                const {name, birth, email, bank, account} = response.data.data; // 데이터 설정
-                setUserData({name, birth, email, bank, account}); // 수정할 데이터 가져오기
+                const {name, birth_date, email, bank, account} = response.data.data; // 데이터 설정
+                setUserData({name, birth_date, email, bank, account}); // 수정할 데이터 가져오기
             } catch (error) {
                 console.error("Fetchdata error : ", error);
             }
@@ -69,10 +70,12 @@ export default function EditMypage() {
 
         try {
             // TODO accesstoken 설정
+            const jwt_token = localStorage.getItem("jwt_token");
 
-            // await axios.patch(`${import.meta.env.VITE_BACKEND_URL}/mypage`,userData, {
+            // await axios.patch(`${import.meta.env.VITE_BACKEND_URL}/api/v1/mypage`,userData, {
             //     headers: {
-            //         // Authorization: `Bearer ${accessToken}`,
+            //         // Authorization: `Bearer ${jwt_token}`,
+                       // 'Content-Type': 'application/json',
             //     },
             // });
 
@@ -90,11 +93,13 @@ export default function EditMypage() {
     const handleLeave = async () => {
         try {
             // TODO accesstoken 설정
+            const jwt_token = localStorage.getItem("jwt_token");
+
             // TODO 탈퇴 안내 모달 등 논의
             
-            await axios.patch(`${import.meta.env.VITE_BACKEND_URL}/auth/leave`, {
+            await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/api/v1/mypage/delete`, {
                 headers: {
-                    // Authorization: `Bearer ${accessToken}`,
+                    Authorization: `Bearer ${jwt_token}`,
                 }
             });
             navigate("/");
@@ -120,7 +125,7 @@ export default function EditMypage() {
                     />
                     <Input 
                         name="birth"
-                        value={userData?.birth || '000000'}
+                        value={userData?.birth_date || '000000'}
                         type="text"
                         placeholder="생년월일"
                         onChange={onChange}
@@ -137,15 +142,15 @@ export default function EditMypage() {
                         value={userData?.bank || '은행'}
                         type="text"
                         placeholder="은행"
-                        onChange={onChange}
+                        disabled
                     />
                     <Input 
                         name="account"
                         value={userData?.account || '계좌번호'}
                         type="text"
                         placeholder="계좌번호"
-                        onChange={onChange}
-                    />
+                        disabled
+                        />
                     <Button 
                         type="submit"
                         text="완료"

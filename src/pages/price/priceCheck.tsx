@@ -71,7 +71,7 @@ interface PriceCheckProps {
 
 export default function PriceCheck({price} : PriceCheckProps) {
     const navigate = useNavigate();
-    const { userId, itemId } = useParams<{ userId: string, itemId: string }>();
+    const { itemId } = useParams<{ itemId: string }>();
     const [wishData, setWishData] = useState<UserWishData>({
         userid: 1,
         name: "김친구",
@@ -84,10 +84,12 @@ export default function PriceCheck({price} : PriceCheckProps) {
     // TODO FetchData 주석 제거 
     useEffect(() => {
         const fetchData = async () => {
+            const jwt_token = localStorage.getItem("jwt_token");
+            const wishlist_id = itemId;
             try {
-                const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/wishlist/${userId}/item/${itemId}/send`,  {
+                const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/wishlists/${wishlist_id}`,  {
                     headers: {
-                        // Authorization: `Bearer ${accessToken}`, // Authorization 헤더에 토큰 포함
+                        Authorization: `Bearer ${jwt_token}`, // Authorization 헤더에 토큰 포함
                     },
                 });
                 setWishData(response.data.data);
@@ -96,7 +98,7 @@ export default function PriceCheck({price} : PriceCheckProps) {
             }
         };
 
-        // fetchData();
+        fetchData();
     }, []);
 
     const onSubmit = async (e : React.FormEvent<HTMLFormElement>) => {
@@ -105,7 +107,14 @@ export default function PriceCheck({price} : PriceCheckProps) {
         try {
             // 테스트로 console 출력
             // string -> number 변환
+
             console.log("가격: ", price);
+            await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/payments/kakao-pay`, {
+                amount: Number(price),
+                gift_id: wishData.item_id,
+            })
+
+            // 결제 완료 무사히 된다면 이동
             navigate("confirm")
         } catch (error) {
             console.error("금액 전송 오류: ", error);
@@ -131,13 +140,13 @@ export default function PriceCheck({price} : PriceCheckProps) {
         <>
             <BackButton />
             <Wrapper>
-                <Subtitle>{wishData?.birth} D-{wishData?.dday}</Subtitle>
-                <Header title={`${wishData?.name}님의 위시아이템`} />
+                <Subtitle>{wishData?.birth || "00월 00일"} D-{wishData?.dday || "0"}</Subtitle>
+                <Header title={`${wishData?.name || "김친구"}님의 위시아이템`} />
                 <Info>
-                    <Img src={wishData?.item_image}/>
+                    <Img src={wishData?.item_image || eximg}/>
                 </Info>
                 <Gap>
-                    <Header title={`${wishData?.name} 님에게 ${Number(price).toLocaleString()}원을`} fontSize="25px"/>
+                    <Header title={`${wishData?.name || "김친구"} 님에게 ${Number(price).toLocaleString()}원을`} fontSize="25px"/>
                     <Header title="송금하시겠습니까?" fontSize="25px"/>
                 </Gap>
                 <Row onSubmit={onSubmit}>

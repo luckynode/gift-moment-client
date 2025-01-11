@@ -108,19 +108,21 @@ export default function EditMypage() {
     }
 
     const handleLeave = async () => {
-        try {
-            const jwt_token = localStorage.getItem("jwt_token");
+        const message = window.confirm("Gift-moment 서비스를 탈퇴하시겠습니까?");
 
-            // TODO 탈퇴 안내 모달 등 논의
-            
-            await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/api/v1/mypage/delete`, {
-                headers: {
-                    Authorization: `Bearer ${jwt_token}`,
-                }
-            });
-            navigate("/");
-        } catch (error) {
-            console.error("Leave Gift-moment Error : ", error);
+        if(message){
+            try {
+                const jwt_token = localStorage.getItem("jwt_token");
+                    
+                await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/api/v1/mypage/delete`, {
+                    headers: {
+                        Authorization: `Bearer ${jwt_token}`,
+                    }
+                });
+                navigate("/");
+            } catch (error) {
+                console.error("Leave Gift-moment Error : ", error);
+            }
         }
     }
 

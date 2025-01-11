@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Title, Wrapper, Input, Hug18 } from "../components/SignupComponents";
+import { Title, Wrapper, Hug18 } from "../components/SignupComponents";
 import Button from "../components/buttons/Button";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -10,6 +10,26 @@ const Row18 = styled.div`
     display: flex;
     flex-direction: row;
     gap: 18px;
+`
+const Input = styled.input`
+    box-sizing: border-box;
+    width: 330px;
+    height: 50px;
+    font-size: 20px;
+    top: 0px;
+
+    background: #FFFFFF;
+    border: 1px solid #C8C8C8;
+    border-radius: 8px;
+
+    padding-left: 15px;
+
+    &:disabled {
+        background: #FFFFFF;
+        color: #000;
+        border-color: #C8C8C8;
+        opacity: 1;
+    }
 `
 
 // TODO data type 확인

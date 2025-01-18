@@ -58,15 +58,15 @@ export default function Mypage() {
 
     const handleLogout = async () => {
         try {
-            // TODO accesstoken 설정
+            const jwt_token = localStorage.getItem("jwt_token");
             
-            await axios.get(`${import.meta.env.VITE_BACKEND_URL}/auth/logout`, {
+            await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/auth/logout`, {
                 headers: {
-                    // Authorization: `Bearer ${accessToken}`,
+                    Authorization: `Bearer ${jwt_token}`,
                 }
             });
 
-            // TODO accessToken, refrestToken 제거
+            localStorage.removeItem("jwt_token");
             navigate("/");
         } catch (error) {
             console.error("Logout Error : ", error);

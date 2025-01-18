@@ -143,8 +143,8 @@ export default function EditMypage() {
                     />
                     <Input 
                         name="birth"
-                        value={userData?.birth_date || '000000'}
-                        type="text"
+                        value={userData?.birth_date || '2000-01-01'}
+                        type="date"
                         placeholder="생년월일"
                         onChange={onChange}
                     />

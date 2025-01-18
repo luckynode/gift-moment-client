@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Form, Hug18, Input, SubTitle, Title, Wrapper } from "../../components/SignupComponents";
 import Button from "../../components/buttons/Button";
 import axios from "axios";
+import BankCompo from "../../components/BankCompo";
 
 interface GetInfoProps {
     onNext: () => void;
@@ -11,7 +12,7 @@ export default function AccountInput({ onNext } : GetInfoProps){
     const [bank, setBank] = useState("");
     const [account, setAccount] = useState("");
     
-    const onChange = async(e : React.ChangeEvent<HTMLInputElement>) => {
+    const onChange = async(e : React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
         const { target : {name, value}} = e;
 
         if (name === "bank") setBank(value);
@@ -29,7 +30,7 @@ export default function AccountInput({ onNext } : GetInfoProps){
             // TODO 서버 axios post
             axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/auth/account`, {
                 bank_code: bank,
-                account_number: account,
+                account_number: Number(account),
             }, {
                 headers: {
                     Authorization: `Bearer ${jwt_token}`,
@@ -52,18 +53,12 @@ export default function AccountInput({ onNext } : GetInfoProps){
             <Form onSubmit={onSubmit}>
                 <Hug18>
                     {/* TODO type 확인 */}
-                    <Input
-                        onChange={onChange}
-                        name="bank"
-                        value={bank}
-                        placeholder="은행"
-                        required
-                    />
+                    <BankCompo value={bank} onchange={onChange} />
                     <Input
                         onChange={onChange}
                         name="account"
                         value={account}
-                        placeholder="계좌번호"
+                        placeholder="계좌번호 (숫자만)"
                         type="number"
                         required
                     />

@@ -13,9 +13,6 @@ export default function GetInfo({ onNext } : GetInfoProps) {
     const [birth, setBirth] = useState("");
 
     useEffect(() => {
-        // 토큰 설정 추가
-        // TODO 서버 토큰 header
-
         const fetchData = async () => {
             try {
                 const jwt_token = localStorage.getItem("jwt_token");
@@ -54,14 +51,21 @@ export default function GetInfo({ onNext } : GetInfoProps) {
             // 테스트로 console 출력
             console.log(name, birth, email);
 
-            // TODO 주석 제거
-            // await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/auth/profile`, {
-            //     name: name,
-            //     birth_date: birth,
-            //     email: email,
-            // });
+            const jwt_token = localStorage.getItem("jwt_token");
 
-            // 정보입력 팝업?
+            // TODO 주석 제거
+            /* */
+            await axios.patch(`${import.meta.env.VITE_BACKEND_URL}/api/v1/auth/profile`, {
+                name: name,
+                birth_date: birth,
+                email: email,
+            }, {
+                headers: {
+                    Authorization: `Bearer ${jwt_token}`,
+                    'Content-Type': 'application/json', // Content-Type 설정
+                }
+            });
+
             onNext();
         } catch (error) {
             console.error("회원가입 오류 : ", error);

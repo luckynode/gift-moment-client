@@ -24,14 +24,22 @@ interface ChangedFields {
     [key: string]: string | undefined;
 }
 
+interface User {
+    name: string;
+    birth_date: string;
+    email: string;
+    bank_code: string;
+    account_number: number;
+}
+
 export default function EditMypage() {
-    const [userData, setUserData] = useState({
-        name: '김눈송',
-        birth_date: '2000-01-01',
-        email: "email@email.com",
-        bank: "숙명은행",
-        account: '000000000000',
-    })
+    const [user, setUser] = useState<User>({
+        name: '',
+        birth_date: '',
+        email: "",
+        bank_code: "",
+        account_number: 0,
+    });
 
 
     const navigate = useNavigate();
@@ -46,20 +54,21 @@ export default function EditMypage() {
                         Authorization: `Bearer ${jwt_token}`,
                     },
                 });
-                const {name, birth_date, email, bank, account} = response.data.data; // 데이터 설정
-                setUserData({name, birth_date, email, bank, account}); // 수정할 데이터 가져오기
+                const {name, birth_date, email, bank_code, account_number} = response.data.data; // 데이터 설정
+                setUser({name, birth_date, email, bank_code, account_number}); // 수정할 데이터 가져오기
             } catch (error) {
                 console.error("Fetchdata error : ", error);
             }
         };
         fetchData();
     }, []);
+
     const [changedFields, setChangedFields] = useState<{ [key: string]: any }>({});
 
     const onChange = async (e : React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
 
-        setUserData(prevState => {
+        setUser(prevState => {
             const updatedData = {...prevState, [name]: value};
 
             // 변경 필드 추적
@@ -89,12 +98,12 @@ export default function EditMypage() {
             // TODO 주석제거
             const jwt_token = localStorage.getItem("jwt_token");
 
-            // await axios.patch(`${import.meta.env.VITE_BACKEND_URL}/api/v1/mypage`,userData, {
-            //     headers: {
-            //         // Authorization: `Bearer ${jwt_token}`,
-                       // 'Content-Type': 'application/json',
-            //     },
-            // });
+            await axios.patch(`${import.meta.env.VITE_BACKEND_URL}/api/v1/mypage`,updateData, {
+                headers: {
+                    Authorization: `Bearer ${jwt_token}`,
+                    'Content-Type': 'application/json',
+                },
+            });
 
             // TEST 콘솔에 데이터 확인
             console.log("수정내용:", updateData);
@@ -119,6 +128,7 @@ export default function EditMypage() {
                         Authorization: `Bearer ${jwt_token}`,
                     }
                 });
+                localStorage.removeItem("jwt_token");
                 navigate("/");
             } catch (error) {
                 console.error("Leave Gift-moment Error : ", error);
@@ -136,35 +146,35 @@ export default function EditMypage() {
                     {/* TODO 수정 가능 요소들 확인 후 disabled 예정 */}
                     <Input 
                         name="name"
-                        value={userData?.name || '이름'}
+                        value={user?.name}
                         type="text"
                         placeholder="이름"
                         onChange={onChange}
                     />
                     <Input 
                         name="birth"
-                        value={userData?.birth_date || '2000-01-01'}
+                        value={user?.birth_date || '2000-01-01'}
                         type="date"
                         placeholder="생년월일"
                         onChange={onChange}
                     />
                     <Input 
                         name="email"
-                        value={userData?.email || 'email@email.com'}
+                        value={user?.email}
                         type="email"
                         placeholder="이메일"
                         onChange={onChange}
                     />
                     <Input 
                         name="bank"
-                        value={userData?.bank || '은행'}
+                        value={user?.bank_code}
                         type="text"
                         placeholder="은행"
                         disabled
                     />
                     <Input 
                         name="account"
-                        value={userData?.account || '계좌번호'}
+                        value={user?.account_number}
                         type="text"
                         placeholder="계좌번호"
                         disabled

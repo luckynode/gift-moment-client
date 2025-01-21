@@ -19,16 +19,15 @@ export default function Mywish() {
     useEffect(()=> {
         const fetchData = async() => {
             try {
-                // TODO accessToken 가져오기, url 재확인
-
-                const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/mywish`, {
+                const jwt_token = localStorage.getItem("jwt_token");
+                const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/auth/navigate`, {
                     headers: {
-                        // Authorization: `Bearer ${accessToken}`
+                        Authorization: `Bearer ${jwt_token}`
                     },
                 });
                 setName(response.data.data.name);
                 setBirthday(response.data.data.birthday);
-                setIsBirthday(response.data.data.isBirthday); // 생일 여부 설정
+                setIsBirthday(response.data.data.isBirthday); // TODO 변수명 확인인
             } catch (error) {
                 console.error("Fetch data error : ", error);
             }
@@ -47,7 +46,7 @@ export default function Mywish() {
             <Wrapper>
                 <Mascot src={mascot} />
                 <Title>{name || "김이름"}님!</Title>
-                <Title>00월 00일 생일을</Title>
+                <Title>{birthday || "00월 00일"} 생일을</Title>
                 <Title>진심으로 축하드립니다 ♥</Title>
                 <Hug18>
                     {buttons.map((button, index) => (

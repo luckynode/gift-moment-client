@@ -32,51 +32,21 @@ const Input = styled.input`
     }
 `
 
-// TODO data type 확인
-
 interface User {
     name: string;
     birth_date: string;
     email: string;
     bank_code: string;
-    account_number: string;
+    account_number: number;
 }
 
 export default function Mypage() {
-    // 값 불러올 때 초기값 설정
-    // const [user, setUser] = useState<User>({
-    //     name: '이름',
-    //     birth: '0',
-    //     email: "email",
-    //     bank: "bank",
-    //     account: '0',
-    // })
-
     const [user, setUser] = useState<User | null>(null); // 초기값을 null로 설정
-
     const navigate = useNavigate();
-
-    const handleLogout = async () => {
-        try {
-            const jwt_token = localStorage.getItem("jwt_token");
-            
-            await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/auth/logout`, {
-                headers: {
-                    Authorization: `Bearer ${jwt_token}`,
-                }
-            });
-
-            localStorage.removeItem("jwt_token");
-            navigate("/");
-        } catch (error) {
-            console.error("Logout Error : ", error);
-        }
-    }
 
     useEffect(()=> {
         const fetchData = async() => {
             try {
-                // TODO accesstoken 설정
                 const jwt_token = localStorage.getItem("jwt_token");
                 
                 const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/mypage`, {
@@ -92,6 +62,20 @@ export default function Mypage() {
         fetchData();
     }, []);
 
+    const handleLogout = async () => {
+        if (window.confirm("정말 로그아웃하시겠습니까?")) {
+            try {            
+                await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/auth/logout`, {});
+    
+                localStorage.removeItem("jwt_token");
+                alert("로그아웃 되었습니다.");
+                navigate("/");
+            } catch (error) {
+                console.error("Logout Error : ", error);
+            }   
+        }
+    }
+
     return(
         <>
         <BackButton />
@@ -100,35 +84,35 @@ export default function Mypage() {
             <Hug18>
                 <Input 
                     name="name"
-                    value={user?.name || '김눈송'}
+                    value={user?.name}
                     type="text"
                     placeholder="이름"
                     disabled
                 />
                 <Input 
                     name="birth"
-                    value={user?.birth_date || '000000'}
+                    value={user?.birth_date}
                     type="text"
                     placeholder="생년월일"
                     disabled
                 />
                 <Input 
                     name="email"
-                    value={user?.email || 'email@email.com'}
+                    value={user?.email}
                     type="email"
                     placeholder="이메일"
                     disabled
                 />
                 <Input 
                     name="bank"
-                    value={user?.bank_code || '숙명은행'}
+                    value={user?.bank_code}
                     type="text"
                     placeholder="은행"
                     disabled
                 />
                 <Input 
                     name="account"
-                    value={user?.account_number || '000000000000'}
+                    value={user?.account_number}
                     type="text"
                     placeholder="계좌번호"
                     disabled

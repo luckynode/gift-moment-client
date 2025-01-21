@@ -20,25 +20,29 @@ const OAuth = () => {
     useEffect(() => {
         const fetchOAuthData = async (code: string) => {
             console.log("Received authorization code from URL:", code); // 인가 코드 출력
-            navigate("/");
+/* */
+            try {
+                const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/auth/kakao`, {
+                    accessToken: code,
+                });
 
-            // try {
-            //     const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/auth/kakao`, {
-            //         code: code,
-            //     });
+                const { token, name, email, isExistingUser } = response.data.data; // 응답에서 토큰 추출
 
-            //     const { accessToken, refreshToken } = response.data.data; // 응답에서 토큰 추출
+                // 토큰 저장
+                localStorage.setItem("jwt_token", token);
+                localStorage.setItem("name", name);
+                localStorage.setItem("email", email);
+                
+                // 회원 유무 확인
+                if(isExistingUser){
+                    navigate("/mywish");
+                } else {
+                    navigate("/signup");
+                }
 
-            //     // 토큰 저장
-            //     localStorage.setItem("accessToken", accessToken);
-            //     localStorage.setItem("refreshToken", refreshToken);
-
-            //     // 로그인 성공 후 페이지 이동
-            //     // 정보입력 또는 선물 #7 페이지로 이동
-            //     navigate("/home");
-            // } catch (error) {
-            //     console.error("Error occurred while fetching OAuth data:", error);
-            // }
+            } catch (error) {
+                console.error("Error occurred while fetching OAuth data:", error);
+            }
         };
 
         // 인가 코드가 존재할 경우에만 요청

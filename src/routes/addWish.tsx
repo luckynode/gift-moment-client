@@ -8,6 +8,10 @@ import {useNavigate} from "react-router-dom";
 import WishImg from "../assets/wishlist/wish_img_input.svg";
 import {useEffect} from "react";
 import cameraIcon from "../assets/wishlist/wish_img_modify.svg";
+import "react-toastify/dist/ReactToastify.css";
+import {addWishlistItem} from "../apis/wishItemApi.ts";
+import {toast} from "react-toastify";
+
 
 const Wrapper = styled.div`
   display: flex;
@@ -229,7 +233,7 @@ const AddWish = () => {
     };
 
 
-    const onSubmit = useCallback((e: React.FormEvent<HTMLFormElement>) => {
+    const onSubmit = useCallback(async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (!wishImage) {
             setWishImageError(true);
@@ -268,15 +272,26 @@ const AddWish = () => {
 
 
         try {
-            // TODO 나중에 숫자만 서버에 전송하기 위해 콤마 제거
-            console.log("Formatted Price:", wishPrice.replace(/,/g, ""));
-            console.log(wishName, wishLink, setWishDescriptionError);
-            navigate("/wishlist/add/confirm");
-            // TODO: 서버 axios post
+            const response = await addWishlistItem({
+                title: wishName,
+                image: "image.png", // TODO 실제 첨부 파일 전송으로 변경
+                price: parseInt(wishPrice.replace(/,/g, ""), 10), // 숫자로 변환
+                link: wishLink,
+                description: wishDescription,
+            });
+
+            console.log(response.data);
+
+            if (response.status === 'success') {
+                navigate("/wishlist/add/confirm");
+            } else {
+                console.log(response.message);
+            }
         } catch (error) {
-            console.error("정보 제출 오류 : ", error);
+            console.error("위시리스트 추가 중 오류 발생:", error);
+            alert("위시리스트 추가 중 오류가 발생했습니다.");
         }
-    }, [wishImage, navigate]);
+    }, [wishName, wishPrice, wishLink, wishDescription, wishImage, navigate]);
 
     return (
         <Wrapper>
@@ -303,7 +318,7 @@ const AddWish = () => {
                             placeholder="선물명"
                             error={wishNameError} // error 상태 전달
                             onFocus={() => handleFocus(setWishNameError)} // focus 시 에러 초기화
-                            onChange={(e) => handleInputChange(setWishName, 20, setWishNameError)}
+                            onChange={handleInputChange(setWishName, 20, setWishNameError)}
                         />
                         {wishNameError && <ErrorMessage>선물 이름을 입력해주세요!</ErrorMessage>}
                     </InputContainer>
@@ -329,7 +344,7 @@ const AddWish = () => {
                             placeholder="선물 링크"
                             error={wishLinkError} // error 상태 전달
                             onFocus={() => handleFocus(setWishLinkError)} // focus 시 에러 초기화
-                            onChange={(e) => handleInputChange(setWishLink, 2000, setWishLinkError)}
+                            onChange={handleInputChange(setWishLink, 2000, setWishLinkError)}
                         />
                         {wishLinkError && <ErrorMessage>구매하려는 선물 링크를 입력해주세요!</ErrorMessage>}
                     </InputContainer>
@@ -341,7 +356,7 @@ const AddWish = () => {
                             placeholder="선물 소개"
                             error={wishDescriptionError} // error 상태 전달
                             onFocus={() => handleFocus(setWishDescriptionError)} // focus 시 에러 초기화
-                            onChange={(e) => handleInputChange(setWishDescription, 100, setWishDescriptionError)}
+                            onChange={handleInputChange(setWishDescription, 100, setWishDescriptionError)}
                         />
                         {wishDescriptionError && <ErrorMessage>선물에 대해 간략히 설명해주세요️!</ErrorMessage>}
                     </InputContainer>

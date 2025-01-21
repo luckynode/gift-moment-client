@@ -108,32 +108,20 @@ export default function PriceCheck({price} : PriceCheckProps) {
             // 테스트로 console 출력
             // string -> number 변환
 
-            console.log("가격: ", price);
-            await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/payments/kakao-pay`, {
+            console.log(price, itemId);
+            const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/payments/kakao-pay`, {
                 amount: Number(price),
                 gift_id: wishData.item_id,
-            })
+            });
 
-            // 결제 완료 무사히 된다면 이동
-            navigate("confirm")
+            const {tid, next_redirect_pc_url, next_redirect_mobile_url} = response.data.data;
+
+            localStorage.setItem("tid", tid);
+            window.location.href = next_redirect_pc_url;
+            // window.location.href = next_redirect_mobile_url;
         } catch (error) {
             console.error("금액 전송 오류: ", error);
         }
-
-        /*
-        // TODO 서버 axios post.
-            try {
-                await axios.post(`${import.meta.env.VITE_BACKEND_URL}/wishlist/${userId}/item/${itemId}/send`,
-                    { price: price },
-                )
-
-                // TODO 실제 결제 페이지 이동
-
-                console.log("금액 전송 : ", price);
-            } catch (error) {
-                console.error("금액 전송 오류: ", error);
-            }
-        */
     }
     
     return (

@@ -160,7 +160,7 @@ const AddWish = () => {
     const [wishDescriptionError, setWishDescriptionError] = useState(false);
     const [wishImage, setWishImage] = useState<File | null>(null);
     const [wishImageError, setWishImageError] = useState(false);
-    const fileInputRef = useRef<HTMLInputElement>(null);
+    const fileInputRef = useRef<HTMLInputElement | null>(null);
 
     // 이미지 URL 메모화
     const imageUrl = useMemo(() => {
@@ -184,10 +184,11 @@ const AddWish = () => {
 
     const openFilePicker = () => {
         if (fileInputRef.current) {
-            fileInputRef.current.click();
+            if ("click" in fileInputRef.current) {
+                fileInputRef.current.click();
+            }
         }
     };
-
     const handleFocus = (setter: (value: boolean) => void) => {
         setter(false); // 에러 상태 초기화
     };

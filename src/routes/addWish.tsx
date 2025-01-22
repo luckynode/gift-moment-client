@@ -47,13 +47,13 @@ export const TextArea = styled.textarea`
 `;
 
 const CustomInput = styled(Input)`
-  border: 1px solid ${(props) => (props.error ? 'red' : '#C8C8C8')};
+  border: 1px solid ${(props: { hasError?: boolean }) => (props.hasError ? 'red' : '#ddd')};
 `;
 
 const PriceInput = styled(Input)`
   padding-right: 50px;
   text-align: right; /* 선물 가격만 오른쪽 정렬하기 */
-  border: 1px solid ${(props) => (props.error ? 'red' : '#C8C8C8')};
+  border: 1px solid ${(props: { hasError?: boolean }) => (props.hasError ? 'red' : '#C8C8C8')};
 
   &::placeholder {
     text-align: left; /* placeholder는 그대로 왼쪽 정렬 */
@@ -95,7 +95,7 @@ const PriceInputWrapper = styled.div`
   align-items: center;
 `;
 
-const ImageUploadWrapper = styled.div<{ image?: string }>`
+const ImageUploadWrapper = styled.div<{ thumbnail?: string }>`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -105,7 +105,7 @@ const ImageUploadWrapper = styled.div<{ image?: string }>`
   border-radius: 8px;
   width: 220px;
   height: 150px;
-  background-image: url(${(props) => props.image});
+  background-image: url(${(props: { thumbnail: string }) => props.thumbnail});
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
@@ -300,7 +300,7 @@ const AddWish = () => {
             <Form onSubmit={onSubmit}>
                 <Info>
                     <FileInputContainer>
-                        <ImageUploadWrapper image={imageUrl} onClick={openFilePicker}>
+                        <ImageUploadWrapper thumbnail={imageUrl} onClick={openFilePicker}>
                             <HiddenInput
                                 ref={fileInputRef}
                                 type="file"
@@ -316,7 +316,7 @@ const AddWish = () => {
                             value={wishName}
                             type="text"
                             placeholder="선물명"
-                            error={wishNameError} // error 상태 전달
+                            hasError={wishNameError} // error 상태 전달
                             onFocus={() => handleFocus(setWishNameError)} // focus 시 에러 초기화
                             onChange={handleInputChange(setWishName, 20, setWishNameError)}
                         />
@@ -329,7 +329,7 @@ const AddWish = () => {
                                 value={wishPrice}
                                 type="text"
                                 placeholder="선물 가격"
-                                error={wishPriceError} // error 상태 전달
+                                hasError={wishPriceError} // error 상태 전달
                                 onFocus={() => handleFocus(setWishPriceError)} // focus 시 에러 초기화
                                 onChange={handlePriceChange}/>
                             <CurrencyLabel>원</CurrencyLabel>
@@ -342,7 +342,7 @@ const AddWish = () => {
                             value={wishLink}
                             type="text"
                             placeholder="선물 링크"
-                            error={wishLinkError} // error 상태 전달
+                            hasError={wishLinkError} // error 상태 전달
                             onFocus={() => handleFocus(setWishLinkError)} // focus 시 에러 초기화
                             onChange={handleInputChange(setWishLink, 2000, setWishLinkError)}
                         />

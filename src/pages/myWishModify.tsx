@@ -83,7 +83,7 @@ const InputContainer = styled.div`
 `;
 
 const CustomInput = styled(Input)`
-  border: 1px solid ${(props) => (props.error ? 'red' : '#ddd')};
+  border: 1px solid ${(props: { hasError?: boolean }) => (props.hasError ? 'red' : '#ddd')};
 `;
 
 const FileInputContainer = styled.div`
@@ -92,7 +92,7 @@ const FileInputContainer = styled.div`
   gap: 5px; /* 입력 필드와 오류 메시지 간격 */
 `;
 
-const ImageUploadWrapper = styled.div<{ image?: string }>`
+const ImageUploadWrapper = styled.div<{ thumbnail?: string }>`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -102,7 +102,7 @@ const ImageUploadWrapper = styled.div<{ image?: string }>`
   border-radius: 8px;
   width: 300px;
   height: 300px;
-  background-image: url(${(props) => props.image});
+  background-image: url(${(props: { thumbnail: string }) => props.thumbnail});
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
@@ -300,7 +300,7 @@ const MyWishModify = () => {
                 <Header title={`${wishData?.name}님의 위시아이템`}/>
                 <Info>
                     <FileInputContainer>
-                        <ImageUploadWrapper image={wishImageUrl} onClick={openFilePicker}>
+                        <ImageUploadWrapper thumbnail={wishImageUrl} onClick={openFilePicker}>
                             <HiddenInput
                                 ref={fileInputRef}
                                 type="file"
@@ -320,7 +320,7 @@ const MyWishModify = () => {
                             value={wishLink}
                             type="text"
                             placeholder="선물 링크"
-                            error={wishLinkError} // 에러 상태 전달
+                            hasError={wishLinkError} // 에러 상태 전달
                             onFocus={() => handleFocus(setWishLinkError)} // 에러 초기화
                             onChange={handleInputChange(setWishLink, 2000, setWishLinkError)}
                         />

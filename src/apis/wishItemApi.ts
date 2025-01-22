@@ -51,3 +51,17 @@ export const modifyWishItem = async (
     );
     return response.data;
 }
+
+export const deleteWishItem = async (
+    itemId: number
+): Promise<ApiResponse<{}>> => {
+    const response: AxiosResponse<ApiResponse<{}>> = await axios.delete(
+        `${BASE_URL}/api/v1/wishlists/${itemId}`,
+        {
+            headers: {
+                Authorization: `Bearer ${jwt_token}`,
+            },
+        }
+    );
+    return response.data;
+}

@@ -11,7 +11,7 @@ import {WishInput} from "./myWishDetail.tsx";
 import WishImgDetail from "../assets/wishlist/wish_img_detail.svg";
 import MyWishDeleteConfirm from "../routes/myWishDeleteConfirm.tsx";
 import cameraIcon from "../assets/wishlist/wish_img_modify.svg";
-import {getWishItem, modifyWishItem} from "../apis/wishItemApi.ts";
+import {deleteWishItem, getWishItem, modifyWishItem} from "../apis/wishItemApi.ts";
 
 const WishDisabledInput = styled(WishInput)`
   background: #EEE2E2;
@@ -175,11 +175,24 @@ const MyWishModify = () => {
         setter(false); // 에러 상태 초기화
     };
 
-    const handleDeleteConfirm = () => {
-        console.log("삭제 확인 버튼 클릭");
-        // TODO: 삭제 API 호출
-        setIsModalOpen(false);
-        navigate("/wishlist");
+    const handleDeleteConfirm = async () => {
+        try {
+            if (!itemId) {
+                console.error("itemId가 없습니다.");
+                return;
+            }
+            const response = await deleteWishItem(Number(itemId));
+            if (response.status === 'success') {
+                console.log(response.message); // 성공 메시지 출력
+                setIsModalOpen(false); // 모달 닫기
+                navigate("/wishlist");
+            } else {
+                console.error("위시리스트 삭제 실패:", response.message);
+            }
+        } catch (error) {
+            console.error("위시리스트 삭제 중 오류 발생:", error);
+            alert("위시리스트 삭제 중 오류가 발생했습니다.");
+        }
     };
 
     const handleDeleteCancel = () => {
@@ -204,16 +217,6 @@ const MyWishModify = () => {
                 errorSetter(false);
             }
         };
-    };
-
-    const handleDelete = async () => {
-        try {
-            // TODO 삭제 axios 요청
-            // 삭제 후 목록 페이지로 리디렉션
-            navigate("/wishlist");
-        } catch (error) {
-            console.error("삭제 오류: ", error);
-        }
     };
 
     // FIXME AddWish.tsx와 공통된 부분 함수로 묶어서 사용하기
@@ -244,12 +247,11 @@ const MyWishModify = () => {
             return;
         }
 
-        if (!itemId) {
-            console.error("itemId가 없습니다.");
-            return;
-        }
-
         try {
+            if (!itemId) {
+                console.error("itemId가 없습니다.");
+                return;
+            }
             console.log("수정된 데이터는?:", {wishImageUrl, wishLink, wishDescription});
             const response = await modifyWishItem(Number(itemId), {
                 image: wishImageUrl, // TODO: 이미지 파일로 변경 (wishImage)

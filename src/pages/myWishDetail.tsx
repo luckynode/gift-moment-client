@@ -1,3 +1,4 @@
+import {useEffect} from "react";
 import BackButton from "../components/buttons/BackButton.tsx";
 import Header from "../components/headers/Header.tsx";
 import styled from "styled-components";
@@ -5,7 +6,9 @@ import {useNavigate, useParams} from "react-router-dom";
 import {useState} from "react";
 import eximg from "../assets/wishlist/example.jpg";
 import Button from "../components/buttons/Button.tsx";
-import { ornamentImages } from '../assets/ornamentImages.ts';
+import {ornamentImages} from '../assets/ornamentImages.ts';
+import {getWishItem} from '../apis/wishItemApi.ts';
+import {GetWishResponse} from "../types/api/wishItem.ts";
 
 const List = styled.div`
   display: flex;
@@ -16,23 +19,23 @@ const List = styled.div`
   gap: 15px;
 `
 export const WishInput = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 
-    width: 330px;
-    min-height: 50px;
-    box-sizing: border-box;
-    padding: 10px;
+  width: 330px;
+  min-height: 50px;
+  box-sizing: border-box;
+  padding: 10px;
 
-    font-size: 20px;
-    font-family: 'Lato';
-    font-weight: 500;
+  font-size: 20px;
+  font-family: 'Lato';
+  font-weight: 500;
 
-    background: #FFFFFF;
-    border: 1px solid #C8C8C8;
-    border-radius: 8px;
+  background: #FFFFFF;
+  border: 1px solid #C8C8C8;
+  border-radius: 8px;
 `
 
 const Card = styled.div`
@@ -113,63 +116,56 @@ const LinkText = styled.a`
 `;
 
 const Wrapper = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* 수직가운데 */
-    justify-content: flex-start;
-    padding-top: 70px;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* 수직가운데 */
+  justify-content: flex-start;
+  padding-top: 70px;
 `
 
 const Subtitle = styled.div`
-    font-size: 25px;
-    font-family: 'Lato';
-    color: transparent;
-    display: inline-block;
-    background: linear-gradient(to bottom, #924C57 0%, #B62F45 30%, #B72F54 60%, #924C57 100%); /* 중앙만 살짝 연하게 */
-    background-clip: text;
+  font-size: 25px;
+  font-family: 'Lato';
+  color: transparent;
+  display: inline-block;
+  background: linear-gradient(to bottom, #924C57 0%, #B62F45 30%, #B72F54 60%, #924C57 100%); /* 중앙만 살짝 연하게 */
+  background-clip: text;
 `
-
-// TODO 추후 api명세서에 따라 수정
-interface MyWishDetailData {
-    userid: number;
-    name: string;
-    birth: string;
-    dday: number;
-    item_id: number;
-    item_image: string;
-    item_name: string;
-    item_price: number;
-    item_link: string;
-    item_info: string;
-    Friends: Array<{
-        friend_profile: string;
-        friend_name: string;
-        friend_price: number;
-    }>
-}
 
 const MyWishDetail = () => {
     const navigate = useNavigate();
     const {itemId} = useParams<{ itemId: string }>();
-    const [wishData, setWishData] = useState<MyWishDetailData>({
-        userid: 1,
-        name: "김유저",
-        birth: "00월 00일",
-        dday: 0,
-        item_id: 1,
-        item_image: eximg,
-        item_name: "아이폰1",
-        item_price: 1000000,
-        item_link: "https://www.apple.com/kr/",
-        item_info: "선물 소개란입니다.",
-        Friends: [
-            {friend_profile: "", friend_name: "친구1", friend_price: 220000},
-            {friend_profile: "", friend_name: "친구2", friend_price: 50000},
-            {friend_profile: "", friend_name: "친구3", friend_price: 55000},
-            {friend_profile: "", friend_name: "친구4", friend_price: 50000},
-            {friend_profile: "", friend_name: "친구5", friend_price: 70000},
-        ]
-    });
+
+    const [wishData, setWishData] = useState<GetWishResponse | null>(null);
+
+    // 데이터 가져오기
+    useEffect(() => {
+        if (!itemId) {
+            console.error("itemId가 없습니다.");
+            return;
+        }
+
+        const fetchWishItem = async () => {
+            if (!itemId) return;
+            try {
+                const response = await getWishItem(Number(itemId));
+                if (response.status === 'success') {
+                    // console.log("위시아이템 응답 데이터:", response.data[0]);
+                    setWishData(response.data[0]);
+                } else {
+                    console.error("API 응답 에러:", response.message);
+                }
+            } catch (error) {
+                console.error("데이터 가져오기 실패:", error);
+            }
+        };
+
+        fetchWishItem();
+    }, [itemId]);
+
+    useEffect(() => {
+        console.log("wishData 상태 변경됨:", wishData);
+    }, [wishData]);
 
     return (
         <>
@@ -178,27 +174,28 @@ const MyWishDetail = () => {
                 <Subtitle>{wishData?.birth} D-{wishData?.dday}</Subtitle>
                 <Header title={`${wishData?.name}님의 위시아이템`}/>
                 <Info>
-                    <Img src={wishData?.item_image}/>
-                    <WishInput>{wishData?.item_name}</WishInput>
-                    <WishInput>{wishData?.item_price.toLocaleString()} 원</WishInput>
+                    <Img src={wishData?.gift?.image}/>
+                    <WishInput>{wishData?.gift?.title}</WishInput>
+                    <WishInput>{wishData?.gift?.price ? Number(wishData.gift.price).toLocaleString() : "0"}원</WishInput>
                     <WishInput>
-                        <LinkText href={wishData?.item_link}>
-                            {wishData?.item_link}
+                        <LinkText href={wishData?.gift?.link}>
+                            {wishData?.gift?.link}
                         </LinkText>
                     </WishInput>
-                    <WishInput>{wishData?.item_info}</WishInput>
+                    <WishInput>{wishData?.gift?.description}</WishInput>
                 </Info>
-                <Button type="button" text="편집" size="small" color="white" onClick={() => {navigate(`/wishlist/item/${itemId}/modify`)}} />
+                <Button type="button" text="편집" size="small" color="white" onClick={() => {
+                    navigate(`/wishlist/item/${itemId}/modify`)
+                }}/>
                 <Congrats>
                     <CongratsTitle>축하해준 친구들</CongratsTitle>
                     <List>
-                        {/* map으로 개수만큼 반복 */}
-                        {wishData?.Friends.map((friend, index) => (
-                            <Card key={friend.friend_name}>
-                                <CardImg src={ornamentImages[index % ornamentImages.length]} />
+                        {wishData?.gift?.payments.map((payment, index) => (
+                            <Card key={payment.name}>
+                                <CardImg src={ornamentImages[index % ornamentImages.length]}/>
                                 <CardName>
-                                    <FriendName>{friend.friend_name}</FriendName>
-                                    <FreindPercent>{friend.friend_price.toLocaleString()}원</FreindPercent> {/* 3자리마다 콤마 추가 */}
+                                    <FriendName>{payment.name}</FriendName>
+                                    <FreindPercent>{payment.amount ? Number(payment.amount).toLocaleString() : "0"}원</FreindPercent> {/* 3자리마다 콤마 추가 */}
                                 </CardName>
                             </Card>
                         ))}

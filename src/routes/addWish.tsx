@@ -9,7 +9,7 @@ import WishImg from "../assets/wishlist/wish_img_input.svg";
 import {useEffect} from "react";
 import cameraIcon from "../assets/wishlist/wish_img_modify.svg";
 import "react-toastify/dist/ReactToastify.css";
-import {addWishlistItem} from "../apis/wishItemApi.ts";
+import {addWishItem} from "../apis/wishItemApi.ts";
 import {toast} from "react-toastify";
 
 
@@ -272,7 +272,7 @@ const AddWish = () => {
 
 
         try {
-            const response = await addWishlistItem({
+            const response = await addWishItem({
                 title: wishName,
                 image: "image.png", // TODO 실제 첨부 파일 전송으로 변경
                 price: parseInt(wishPrice.replace(/,/g, ""), 10), // 숫자로 변환

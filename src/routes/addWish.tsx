@@ -176,8 +176,9 @@ const AddWish = () => {
     }, [wishImage, imageUrl]);
 
     const handleImageUpload = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-        if (e.target.files && e.target.files[0]) {
-            setWishImage(e.target.files[0]);
+        const files = e.target.files;
+        if (files && files[0]) {
+            setWishImage(files[0]);
             setWishImageError(false); // 에러 초기화
         }
     }, []);

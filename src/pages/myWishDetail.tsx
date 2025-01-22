@@ -185,7 +185,7 @@ const MyWishDetail = () => {
                     <WishInput>{wishData?.gift?.description}</WishInput>
                 </Info>
                 <Button type="button" text="편집" size="small" color="white" onClick={() => {
-                    navigate(`/wishlist/item/${itemId}/modify`)
+                    navigate(`/wishlist/item/${itemId}/modify`,{ state: { wishData }})
                 }}/>
                 <Congrats>
                     <CongratsTitle>축하해준 친구들</CongratsTitle>

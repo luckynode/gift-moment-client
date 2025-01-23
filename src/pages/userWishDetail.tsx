@@ -194,7 +194,20 @@ export default function UserWishDetail() {
         };
 
         // fetchData();
-    }, [])
+    }, []);
+
+    const onLikeClick = async () => {
+        const jwt_token = localStorage.getItem("jwt_token");
+        if(!jwt_token) {
+            const result = window.confirm("로그인이 필요한 서비스입니다. 로그인 페이지로 이동합니다.");
+            if(result) {
+                localStorage.setItem("redirect_url", `${window.location.href}/send`);
+                navigate(`/login`);
+            }
+        } else {
+            navigate(`send`);
+        }
+    }
 
     return (
         <>
@@ -215,7 +228,8 @@ export default function UserWishDetail() {
                 </Info>
                 <Header title={`${wishData?.name} 님에게 선물하기`} fontSize="25px"/>
                 <CheckBtn>
-                    <Button text="좋아요!" size="small" color="black" onClick={() => {navigate("send")}}/>
+                    {/* 로그인 여부 확인 */}
+                    <Button text="좋아요!" size="small" color="black" onClick={() => {onLikeClick()}}/>
                     <Button text="괜찮아요" size="small" color="white" onClick={() => {navigate(-1)}}/>
                 </CheckBtn>
                 <Congrats>

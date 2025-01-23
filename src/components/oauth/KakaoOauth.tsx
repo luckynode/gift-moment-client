@@ -34,8 +34,9 @@ const OAuth = () => {
                 localStorage.setItem("email", email);
                 
                 // 회원 유무 확인
+                const redirectUrl = localStorage.getItem("redirect_url");
                 if(isExistingUser){
-                    navigate("/mywish");
+                    navigate(redirectUrl || "/mywish");
                 } else {
                     navigate("/signup");
                 }

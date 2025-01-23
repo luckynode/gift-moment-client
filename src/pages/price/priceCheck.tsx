@@ -55,14 +55,16 @@ const Row = styled.form`
     margin: 30px 0;
 `
 
-// TODO 백엔드에서 받아올 데이터 형식에 맞게 수정
 interface UserWishData {
-    userid: number;
     name: string;
     birth: string;
-    dday: number;
-    item_id: number;
-    item_image: string;
+    dday: string;
+    member_id: number;
+    gift: {
+        id: number;
+        image: string;
+        price: number;        
+    },
 }
 
 interface PriceCheckProps {
@@ -73,45 +75,58 @@ export default function PriceCheck({price} : PriceCheckProps) {
     const navigate = useNavigate();
     const { itemId } = useParams<{ itemId: string }>();
     const [wishData, setWishData] = useState<UserWishData>({
-        userid: 1,
         name: "김친구",
         birth: "00월 00일",
-        dday: 0,
-        item_id: 1,
-        item_image: eximg,
+        dday: "0",
+        member_id: 1,
+        gift : {
+            id: 1,
+            image: eximg,
+            price: 1000000,
+        },
     });
 
-    // TODO FetchData 주석 제거 
+    // 특정 유저 정보 받아오기
     useEffect(() => {
         const fetchData = async () => {
-            const jwt_token = localStorage.getItem("jwt_token");
-            const wishlist_id = itemId;
             try {
-                const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/wishlists/${wishlist_id}`,  {
-                    headers: {
-                        Authorization: `Bearer ${jwt_token}`, // Authorization 헤더에 토큰 포함
+                const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/wishlists/${itemId}`,  {});
+                const data = response.data.data;
+
+                setWishData({
+                    name: data.name,
+                    birth: data.birth,
+                    dday: data.dday,
+                    member_id: data.member_id,
+                    gift: {
+                        id: data.gift.id,
+                        image: data.gift.image,
+                        price: data.gift.price,
                     },
                 });
-                setWishData(response.data.data);
+                
+                // userid, item_id, amount 를 local에 저장해서 pay-approve에서 사용
+                localStorage.setItem("member_id", data.member_id);
+                localStorage.setItem("gift_id", data.gift.id);
+                localStorage.setItem("amount", price);
+                localStorage.setItem("friend_name", data.name);
+
             } catch (error) {
                 console.error("Fetching data ",error);
             }
         };
 
         fetchData();
-    }, []);
+    }, [itemId])
 
     const onSubmit = async (e : React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         try {
-            // 테스트로 console 출력
-            // string -> number 변환
-
             console.log(price, itemId);
             const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/payments/kakao-pay`, {
                 amount: Number(price),
-                gift_id: wishData.item_id,
+                gift_id: wishData.gift.id,
             });
 
             const {tid, next_redirect_pc_url, next_redirect_mobile_url} = response.data.data;
@@ -128,13 +143,13 @@ export default function PriceCheck({price} : PriceCheckProps) {
         <>
             <BackButton />
             <Wrapper>
-                <Subtitle>{wishData?.birth || "00월 00일"} D-{wishData?.dday || "0"}</Subtitle>
-                <Header title={`${wishData?.name || "김친구"}님의 위시아이템`} />
+                <Subtitle>{wishData?.birth} D-{wishData?.dday}</Subtitle>
+                <Header title={`${wishData?.name}님의 위시아이템`} />
                 <Info>
-                    <Img src={wishData?.item_image || eximg}/>
+                    <Img src={wishData?.gift.image}/>
                 </Info>
                 <Gap>
-                    <Header title={`${wishData?.name || "김친구"} 님에게 ${Number(price).toLocaleString()}원을`} fontSize="25px"/>
+                    <Header title={`${wishData?.name} 님에게 ${Number(price).toLocaleString()}원을`} fontSize="25px"/>
                     <Header title="송금하시겠습니까?" fontSize="25px"/>
                 </Gap>
                 <Row onSubmit={onSubmit}>

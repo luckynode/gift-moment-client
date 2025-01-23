@@ -25,6 +25,7 @@ import MyWishDetail from "./pages/myWishDetail.tsx";
 import MyWishModify from "./pages/myWishModify.tsx";
 import AddWish from "./routes/addWish.tsx";
 import AddWishConfirm from "./routes/addWishConfirm.tsx";
+import PaymentApprove from './pages/price/paymentApprove.tsx'
 
 const GlobalStyles = createGlobalStyle`
   body {
@@ -143,6 +144,10 @@ const router = createBrowserRouter([
     {
         path: "/wishlist/:userId/item/:itemId/send/confirm",
         element: <SendConfirm/>
+    },
+    {
+        path: "/payment-approval",
+        element: <PaymentApprove />
     },
     {
         path: "/payment-request",

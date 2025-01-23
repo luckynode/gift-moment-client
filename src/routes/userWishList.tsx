@@ -71,6 +71,7 @@ export default function UserWishList() {
         fetchData();
     }, []);
 
+    // 추후에도 안되면 반환값에 userid 요청
     const userIdnum = Number(userId);
     return (
         <>

@@ -154,9 +154,7 @@ interface UserWishData {
         description: string;
         payments : Array<{
             name: string;
-            amount: number;
             percentage: number;
-            payment_id: number; //? 특정 아이템의 상세페이지인데 뭘 의미하는지?
         }>
     },
 }
@@ -177,10 +175,10 @@ export default function UserWishDetail() {
             link: "https://www.apple.com/kr/",
             description: "선물 소개란입니다.",
             payments: [
-                { name: "친구1", amount: 0, percentage: 20, payment_id: 1 },
-                { name: "친구2", amount: 0, percentage: 20, payment_id: 1 },
-                { name: "친구3", amount: 0, percentage: 20, payment_id: 1 },
-                { name: "친구4", amount: 0, percentage: 20, payment_id: 1 },
+                { name: "친구1", percentage: 20},
+                { name: "친구2", percentage: 20},
+                { name: "친구3", percentage: 20},
+                { name: "친구4", percentage: 20},
             ]
         },
     });
@@ -195,7 +193,7 @@ export default function UserWishDetail() {
             }
         };
 
-        fetchData();
+        // fetchData();
     }, [])
 
     return (

@@ -44,6 +44,7 @@ interface WishListData {
     birth: string;
     dday: string;
     member_id: number;
+    before_birthday: boolean,
     gift: Array<{
         id: number;
         title: string;
@@ -69,6 +70,7 @@ export default function WishList() {
         birth: "00월 00일",
         dday: "0",
         member_id: 1,
+        before_birthday: true,
         gift: [
             { id: 1, image: eximg, title: "아이폰1", percent: 30, state: "진행 중" },
             { id: 2, image: eximg, title: "아이폰2", percent: 70, state: "종료" },
@@ -87,7 +89,7 @@ export default function WishList() {
                 const jwt_token = localStorage.getItem("jwt_token");
                 const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/wishlists/member/birthday`,  {
                     headers: {
-                        Authorization: `Bearer ${jwt_token}`, // Authorization 헤더에 토큰 포함
+                        Authorization: `Bearer ${jwt_token}`
                     },
                 });
                 setWishData(response.data.data);
@@ -96,7 +98,7 @@ export default function WishList() {
             }
         };
 
-        // fetchData();
+        fetchData();
     }, []);
 
     return (

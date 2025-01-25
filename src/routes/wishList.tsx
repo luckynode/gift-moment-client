@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import plus from "../assets/wishlist/plus.svg";
 import {useNavigate} from "react-router-dom";
+import Loading from "../components/loading";
 
 const Wrapper = styled.div`
     display: flex;
@@ -80,7 +81,7 @@ export default function WishList() {
     });
 
     const item_num = wishData.gift.length;
-
+    const [loading, setLoading] = useState(true);
 
     // TODO FetchData 주석 제거
     useEffect(() => {
@@ -92,15 +93,22 @@ export default function WishList() {
                         Authorization: `Bearer ${jwt_token}`
                     },
                 });
-                setWishData(response.data.data);
+                console.log("WishList Data: ", response.data.data);
+                // setWishData(response.data.data);
             } catch (error) {
                 console.error("Fetching Data Error: ", error);
+            } finally {
+                setLoading(false);
             }
         };
 
         fetchData();
     }, []);
 
+    if(loading) {
+        return <Loading />
+    }
+    
     return (
         <>
             <BackButton />

@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import Button from "../components/buttons/Button";
 import mascot from "../assets/home/mascot.svg";
 import styled from "styled-components";
+import Loading from "../components/loading";
 
 const Mascot = styled.img`
   width: 45%;
@@ -15,6 +16,7 @@ export default function Mywish() {
     const [birthday, setBirthday] = useState("");
     const [isBirthday, setIsBirthday] = useState(false); // 생일 여부 상태 추가
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(true);
 
     useEffect(()=> {
         const fetchData = async() => {
@@ -30,10 +32,16 @@ export default function Mywish() {
                 setIsBirthday(response.data.data.isBirthday); // TODO 변수명 확인인
             } catch (error) {
                 console.error("Fetch data error : ", error);
+            } finally {
+                setLoading(false);
             }
         };
         fetchData();
     }, []);
+
+    if(loading) {
+        return <Loading />
+    }
 
     const buttons = [
         { text: "편지함 보러 가기", size: "large" as 'large', onClick: () => navigate("/my-letters") },

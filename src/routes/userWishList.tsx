@@ -6,6 +6,7 @@ import eximg from "../assets/wishlist/example.jpg"
 import { useEffect, useState } from "react";
 import axios from "axios";
 import UserWishItem from "../components/items/UserWishItem";
+import Loading from "../components/loading";
 
 const Wrapper = styled.div`
     display: flex;
@@ -57,6 +58,7 @@ export default function UserWishList() {
         ],
     });
 
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -65,11 +67,17 @@ export default function UserWishList() {
                 setWishData(response.data.data);
             } catch (error) {
                 console.error("Fetching Data Error: ", error);
+            } finally {
+                setLoading(false);
             }
         };
 
         fetchData();
     }, []);
+
+    if (loading) {
+        return <Loading />
+    }
 
     // 추후에도 안되면 반환값에 userid 요청
     const userIdnum = Number(userId);

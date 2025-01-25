@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
 import BackButton from "../components/buttons/BackButton";
+import Loading from "../components/loading";
 
 const Row18 = styled.div`
     display: flex;
@@ -74,6 +75,10 @@ export default function Mypage() {
                 console.error("Logout Error : ", error);
             }   
         }
+    }
+
+    if(loading) {
+        return <Loading />
     }
 
     return(

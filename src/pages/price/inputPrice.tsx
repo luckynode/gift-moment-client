@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { styled } from "styled-components";
 import isPropValid from '@emotion/is-prop-valid';
@@ -83,15 +83,16 @@ interface TextProps {
     isOverError?: boolean; // 최대 금액 초과
 }
 
-// TODO 백엔드에서 받아올 데이터 형식에 맞게 수정
 interface UserWishData {
-    userid: number;
     name: string;
     birth: string;
-    dday: number;
-    item_id: number;
-    item_image: string;
-    item_price: number;
+    dday: string;
+    member_id: number;
+    gift: {
+        id: number;
+        image: string;
+        price: number;        
+    },
 }
 
 interface GetInfoProps {
@@ -99,40 +100,49 @@ interface GetInfoProps {
 }
 
 export default function InputPrice({ onNext } : GetInfoProps) {
-    const { userId, itemId } = useParams<{ userId: string, itemId: string }>();
+    const { itemId } = useParams<{ itemId: string }>();
     const [wishData, setWishData] = useState<UserWishData>({
-        userid: 1,
         name: "김친구",
         birth: "00월 00일",
-        dday: 0,
-        item_id: 1,
-        item_image: eximg,
-        item_price: 10000,
+        dday: "0",
+        member_id: 1,
+        gift : {
+            id: 1,
+            image: eximg,
+            price: 1000000,
+        },
     });
 
     const [price, setPrice] = useState<number>(0);
     const [isError, setIsError] = useState(false);
     const [isOverError, setIsOverError] = useState(false);
 
-    // TODO FetchData 주석 제거 
+    // TODO 특정 유저 정보 받아오기
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/wishlist/${userId}/item/${itemId}/send`,  {
-                    headers: {
-                        // Authorization: `Bearer ${accessToken}`, // Authorization 헤더에 토큰 포함
+                const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/wishlists/${itemId}`,  {});
+                const data = response.data.data;
+
+                setWishData({
+                    name: data.name,
+                    birth: data.birth,
+                    dday: data.dday,
+                    member_id: data.member_id,
+                    gift: {
+                        id: data.gift.id,
+                        image: data.gift.image,
+                        price: data.gift.price,
                     },
                 });
-                setWishData(response.data.data);
             } catch (error) {
                 console.error("Fetching data ",error);
             }
         };
 
-        // fetchData();
-    }, []);
+        fetchData();
+    }, [itemId])
 
-    // TODO 최대 금액 논의 (상품 값으로 지정 후 해당 금액 넘으면 알림?)
 
     const onChange = async (e : React.ChangeEvent<HTMLInputElement>) => {
         const value = Number(e.target.value);
@@ -142,7 +152,7 @@ export default function InputPrice({ onNext } : GetInfoProps) {
         if (value <= 0) {
             setIsError(true);
         } 
-        else if (value > wishData.item_price){
+        else if (value > wishData.gift.price){
             setIsOverError(true);
         } 
         else {
@@ -159,7 +169,7 @@ export default function InputPrice({ onNext } : GetInfoProps) {
             return;
         }
 
-        if (price > wishData.item_price){
+        if (price > wishData.gift.price){
             setIsOverError(true);
             return;
         }
@@ -182,7 +192,7 @@ export default function InputPrice({ onNext } : GetInfoProps) {
                 <Subtitle>{wishData?.birth} D-{wishData?.dday}</Subtitle>
                 <Header title={`${wishData?.name}님의 위시아이템`} />
                 <Info>
-                    <Img src={wishData?.item_image}/>
+                    <Img src={wishData?.gift.image}/>
                 </Info>
                 <Header title="얼마를 송금하시겠어요?" fontSize="25px"/>
                 <Form onSubmit={onSubmit}>

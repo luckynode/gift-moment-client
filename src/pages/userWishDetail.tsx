@@ -141,55 +141,52 @@ const FreindPercent = styled.div`
 
 // TODO 백 api 명세서 확인 후 재구성
 interface UserWishData {
-    userid: number;
     name: string;
     birth: string;
-    dday: number;
-    item_id: number;
-    item_image: string;
-    item_name: string;
-    item_price: number;
-    item_link: string;
-    item_info: string;
-    Friends : Array<{
-        friend_profile: string;
-        friend_name: string;
-        friend_percent: number;
-    }>
+    dday: string;
+    member_id: number;
+    gift: {
+        id: number;
+        title: string;
+        image: string;
+        price: number;
+        link: string;
+        description: string;
+        payments : Array<{
+            name: string;
+            percentage: number;
+        }>
+    },
 }
 
 export default function UserWishDetail() {
     const navigate = useNavigate();
-    const { userId, itemId } = useParams<{ userId: string, itemId: string }>();
+    const { itemId } = useParams<{ itemId: string }>();
     const [wishData, setWishData] = useState<UserWishData>({
-        userid: 1,
+        member_id: 1,
         name: "김친구",
         birth: "00월 00일",
-        dday: 0,
-        item_id: 1,
-        item_image: eximg,
-        item_name: "아이폰1",
-        item_price: 1000000,
-        item_link: "https://www.apple.com/kr/",
-        item_info: "선물 소개란입니다.",
-        Friends: [
-            { friend_profile: "", friend_name: "친구1", friend_percent: 20 },
-            { friend_profile: "", friend_name: "친구2", friend_percent: 10 },
-            { friend_profile: "", friend_name: "친구3", friend_percent: 5 },
-            { friend_profile: "", friend_name: "친구4", friend_percent: 10 },
-            { friend_profile: "", friend_name: "친구5", friend_percent: 15 },
-        ]
+        dday: "0",
+        gift : {
+            id: 1,
+            title: "아이폰1",
+            image: eximg,
+            price: 1000000,
+            link: "https://www.apple.com/kr/",
+            description: "선물 소개란입니다.",
+            payments: [
+                { name: "친구1", percentage: 20},
+                { name: "친구2", percentage: 20},
+                { name: "친구3", percentage: 20},
+                { name: "친구4", percentage: 20},
+            ]
+        },
     });
 
-    // TODO FetchData 주석 제거 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/wishlist/${userId}/item/${itemId}`,  {
-                    headers: {
-                        // Authorization: `Bearer ${accessToken}`, // Authorization 헤더에 토큰 포함
-                    },
-                });
+                const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/wishlists/${itemId}`,  {});
                 setWishData(response.data.data);
             } catch (error) {
                 console.error("Fetching data ",error);
@@ -197,7 +194,20 @@ export default function UserWishDetail() {
         };
 
         // fetchData();
-    }, [])
+    }, []);
+
+    const onLikeClick = async () => {
+        const jwt_token = localStorage.getItem("jwt_token");
+        if(!jwt_token) {
+            const result = window.confirm("로그인이 필요한 서비스입니다. 로그인 페이지로 이동합니다.");
+            if(result) {
+                localStorage.setItem("redirect_url", `${window.location.href}/send`);
+                navigate(`/login`);
+            }
+        } else {
+            navigate(`send`);
+        }
+    }
 
     return (
         <>
@@ -206,31 +216,32 @@ export default function UserWishDetail() {
                 <Subtitle>{wishData?.birth} D-{wishData?.dday}</Subtitle>
                 <Header title={`${wishData?.name}님의 위시아이템`} />
                 <Info>
-                    <Img src={wishData?.item_image}/>
-                    <Input>{wishData?.item_name}</Input>
-                    <Input>{wishData?.item_price.toLocaleString()} 원</Input>
+                    <Img src={wishData?.gift.image}/>
+                    <Input>{wishData?.gift.title}</Input>
+                    <Input>{wishData?.gift.price.toLocaleString()} 원</Input>
                     <Input>
-                        <LinkText href={wishData?.item_link}>
-                            {wishData?.item_link}
+                        <LinkText href={wishData?.gift.link}>
+                            {wishData?.gift.link}
                         </LinkText>
                     </Input>
-                    <Input>{wishData?.item_info}</Input>
+                    <Input>{wishData?.gift.description}</Input>
                 </Info>
                 <Header title={`${wishData?.name} 님에게 선물하기`} fontSize="25px"/>
                 <CheckBtn>
-                    <Button text="좋아요!" size="small" color="black" onClick={() => {navigate("send")}}/>
+                    {/* 로그인 여부 확인 */}
+                    <Button text="좋아요!" size="small" color="black" onClick={() => {onLikeClick()}}/>
                     <Button text="괜찮아요" size="small" color="white" onClick={() => {navigate(-1)}}/>
                 </CheckBtn>
                 <Congrats>
                     <CongratsTitle>축하해준 친구들</CongratsTitle>
                     <List>
                         {/* map으로 개수만큼 반복 */}
-                        {wishData?.Friends.map((friend, index) => (
-                            <Card key={friend.friend_name}>
+                        {wishData?.gift.payments.map((friend, index) => (
+                            <Card key={friend.name}>
                                 <CardImg src={ornamentImages[index % ornamentImages.length]} />
                                 <CardName>
-                                    <FriendName>{friend.friend_name}</FriendName>
-                                    <FreindPercent>{friend.friend_percent}%</FreindPercent>
+                                    <FriendName>{friend.name}</FriendName>
+                                    <FreindPercent>{friend.percentage}%</FreindPercent>
                                 </CardName>
                             </Card>
                         ))}

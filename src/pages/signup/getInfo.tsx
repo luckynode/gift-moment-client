@@ -8,44 +8,32 @@ interface GetInfoProps {
 }
 
 export default function GetInfo({ onNext } : GetInfoProps) {
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
+    const [name, setName] = useState("김이름");
+    const [email, setEmail] = useState("email@email.com");
     const [birth, setBirth] = useState("");
 
-    const [isNameDisabled, setIsNameDisabled] = useState(false);
-    const [isEmailDisabled, setIsEmailDisabled] = useState(false);
-    const [isBirthDisabled, setIsBirthDisabled] = useState(false);
-
     useEffect(() => {
-        // 토큰 설정 추가
-        // TODO 서버 토큰 header
-
         const fetchData = async () => {
             try {
-                const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}`);
-                const {name, birth, email} = response.data.data;
+                const jwt_token = localStorage.getItem("jwt_token");
+                const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/auth/profile`, {
+                    headers: {
+                        Authorization: `Bearer ${jwt_token}`,
+                    }
+                });
+                const {name, email} = response.data.data;
 
-                // data 존재하면 불러옴과 동시에 비활성화
-                if (name) {
-                    setName(name);
-                    setIsNameDisabled(true);
-                } 
-                
-                if (birth) {
-                    setBirth(birth);
-                    setIsBirthDisabled(true);
-                }
+                // data 존재하면 불러오기
+                if (name) setName(name);
 
-                if (email) {
-                    setEmail(email);
-                    setIsEmailDisabled(true);
-                }
+                if (email) setEmail(email);
+
             } catch (error) {
                 console.error("Data fetch error : ", error);
             }
         };
 
-        // fetchData();
+        fetchData();
     }, []);
 
     const onChange = async (e : React.ChangeEvent<HTMLInputElement>) => {
@@ -63,7 +51,20 @@ export default function GetInfo({ onNext } : GetInfoProps) {
             // 테스트로 console 출력
             console.log(name, birth, email);
 
-            // TODO 서버 axios post.
+            const jwt_token = localStorage.getItem("jwt_token");
+
+            // TODO 주석 제거
+            /* */
+            await axios.patch(`${import.meta.env.VITE_BACKEND_URL}/api/v1/auth/profile`, {
+                name: name,
+                birth_date: birth,
+                email: email,
+            }, {
+                headers: {
+                    Authorization: `Bearer ${jwt_token}`,
+                    'Content-Type': 'application/json', // Content-Type 설정
+                }
+            });
 
             onNext();
         } catch (error) {
@@ -83,16 +84,14 @@ export default function GetInfo({ onNext } : GetInfoProps) {
                         type="text"
                         placeholder="이름"
                         required
-                        disabled={isNameDisabled}
                     />
                     <Input 
                         onChange={onChange}
                         name = "birth"
                         value={birth}
-                        type="text"
+                        type="date"
                         placeholder="생년월일"
                         required
-                        disabled={isBirthDisabled}
                     />
                     <Input 
                         onChange = {onChange}
@@ -101,7 +100,6 @@ export default function GetInfo({ onNext } : GetInfoProps) {
                         type="email"
                         placeholder="이메일"
                         required
-                        disabled={isEmailDisabled}
                     />
                 </Hug18>
                 <Hug10>

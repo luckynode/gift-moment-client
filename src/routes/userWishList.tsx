@@ -32,54 +32,47 @@ const ListWrapper = styled.div`
     gap: 40px;
 `
 
-// TODO 백 api 명세서 확인 후 재구성
 interface WishListData {
-    userid: number;
     name: string;
     birth: string;
-    dday: number;
-    items: Array<{
-        item_id: number;
-        item_image: string;
-        item_name: string;
+    dday: string;
+    gift: Array<{
+        id: number;
+        image: string;
+        title: string;
     }>;
 }
 
 export default function UserWishList() {
     const { userId } = useParams<{ userId: string }>();
     const [wishData, setWishData] = useState<WishListData>({
-        userid: 1,
         name: "김친구",
         birth: "00월 00일",
-        dday: 0,
-        items: [
-            { item_id: 1, item_image: eximg, item_name: "아이폰1" },
-            { item_id: 2, item_image: eximg, item_name: "아이폰2"},
-            { item_id: 3, item_image: eximg, item_name: "아이폰3"},
-            { item_id: 4, item_image: eximg, item_name: "아이폰4"},
+        dday: "0",
+        gift: [
+            { id: 1, image: eximg, title: "아이폰1" },
+            { id: 2, image: eximg, title: "아이폰2"},
+            { id: 3, image: eximg, title: "아이폰3"},
+            { id: 4, image: eximg, title: "아이폰4"},
         ],
     });
 
 
-    // TODO FetchData 주석 제거
-    // TODO 생일 당일 처리방법 추가
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/wishlist/${userId}`,  {
-                    headers: {
-                        // Authorization: `Bearer ${accessToken}`, // Authorization 헤더에 토큰 포함
-                    },
-                });
+                const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/wishlists/giver/${userId}`,  {});
                 setWishData(response.data.data);
             } catch (error) {
                 console.error("Fetching Data Error: ", error);
             }
         };
 
-        // fetchData();
+        fetchData();
     }, []);
 
+    // 추후에도 안되면 반환값에 userid 요청
+    const userIdnum = Number(userId);
     return (
         <>
             <BackButton />
@@ -88,13 +81,13 @@ export default function UserWishList() {
                 <Header title={`${wishData?.name || '김친구'}님의 위시리스트`} /> 
                 <ListWrapper>
                     {/* map 으로 개수만큼 반복 */}
-                    {wishData?.items.map((items) => (
+                    {wishData?.gift.map((gift) => (
                         <UserWishItem
-                            key={items.item_id}
-                            userid={wishData.userid}
-                            item_id={items.item_id}
-                            item_image={items.item_image}
-                            item_name={items.item_name}
+                            key={gift.id}
+                            userid={userIdnum}
+                            item_id={gift.id}
+                            item_image={gift.image}
+                            item_name={gift.title}
                         />
                     ))}
                 </ListWrapper>

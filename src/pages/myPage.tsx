@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Title, Wrapper, Input, Hug18 } from "../components/SignupComponents";
+import { Title, Wrapper, Hug18 } from "../components/SignupComponents";
 import Button from "../components/buttons/Button";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -11,56 +11,47 @@ const Row18 = styled.div`
     flex-direction: row;
     gap: 18px;
 `
+const Input = styled.input`
+    box-sizing: border-box;
+    width: 330px;
+    height: 50px;
+    font-size: 20px;
+    top: 0px;
 
-// TODO data type 확인
+    background: #FFFFFF;
+    border: 1px solid #C8C8C8;
+    border-radius: 8px;
+
+    padding-left: 15px;
+
+    &:disabled {
+        background: #FFFFFF;
+        color: #000;
+        border-color: #C8C8C8;
+        opacity: 1;
+    }
+`
 
 interface User {
     name: string;
-    birth: string;
+    birth_date: string;
     email: string;
-    bank: string;
-    account: string;
+    bank_code: string;
+    account_number: number;
 }
 
 export default function Mypage() {
-    // 값 불러올 때 초기값 설정
-    // const [user, setUser] = useState<User>({
-    //     name: '이름',
-    //     birth: '0',
-    //     email: "email",
-    //     bank: "bank",
-    //     account: '0',
-    // })
-
     const [user, setUser] = useState<User | null>(null); // 초기값을 null로 설정
-
     const navigate = useNavigate();
-
-    const handleLogout = async () => {
-        try {
-            // TODO accesstoken 설정
-            
-            await axios.get(`${import.meta.env.VITE_BACKEND_URL}/auth/logout`, {
-                headers: {
-                    // Authorization: `Bearer ${accessToken}`,
-                }
-            });
-
-            // TODO accessToken, refrestToken 제거
-            navigate("/");
-        } catch (error) {
-            console.error("Logout Error : ", error);
-        }
-    }
 
     useEffect(()=> {
         const fetchData = async() => {
             try {
-                // TODO accesstoken 설정
-
-                const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/mypage`, {
+                const jwt_token = localStorage.getItem("jwt_token");
+                
+                const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/mypage`, {
                     headers: {
-                        // Authorization: `Bearer ${accessToken}`,
+                        Authorization: `Bearer ${jwt_token}`,
                     },
                 });
                 setUser(response.data.data);
@@ -71,6 +62,20 @@ export default function Mypage() {
         fetchData();
     }, []);
 
+    const handleLogout = async () => {
+        if (window.confirm("정말 로그아웃하시겠습니까?")) {
+            try {            
+                await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/auth/logout`, {});
+    
+                localStorage.removeItem("jwt_token");
+                alert("로그아웃 되었습니다.");
+                navigate("/");
+            } catch (error) {
+                console.error("Logout Error : ", error);
+            }   
+        }
+    }
+
     return(
         <>
         <BackButton />
@@ -79,35 +84,35 @@ export default function Mypage() {
             <Hug18>
                 <Input 
                     name="name"
-                    value={user?.name || '김눈송'}
+                    value={user?.name}
                     type="text"
                     placeholder="이름"
                     disabled
                 />
                 <Input 
                     name="birth"
-                    value={user?.birth || '000000'}
+                    value={user?.birth_date}
                     type="text"
                     placeholder="생년월일"
                     disabled
                 />
                 <Input 
                     name="email"
-                    value={user?.email || 'email@email.com'}
+                    value={user?.email}
                     type="email"
                     placeholder="이메일"
                     disabled
                 />
                 <Input 
                     name="bank"
-                    value={user?.bank || '숙명은행'}
+                    value={user?.bank_code}
                     type="text"
                     placeholder="은행"
                     disabled
                 />
                 <Input 
                     name="account"
-                    value={user?.account || '000000000000'}
+                    value={user?.account_number}
                     type="text"
                     placeholder="계좌번호"
                     disabled

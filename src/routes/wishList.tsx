@@ -42,12 +42,12 @@ const AddButton = styled.img`
 interface WishListData {
     name: string;
     birth: string;
-    dday: number;
-    item_num: number;
-    items: Array<{
-        item_id: number;
-        item_image: string;
-        item_name: string;
+    dday: string;
+    member_id: number;
+    gift: Array<{
+        id: number;
+        title: string;
+        image: string;
         percent: number;
         state: string; // 진행 중, 종료, 완료
     }>;
@@ -67,26 +67,27 @@ export default function WishList() {
     const [wishData, setWishData] = useState<WishListData>({
         name: "김이름",
         birth: "00월 00일",
-        dday: 0,
-        item_num: 5,
-        items: [
-            { item_id: 1, item_image: eximg, item_name: "아이폰1", percent: 30, state: "진행 중" },
-            { item_id: 2, item_image: eximg, item_name: "아이폰2", percent: 70, state: "종료" },
-            { item_id: 3, item_image: eximg, item_name: "아이폰3", percent: 100, state: "완료" },
-            { item_id: 4, item_image: eximg, item_name: "아이폰4", percent: 67, state: "진행 중" },
-            { item_id: 5, item_image: eximg, item_name: "아이폰5", percent: 45, state: "종료" },
+        dday: "0",
+        member_id: 1,
+        gift: [
+            { id: 1, image: eximg, title: "아이폰1", percent: 30, state: "진행 중" },
+            { id: 2, image: eximg, title: "아이폰2", percent: 70, state: "종료" },
+            { id: 3, image: eximg, title: "아이폰3", percent: 100, state: "완료" },
+            { id: 4, image: eximg, title: "아이폰4", percent: 67, state: "진행 중" },
         ],
     });
 
+    const item_num = wishData.gift.length;
+
 
     // TODO FetchData 주석 제거
-    // TODO 생일 당일 처리방법 추가
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/wishlist`,  {
+                const jwt_token = localStorage.getItem("jwt_token");
+                const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/wishlists/member/birthday`,  {
                     headers: {
-                        // Authorization: `Bearer ${accessToken}`, // Authorization 헤더에 토큰 포함
+                        Authorization: `Bearer ${jwt_token}`, // Authorization 헤더에 토큰 포함
                     },
                 });
                 setWishData(response.data.data);
@@ -102,24 +103,24 @@ export default function WishList() {
         <>
             <BackButton />
             <Wrapper>
-                <Subtitle>{wishData?.birth || '00월 00일'} D-{wishData?.dday || '00'}</Subtitle>
-                <Header title={`${wishData?.name || '김이름'}님의 위시리스트`} /> 
+                <Subtitle>{wishData?.birth} D-{wishData?.dday}</Subtitle>
+                <Header title={`${wishData?.name}님의 위시리스트`} /> 
                 <ListWrapper>
                     {/* map 으로 개수만큼 반복 */}
-                    {wishData?.items.map((items) => (
+                    {wishData?.gift.map((gift) => (
                         <WishItem
-                            key={items.item_id}
-                            item_id={items.item_id}
-                            item_image={items.item_image}
-                            item_name={items.item_name}
-                            percent={items.percent}
-                            state={items.state}
-                            onClick={() => handleItemClick(items.item_id)}
+                            key={gift.id}
+                            item_id={gift.id}
+                            item_image={gift.image}
+                            item_name={gift.title}
+                            percent={gift.percent}
+                            state={gift.state}
+                            onClick={() => handleItemClick(gift.id)}
                         />
                     ))}
                 </ListWrapper>
                 {/* 5개보다 작을 때 추가 버튼 */}
-                {wishData?.item_num < 5 && (
+                {item_num < 5 && (
                     <AddButton 
                         src={plus}
                         onClick={handleAddButtonClick} 

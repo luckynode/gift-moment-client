@@ -11,7 +11,9 @@ export default function AccountCheck(){
     const navigate = useNavigate();
     
     const onSubmit = async () => {
-        navigate("/mywish");
+        const redirectUrl = localStorage.getItem("redirect_url");
+        navigate(redirectUrl || "/mywish");
+        localStorage.removeItem("redirect_url");
     }
     
     return(

@@ -8,6 +8,7 @@ import axios from "axios";
 import plus from "../assets/wishlist/plus.svg";
 import {useNavigate} from "react-router-dom";
 import Loading from "../components/loading";
+import Button from "../components/buttons/Button";
 
 const Wrapper = styled.div`
     display: flex;
@@ -36,6 +37,10 @@ const ListWrapper = styled.div`
 
 const AddButton = styled.img`
     width: 50px;
+    margin-bottom: 60px;
+`
+
+const Margin = styled.div`
     margin-bottom: 60px;
 `
 
@@ -130,11 +135,23 @@ export default function WishList() {
                     ))}
                 </ListWrapper>
                 {/* 5개보다 작을 때 추가 버튼 */}
-                {item_num < 5 && (
-                    <AddButton 
-                        src={plus}
-                        onClick={handleAddButtonClick} 
-                    />
+                {/* before birthday true -> addbutton, false -> navigate payment-request */}
+                {wishData.before_birthday ? (
+                    item_num < 5 && (
+                        <AddButton 
+                            src={plus}
+                            onClick={handleAddButtonClick} 
+                        />
+                    )
+                ) : (
+                    <Margin>
+                        <Button 
+                            text="선물 받으러 가기 →"
+                            color="black"
+                            size="large"
+                            onClick={() => navigate("/payment-request")}
+                        />
+                    </Margin>
                 )}
             </Wrapper>
         </>

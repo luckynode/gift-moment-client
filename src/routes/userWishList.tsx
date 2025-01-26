@@ -85,8 +85,8 @@ export default function UserWishList() {
         <>
             <BackButton />
             <Wrapper>
-                <Subtitle>{wishData?.birth || '00월 00일'} D-{wishData?.dday || '00'}</Subtitle>
-                <Header title={`${wishData?.name || '김친구'}님의 위시리스트`} /> 
+                <Subtitle>{wishData?.birth} D-{wishData?.dday }</Subtitle>
+                <Header title={`${wishData?.name}님의 위시리스트`} /> 
                 <ListWrapper>
                     {/* map 으로 개수만큼 반복 */}
                     {wishData?.gift.map((gift) => (

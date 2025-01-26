@@ -2,7 +2,6 @@ import { styled } from "styled-components";
 import BackButton from "../components/buttons/BackButton";
 import Header from "../components/headers/Header";
 import WishItem from "../components/items/WishItem";
-import eximg from "../assets/wishlist/example.jpg"
 import { useEffect, useState } from "react";
 import axios from "axios";
 import plus from "../assets/wishlist/plus.svg";
@@ -77,12 +76,7 @@ export default function WishList() {
         dday: "0",
         member_id: 1,
         before_birthday: true,
-        gift: [
-            { id: 1, image: eximg, title: "아이폰1", percent: 30, state: "진행 중" },
-            { id: 2, image: eximg, title: "아이폰2", percent: 70, state: "종료" },
-            { id: 3, image: eximg, title: "아이폰3", percent: 100, state: "완료" },
-            { id: 4, image: eximg, title: "아이폰4", percent: 67, state: "진행 중" },
-        ],
+        gift: [],
     });
 
     const item_num = wishData.gift.length;
@@ -98,8 +92,8 @@ export default function WishList() {
                         Authorization: `Bearer ${jwt_token}`
                     },
                 });
-                console.log("WishList Data: ", response.data.data);
-                // setWishData(response.data.data);
+                console.log(response.data.data[0]);
+                setWishData(response.data.data[0]);
             } catch (error) {
                 console.error("Fetching Data Error: ", error);
             } finally {

@@ -252,12 +252,19 @@ const MyWishModify = () => {
                 console.error("itemId가 없습니다.");
                 return;
             }
+
             console.log("수정된 데이터는?:", {wishImageUrl, wishLink, wishDescription});
-            const response = await modifyWishItem(Number(itemId), {
-                image: wishImageUrl, // TODO: 이미지 파일로 변경 (wishImage)
-                link: wishLink,
-                description: wishDescription,
-            });
+
+            const formData = new FormData();
+            if (wishImage) {
+                formData.append("image", wishImage); // 이미지 파일이 있을 경우에만 추가
+            }
+            formData.append("link", wishLink);
+            formData.append("description", wishDescription);
+
+            const response = await modifyWishItem(Number(itemId),
+                formData
+            );
             console.log(response.data);
             if (response.status === 'success') {
                 navigate(`/wishlist/item/${itemId}`);

@@ -41,9 +41,15 @@ interface User {
     account_number: number;
 }
 
+const formatDate = (dateString: string): string => {
+    const date = new Date(dateString);
+    return date.toISOString().split('T')[0]; // "YYYY-MM-DD" 형식으로 변환
+};
+
 export default function Mypage() {
     const [user, setUser] = useState<User | null>(null); // 초기값을 null로 설정
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(true);
 
     useEffect(()=> {
         const fetchData = async() => {
@@ -58,6 +64,8 @@ export default function Mypage() {
                 setUser(response.data.data);
             } catch (error) {
                 console.error("Fetchdata error : ", error);
+            } finally {
+                setLoading(false);
             }
         };
         fetchData();
@@ -101,7 +109,7 @@ export default function Mypage() {
                 />
                 <Input 
                     name="birth"
-                    value={user?.birth_date}
+                    value={user?formatDate(user.birth_date) : ''}
                     type="text"
                     placeholder="생년월일"
                     disabled

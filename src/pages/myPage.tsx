@@ -65,8 +65,13 @@ export default function Mypage() {
 
     const handleLogout = async () => {
         if (window.confirm("정말 로그아웃하시겠습니까?")) {
-            try {            
-                await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/auth/logout`, {});
+            try {
+                const jwt_token = localStorage.getItem("jwt_token");
+                await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/auth/logout`, {}, {
+                    headers: {
+                        Authorization: `Bearer ${jwt_token}`,
+                    },
+                });
     
                 localStorage.removeItem("jwt_token");
                 alert("로그아웃 되었습니다.");

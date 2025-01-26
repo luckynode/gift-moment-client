@@ -274,13 +274,16 @@ const AddWish = () => {
 
 
         try {
-            const response = await addWishItem({
-                title: wishName,
-                image: "image.png", // TODO 실제 첨부 파일 전송으로 변경
-                price: parseInt(wishPrice.replace(/,/g, ""), 10), // 숫자로 변환
-                link: wishLink,
-                description: wishDescription,
-            });
+            const formData = new FormData();
+            formData.append("title", wishName);
+            formData.append("price", wishPrice.replace(/,/g, ""));
+            formData.append("link", wishLink);
+            formData.append("description", wishDescription);
+            formData.append("image", wishImage);
+
+            const response = await addWishItem(
+                formData
+            );
 
             console.log(response.data);
 

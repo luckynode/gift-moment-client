@@ -4,9 +4,10 @@ import {ApiResponse} from '../types/common/apiResponse';
 
 const BASE_URL = import.meta.env.VITE_BACKEND_URL;
 // const jwt_token = localStorage.getItem('jwt_token');
-const jwt_token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsImVtYWlsIjoiMjFrZXVuZ2hlZUBnbWFpbC5jb20iLCJpYXQiOjE3Mzc1MTY3MTMsImV4cCI6MTczNzUyMDMxM30.YLVcAltexkYaiPBmUenVIUqTEbJAgJDXs_xwPY7cewI";
+
+const jwt_token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsImVtYWlsIjoiMjFrZXVuZ2hlZUBnbWFpbC5jb20iLCJpYXQiOjE3Mzc4OTI5NTYsImV4cCI6MTczNzg5NjU1Nn0.FI-YIUTUrXKFmxejaz_yHTaFn7SS2Ps_jFws0suRpw4";
 export const addWishItem = async (
-    data: AddWishRequest
+    data: FormData
 ): Promise<ApiResponse<AddWishResponse>> => {
     const response: AxiosResponse<ApiResponse<AddWishResponse>> = await axios.post(
         `${BASE_URL}/api/v1/wishlists`,
@@ -14,7 +15,7 @@ export const addWishItem = async (
         {
             headers: {
                 Authorization: `Bearer ${jwt_token}`,
-                'Content-Type': 'application/json',
+                'Content-Type': 'multipart/form-data',
             },
         }
     );

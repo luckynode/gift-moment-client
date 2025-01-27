@@ -2,7 +2,7 @@ import BackButton from "../components/buttons/BackButton.tsx";
 import Header from "../components/headers/Header.tsx";
 import {Input} from "../components/SignupComponents.ts";
 import styled from "styled-components";
-import {useNavigate, useParams} from "react-router-dom";
+import {useLocation, useNavigate, useParams} from "react-router-dom";
 import {useCallback, useEffect, useMemo, useRef, useState} from "react";
 import eximg from "../assets/wishlist/example.jpg";
 import Button from "../components/buttons/Button.tsx";
@@ -11,6 +11,7 @@ import {WishInput} from "./myWishDetail.tsx";
 import WishImgDetail from "../assets/wishlist/wish_img_detail.svg";
 import MyWishDeleteConfirm from "../routes/myWishDeleteConfirm.tsx";
 import cameraIcon from "../assets/wishlist/wish_img_modify.svg";
+import {deleteWishItem, getWishItem, modifyWishItem} from "../apis/wishItemApi.ts";
 
 const WishDisabledInput = styled(WishInput)`
   background: #EEE2E2;
@@ -82,7 +83,7 @@ const InputContainer = styled.div`
 `;
 
 const CustomInput = styled(Input)`
-  border: 1px solid ${(props) => (props.error ? 'red' : '#ddd')};
+  border: 1px solid ${(props: { hasError?: boolean }) => (props.hasError ? 'red' : '#ddd')};
 `;
 
 const FileInputContainer = styled.div`
@@ -91,7 +92,7 @@ const FileInputContainer = styled.div`
   gap: 5px; /* 입력 필드와 오류 메시지 간격 */
 `;
 
-const ImageUploadWrapper = styled.div<{ image?: string }>`
+const ImageUploadWrapper = styled.div<{ thumbnail?: string }>`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -101,12 +102,13 @@ const ImageUploadWrapper = styled.div<{ image?: string }>`
   border-radius: 8px;
   width: 300px;
   height: 300px;
-  background-image: url(${(props) => props.image});
+  background-image: url(${(props: { thumbnail: string }) => props.thumbnail});
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
 
   /* 투명한 검은색 오버레이 */
+
   &::before {
     content: "";
     position: absolute;
@@ -120,6 +122,7 @@ const ImageUploadWrapper = styled.div<{ image?: string }>`
   }
 
   /* 카메라 아이콘 */
+
   &::after {
     content: "";
     position: absolute;
@@ -139,59 +142,28 @@ const HiddenInput = styled.input`
   display: none;
 `;
 
-// TODO 추후 api명세서에 따라 수정
-interface MyWishDetailData {
-    userid: number;
-    name: string;
-    birth: string;
-    dday: number;
-    item_id: number;
-    item_image: string;
-    item_name: string;
-    item_price: number;
-    item_link: string;
-    item_info: string;
-    Friends: Array<{
-        friend_profile: string;
-        friend_name: string;
-        friend_price: number;
-    }>
-}
 
 const MyWishModify = () => {
     const navigate = useNavigate();
+    const location = useLocation();
+    const {wishData, setWishData} = location.state || {}; // 전달된 데이터 받기
+    useEffect(() => {
+        console.log("위시데이터:", wishData);
+    }, [location.state]);
+
     const {itemId} = useParams<{ itemId: string }>();
-    const [wishData, setWishData] = useState<MyWishDetailData>({
-        userid: 1,
-        name: "김유저",
-        birth: "00월 00일",
-        dday: 0,
-        item_id: 1,
-        item_image: eximg,
-        item_name: "아이폰1",
-        item_price: 1000000,
-        item_link: "https://www.apple.com/kr/",
-        item_info: "선물 소개란입니다.",
-        Friends: [
-            {friend_profile: "", friend_name: "친구1", friend_price: 220000},
-            {friend_profile: "", friend_name: "친구2", friend_price: 50000},
-            {friend_profile: "", friend_name: "친구3", friend_price: 55000},
-            {friend_profile: "", friend_name: "친구4", friend_price: 50000},
-            {friend_profile: "", friend_name: "친구5", friend_price: 70000},
-        ]
-    });
 
     const [wishImage, setWishImage] = useState<File | null>(null); // 업로드용 파일
 
     // useMemo를 사용하여 wishImageUrl을 캐싱함
     const wishImageUrl = useMemo(
-        () => (wishImage ? URL.createObjectURL(wishImage) : wishData.item_image || WishImgDetail),
-        [wishImage, wishData.item_image]
+        () => (wishImage ? URL.createObjectURL(wishImage) : wishData?.gift?.image || WishImgDetail),
+        [wishImage, wishData?.gift?.image]
     );
     const [wishImageUrlError, setWishImageUrlError] = useState(false);
 
-    const [wishLink, setWishLink] = useState(wishData.item_link);
-    const [wishDescription, setWishDescription] = useState(wishData.item_info);
+    const [wishLink, setWishLink] = useState(wishData.gift?.link);
+    const [wishDescription, setWishDescription] = useState(wishData.gift?.description);
 
     const [wishLinkError, setWishLinkError] = useState(false);
     const [wishDescriptionError, setWishDescriptionError] = useState(false);
@@ -203,11 +175,24 @@ const MyWishModify = () => {
         setter(false); // 에러 상태 초기화
     };
 
-    const handleDeleteConfirm = () => {
-        console.log("삭제 확인 버튼 클릭");
-        // TODO: 삭제 API 호출
-        setIsModalOpen(false);
-        navigate("/wishlist");
+    const handleDeleteConfirm = async () => {
+        try {
+            if (!itemId) {
+                console.error("itemId가 없습니다.");
+                return;
+            }
+            const response = await deleteWishItem(Number(itemId));
+            if (response.status === 'success') {
+                console.log(response.message); // 성공 메시지 출력
+                setIsModalOpen(false); // 모달 닫기
+                navigate("/wishlist");
+            } else {
+                console.error("위시리스트 삭제 실패:", response.message);
+            }
+        } catch (error) {
+            console.error("위시리스트 삭제 중 오류 발생:", error);
+            alert("위시리스트 삭제 중 오류가 발생했습니다.");
+        }
     };
 
     const handleDeleteCancel = () => {
@@ -234,16 +219,6 @@ const MyWishModify = () => {
         };
     };
 
-    const handleDelete = async () => {
-        try {
-            // TODO 삭제 axios 요청
-            // 삭제 후 목록 페이지로 리디렉션
-            navigate("/wishlist");
-        } catch (error) {
-            console.error("삭제 오류: ", error);
-        }
-    };
-
     // FIXME AddWish.tsx와 공통된 부분 함수로 묶어서 사용하기
     // FIXME input값 하나 업데이트인데, 코드가 너무 복잡해짐
     const handleComplete = async () => {
@@ -267,13 +242,38 @@ const MyWishModify = () => {
         } else {
             setWishDescriptionError(false);
         }
+        if (!itemId) {
+            console.error("itemId가 없습니다.");
+            return;
+        }
+
         try {
-            // TODO 수정 axios 요청
-            // 수정 완료 후 상세 페이지로 리디렉션
-            console.log("수정된 데이터는??:", {wishLink, wishDescription});
-            navigate(`/wishlist/item/${itemId}`);
+            if (!itemId) {
+                console.error("itemId가 없습니다.");
+                return;
+            }
+
+            console.log("수정된 데이터는?:", {wishImageUrl, wishLink, wishDescription});
+
+            const formData = new FormData();
+            if (wishImage) {
+                formData.append("image", wishImage); // 이미지 파일이 있을 경우에만 추가
+            }
+            formData.append("link", wishLink);
+            formData.append("description", wishDescription);
+
+            const response = await modifyWishItem(Number(itemId),
+                formData
+            );
+            console.log(response.data);
+            if (response.status === 'success') {
+                navigate(`/wishlist/item/${itemId}`);
+            } else {
+                console.log(response.message);
+            }
         } catch (error) {
-            console.error("수정 오류: ", error);
+            console.error("위시리스트 수정 중 오류 발생:", error);
+            alert("위시리스트 수정 중 오류가 발생했습니다.");
         }
     };
 
@@ -286,13 +286,13 @@ const MyWishModify = () => {
     }, [wishImage, wishImageUrl]);
 
     const handleImageUpload = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-        if (e.target.files && e.target.files[0]) {
-            setWishImage(e.target.files[0]); // 파일 저장
+        if (e.target.files && e.target?.files[0]) {
+            setWishImage(e.target?.files[0]); // 파일 저장
             setWishImageUrlError(false);
         }
     }, []);
 
-    // 이미지 업로드 버튼 클릭 시 input[type="file"]이 클릭되도록 함
+// 이미지 업로드 버튼 클릭 시 input[type="file"]이 클릭되도록 함
     const openFilePicker = () => {
         if (fileInputRef.current) {
             fileInputRef.current.click();
@@ -307,7 +307,7 @@ const MyWishModify = () => {
                 <Header title={`${wishData?.name}님의 위시아이템`}/>
                 <Info>
                     <FileInputContainer>
-                        <ImageUploadWrapper image={wishImageUrl} onClick={openFilePicker}>
+                        <ImageUploadWrapper thumbnail={wishImageUrl} onClick={openFilePicker}>
                             <HiddenInput
                                 ref={fileInputRef}
                                 type="file"
@@ -318,8 +318,8 @@ const MyWishModify = () => {
                         {wishImageUrlError && <ErrorMessage>이미지를 하나 선택해주세요!</ErrorMessage>}
                     </FileInputContainer>
                     {/* 선물명과 가격은 수정 못함 */}
-                    <WishDisabledInput>{wishData?.item_name}</WishDisabledInput>
-                    <WishDisabledInput>{wishData?.item_price} 원</WishDisabledInput>
+                    <WishDisabledInput>{wishData?.gift?.title}</WishDisabledInput>
+                    <WishDisabledInput>{wishData?.gift?.price ? Number(wishData.gift.price).toLocaleString() : "0"}원</WishDisabledInput>
                     {/* 선물 링크와 선물 설명은 수정 가능 */}
                     <InputContainer>
                         <CustomInput
@@ -327,7 +327,7 @@ const MyWishModify = () => {
                             value={wishLink}
                             type="text"
                             placeholder="선물 링크"
-                            error={wishLinkError} // 에러 상태 전달
+                            hasError={wishLinkError} // 에러 상태 전달
                             onFocus={() => handleFocus(setWishLinkError)} // 에러 초기화
                             onChange={handleInputChange(setWishLink, 2000, setWishLinkError)}
                         />

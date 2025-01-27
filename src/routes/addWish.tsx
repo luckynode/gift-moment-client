@@ -8,6 +8,10 @@ import {useNavigate} from "react-router-dom";
 import WishImg from "../assets/wishlist/wish_img_input.svg";
 import {useEffect} from "react";
 import cameraIcon from "../assets/wishlist/wish_img_modify.svg";
+import "react-toastify/dist/ReactToastify.css";
+import {addWishItem} from "../apis/wishItemApi.ts";
+import {toast} from "react-toastify";
+
 
 const Wrapper = styled.div`
   display: flex;
@@ -43,13 +47,13 @@ export const TextArea = styled.textarea`
 `;
 
 const CustomInput = styled(Input)`
-  border: 1px solid ${(props) => (props.error ? 'red' : '#C8C8C8')};
+  border: 1px solid ${(props: { hasError?: boolean }) => (props.hasError ? 'red' : '#ddd')};
 `;
 
 const PriceInput = styled(Input)`
   padding-right: 50px;
   text-align: right; /* 선물 가격만 오른쪽 정렬하기 */
-  border: 1px solid ${(props) => (props.error ? 'red' : '#C8C8C8')};
+  border: 1px solid ${(props: { hasError?: boolean }) => (props.hasError ? 'red' : '#C8C8C8')};
 
   &::placeholder {
     text-align: left; /* placeholder는 그대로 왼쪽 정렬 */
@@ -91,7 +95,7 @@ const PriceInputWrapper = styled.div`
   align-items: center;
 `;
 
-const ImageUploadWrapper = styled.div<{ image?: string }>`
+const ImageUploadWrapper = styled.div<{ thumbnail?: string }>`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -101,7 +105,7 @@ const ImageUploadWrapper = styled.div<{ image?: string }>`
   border-radius: 8px;
   width: 220px;
   height: 150px;
-  background-image: url(${(props) => props.image});
+  background-image: url(${(props: { thumbnail: string }) => props.thumbnail});
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
@@ -156,7 +160,7 @@ const AddWish = () => {
     const [wishDescriptionError, setWishDescriptionError] = useState(false);
     const [wishImage, setWishImage] = useState<File | null>(null);
     const [wishImageError, setWishImageError] = useState(false);
-    const fileInputRef = useRef<HTMLInputElement>(null);
+    const fileInputRef = useRef<HTMLInputElement | null>(null);
 
     // 이미지 URL 메모화
     const imageUrl = useMemo(() => {
@@ -172,18 +176,20 @@ const AddWish = () => {
     }, [wishImage, imageUrl]);
 
     const handleImageUpload = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-        if (e.target.files && e.target.files[0]) {
-            setWishImage(e.target.files[0]);
+        const files = e.target.files;
+        if (files && files[0]) {
+            setWishImage(files[0]);
             setWishImageError(false); // 에러 초기화
         }
     }, []);
 
     const openFilePicker = () => {
         if (fileInputRef.current) {
-            fileInputRef.current.click();
+            if ("click" in fileInputRef.current) {
+                fileInputRef.current.click();
+            }
         }
     };
-
     const handleFocus = (setter: (value: boolean) => void) => {
         setter(false); // 에러 상태 초기화
     };
@@ -229,7 +235,7 @@ const AddWish = () => {
     };
 
 
-    const onSubmit = useCallback((e: React.FormEvent<HTMLFormElement>) => {
+    const onSubmit = useCallback(async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (!wishImage) {
             setWishImageError(true);
@@ -268,15 +274,29 @@ const AddWish = () => {
 
 
         try {
-            // TODO 나중에 숫자만 서버에 전송하기 위해 콤마 제거
-            console.log("Formatted Price:", wishPrice.replace(/,/g, ""));
-            console.log(wishName, wishLink, setWishDescriptionError);
-            navigate("/wishlist/add/confirm");
-            // TODO: 서버 axios post
+            const formData = new FormData();
+            formData.append("title", wishName);
+            formData.append("price", wishPrice.replace(/,/g, ""));
+            formData.append("link", wishLink);
+            formData.append("description", wishDescription);
+            formData.append("image", wishImage);
+
+            const response = await addWishItem(
+                formData
+            );
+
+            console.log(response.data);
+
+            if (response.status === 'success') {
+                navigate("/wishlist/add/confirm");
+            } else {
+                console.log(response.message);
+            }
         } catch (error) {
-            console.error("정보 제출 오류 : ", error);
+            console.error("위시리스트 추가 중 오류 발생:", error);
+            alert("위시리스트 추가 중 오류가 발생했습니다.");
         }
-    }, [wishImage, navigate]);
+    }, [wishName, wishPrice, wishLink, wishDescription, wishImage, navigate]);
 
     return (
         <Wrapper>
@@ -285,7 +305,7 @@ const AddWish = () => {
             <Form onSubmit={onSubmit}>
                 <Info>
                     <FileInputContainer>
-                        <ImageUploadWrapper image={imageUrl} onClick={openFilePicker}>
+                        <ImageUploadWrapper thumbnail={imageUrl} onClick={openFilePicker}>
                             <HiddenInput
                                 ref={fileInputRef}
                                 type="file"
@@ -301,9 +321,9 @@ const AddWish = () => {
                             value={wishName}
                             type="text"
                             placeholder="선물명"
-                            error={wishNameError} // error 상태 전달
+                            hasError={wishNameError} // error 상태 전달
                             onFocus={() => handleFocus(setWishNameError)} // focus 시 에러 초기화
-                            onChange={(e) => handleInputChange(setWishName, 20, setWishNameError)}
+                            onChange={handleInputChange(setWishName, 20, setWishNameError)}
                         />
                         {wishNameError && <ErrorMessage>선물 이름을 입력해주세요!</ErrorMessage>}
                     </InputContainer>
@@ -314,7 +334,7 @@ const AddWish = () => {
                                 value={wishPrice}
                                 type="text"
                                 placeholder="선물 가격"
-                                error={wishPriceError} // error 상태 전달
+                                hasError={wishPriceError} // error 상태 전달
                                 onFocus={() => handleFocus(setWishPriceError)} // focus 시 에러 초기화
                                 onChange={handlePriceChange}/>
                             <CurrencyLabel>원</CurrencyLabel>
@@ -327,9 +347,9 @@ const AddWish = () => {
                             value={wishLink}
                             type="text"
                             placeholder="선물 링크"
-                            error={wishLinkError} // error 상태 전달
+                            hasError={wishLinkError} // error 상태 전달
                             onFocus={() => handleFocus(setWishLinkError)} // focus 시 에러 초기화
-                            onChange={(e) => handleInputChange(setWishLink, 2000, setWishLinkError)}
+                            onChange={handleInputChange(setWishLink, 2000, setWishLinkError)}
                         />
                         {wishLinkError && <ErrorMessage>구매하려는 선물 링크를 입력해주세요!</ErrorMessage>}
                     </InputContainer>
@@ -341,7 +361,7 @@ const AddWish = () => {
                             placeholder="선물 소개"
                             error={wishDescriptionError} // error 상태 전달
                             onFocus={() => handleFocus(setWishDescriptionError)} // focus 시 에러 초기화
-                            onChange={(e) => handleInputChange(setWishDescription, 100, setWishDescriptionError)}
+                            onChange={handleInputChange(setWishDescription, 100, setWishDescriptionError)}
                         />
                         {wishDescriptionError && <ErrorMessage>선물에 대해 간략히 설명해주세요️!</ErrorMessage>}
                     </InputContainer>

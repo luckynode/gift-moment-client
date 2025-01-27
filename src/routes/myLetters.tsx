@@ -55,7 +55,7 @@ const MyLetters = () => {
                     console.log(response.data);
                     const {username, before_birthday, total_letters, letters} = response.data;
                     setUsername(username);
-                    setBeforeBirthday(!before_birthday);
+                    setBeforeBirthday(before_birthday);
                     setTotalLetters(total_letters);
                     setLetters(letters);
                 } else {
@@ -85,11 +85,11 @@ const MyLetters = () => {
 
     // 표시할 장신구 데이터 생성
     const items = ornamentImages.slice(0, totalLetters).map((src, index) => ({
-        id: index,
+        id: letters[index]?.id || index, // letters 배열의 id로 설정
         src,
         top: ornamentPositions[index].top,
         left: ornamentPositions[index].left,
-        onClick: () => handleItemClick(index),
+        onClick: () => handleItemClick(letters[index]?.id || index), // letters의 id 전달
     }));
 
     const copyLinkToClipboard = async () => {

@@ -1,8 +1,27 @@
-import axios, {AxiosResponse} from 'axios';
+import axios, {Axios, AxiosResponse} from 'axios';
 import {ApiResponse} from '../types/common/apiResponse';
-import {GetGuestLettersResponse} from "../types/api/guestLetter.ts";
+import {AddLetterRequest, GetGuestLettersResponse} from "../types/api/guestLetter.ts";
 
 const BASE_URL = import.meta.env.VITE_BACKEND_URL;
+const jwt_token = localStorage.getItem('jwt_token');
+
+export const addLetter = async (
+    uniqueString: string,
+    data: AddLetterRequest
+): Promise<ApiResponse<{}>> => {
+    const response: AxiosResponse<ApiResponse<{}>> = await axios.post(
+        `${BASE_URL}/api/v1/letters/create/${uniqueString}`,
+        data,
+        {
+            headers: {
+                "Content-Type": "application/json",
+            },
+        }
+    );
+    return response.data;
+};
+
+
 export const getGuestLetters = async (
     uniqueString: string
 ): Promise<ApiResponse<GetGuestLettersResponse>> => {

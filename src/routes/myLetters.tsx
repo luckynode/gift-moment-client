@@ -32,18 +32,12 @@ export const ColumnButtonContainer = styled.div`
 `;
 
 
-// NOTE 현재는 하드코딩된 값 사용. 나중에 동적으로 처리 필요
 const MyLetters = () => {
     const navigate = useNavigate();
     const [username, setUsername] = useState<string>("");
     const [beforeBirthday, setBeforeBirthday] = useState<boolean>(false);
     const [letters, setLetters] = useState<Letter[]>([]);
-    const [totalLetters, setTotalLetters] = useState<number>(0);
-
-    //      생일이 아니면 편지 상세보기 불가능
-
-    // TODO 백엔드 API로부터 내 편지 개수 받아오기
-    const [letterCount] = useState<number>(14);
+    const [totalLetters, setTotalLetters] = useState<number>(14);
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedLetter, setSelectedLetter] = useState<{
@@ -90,7 +84,7 @@ const MyLetters = () => {
     const closeModal = () => setIsModalOpen(false); // 모달 닫기
 
     // 표시할 장신구 데이터 생성
-    const items = ornamentImages.slice(0, letterCount).map((src, index) => ({
+    const items = ornamentImages.slice(0, totalLetters).map((src, index) => ({
         id: index,
         src,
         top: ornamentPositions[index].top,

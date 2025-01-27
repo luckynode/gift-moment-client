@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import styled from 'styled-components';
 import Header from '../components/headers/Header.tsx';
 import Button from '../components/buttons/Button.tsx';
@@ -8,8 +8,12 @@ import { ornamentImages } from '../assets/ornamentImages.ts';
 import { ornamentPositions } from '../assets/ornamentImages.ts';
 
 import InstructionText from "../components/InstructionText.tsx";
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import BackButton from "../components/buttons/BackButton.tsx";
+import axios from "axios";
+import {getGuestLetters} from "../apis/guestLetterApi.ts";
+import {toast} from "react-toastify";
+import success = toast.success;
 
 export const Wrapper = styled.div`
   display: flex;
@@ -30,10 +34,12 @@ const ButtonContainer = styled.div`
 
 // NOTE 현재는 하드코딩된 값 사용. 나중에 동적으로 처리 필요
 const GuestLetters = () => {
+    const { uniqueString } = useParams();
     const navigate = useNavigate();
 
-    // NOTE 게스트 편지함 링크에서 장신구 개수는 14개로 고정
-    const [letterCount] = useState<number>(14);
+    const [ownerName, setOwnerName] = useState('');
+    const [beforeBirthday, setBeforeBirthday] = useState(false);
+    const [letterCount, setLetterCount] = useState(0);
 
     // 표시할 장신구 데이터 생성
     const items = ornamentImages.slice(0, letterCount).map((src, index) => ({
@@ -44,6 +50,29 @@ const GuestLetters = () => {
         onClick: () => {
         },
     }));
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                if (uniqueString) {
+                    const response = await getGuestLetters(uniqueString);
+                    if (response.status === "success") {
+                        console.log("게스트 편지 조회 성공:", response.data);
+
+                        const { birthday_owner_name, before_birthday, total_letters} = response.data;
+                        setOwnerName(birthday_owner_name);
+                        setBeforeBirthday(before_birthday);
+                        setLetterCount(total_letters);
+                    } else {
+                        console.error("게스트 편지 조회 실패:", response.message);
+                    }
+                }
+            } catch (error) {
+                console.error("게스트 편지 조회 실패:", error);
+            }
+        }
+        fetchData();
+    }, [uniqueString, navigate]);
 
     return (
         <>

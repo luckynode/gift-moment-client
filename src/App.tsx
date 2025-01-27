@@ -106,7 +106,7 @@ const router = createBrowserRouter([
         element: <Login/>
     },
     {
-        path: "/guest-letters",
+        path: "/gm-letter/:uniqueString",
         element: <GuestLetters/>
     },
     {

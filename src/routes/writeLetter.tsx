@@ -1,8 +1,10 @@
 import BackButton from "../components/buttons/BackButton.tsx";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import Button from "../components/buttons/Button.tsx";
 import styled from "styled-components";
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useLocation} from "react-router-dom";
+import {addLetter} from "../apis/guestLetterApi.ts";
+import {toast} from "react-toastify";
 
 const Form = styled.form`
   margin: 60px 20px 20px 20px;
@@ -13,13 +15,15 @@ const Form = styled.form`
   gap: 25px;
 `;
 
-const TextArea = styled.textarea<{ error?: boolean }>`
+const TextArea = styled.textarea.withConfig({
+    shouldForwardProp: (prop) => prop !== "error",
+})<{ error?: boolean }>`
   width: 280px;
   background: #FFF9E6;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   height: 400px;
   font-size: 15px;
-  border: 1px solid ${(props) => (props.error ? 'red' : '#ddd')};
+  border: 1px solid ${(props) => (props.error ? "red" : "#ddd")};
   border-radius: 20px;
   resize: none;
   padding: 20px 25px;
@@ -57,8 +61,9 @@ const Label = styled.label`
   font-size: 17px;
   font-weight: bold;
 `;
-
-const Input = styled.input<{ error?: boolean }>`
+const Input = styled.input.withConfig({
+    shouldForwardProp: (prop) => prop !== 'error', // 'error' prop을 DOM으로 전달하지 않음
+})<{ error?: boolean }>`
   flex: 1;
   padding: 8px 10px;
   border-radius: 20px;
@@ -89,6 +94,9 @@ const InputContainer = styled.div`
 `;
 
 const WriteLetter = () => {
+    const location = useLocation();
+    const {uniqueString, ownerName} = location.state || {};
+
     const [to, setTo] = useState('');
     const [message, setMessage] = useState('');
     const [from, setFrom] = useState('');
@@ -107,6 +115,15 @@ const WriteLetter = () => {
             setter(value); // 입력 길이가 제한 내에 있을 경우만 상태 업데이트
         }
     };
+
+    useEffect(() => {
+        // uniqueString이 없으면 이전 페이지로 리다이렉트
+        if (!uniqueString) {
+            toast.error("잘못된 접근입니다. 편지함에서 다시 시도해주세요.");
+            navigate(-1); // 이전 페이지로 이동
+        }
+        console.log("uniqueString, ownerName:", uniqueString, ownerName);
+    }, [uniqueString, navigate]);
 
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -132,11 +149,22 @@ const WriteLetter = () => {
             setFromError(false);
         }
         try {
-            console.log(to, message, from);
-            navigate("/letter-sent-confirm");
-            // TODO: 서버 axios post
+            console.log("편지 작성 요청", to, message, from);
+
+            const response = await addLetter(uniqueString, {
+                recipient_to: to,
+                sender_name: from,
+                content: message,
+            });
+
+            if (response.status === 'success') {
+                console.log("편지 작성 성공:", response.data);
+                navigate("/letter-sent-confirm", {state: {uniqueString, ownerName}});
+            } else {
+                console.error("편지 작성 실패:", response.message);
+            }
         } catch (error) {
-            console.error("정보 제출 오류 : ", error);
+            console.error("편지 작성 중 오류 발생:", error);
         }
     };
 

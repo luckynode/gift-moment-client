@@ -13,7 +13,9 @@ const HeaderContainer = styled.header`
   width: 100%;
 `;
 
-const HeaderTitle = styled.h1<{ fontSize: string }>`
+const HeaderTitle = styled.h1.withConfig({
+    shouldForwardProp: (prop) => prop !== "hasBorder",
+})<{ fontSize: string; hasBorder?: boolean }>`
   font-size: ${(props) => props.fontSize};
   font-weight: 700;
   color: transparent; /* 텍스트 색상을 투명으로 설정 */
@@ -30,7 +32,7 @@ const HeaderTitle = styled.h1<{ fontSize: string }>`
   white-space: pre-line; /* \\n 처리를 위한 속성 */
 `;
 
-const Header = ({ title, fontSize = '30px', hasBorder = false }: HeaderProps) => {
+const Header = ({ title, fontSize = "30px", hasBorder = false }: HeaderProps) => {
     return (
         <HeaderContainer>
             <HeaderTitle fontSize={fontSize} hasBorder={hasBorder}>{title}</HeaderTitle>

@@ -92,7 +92,7 @@ const InputContainer = styled.div`
 
 const WriteLetter = () => {
     const location = useLocation();
-    const {uniqueString} = location.state || {};
+    const {uniqueString, ownerName} = location.state || {};
 
     const [to, setTo] = useState('');
     const [message, setMessage] = useState('');
@@ -119,7 +119,7 @@ const WriteLetter = () => {
             toast.error("잘못된 접근입니다. 편지함에서 다시 시도해주세요.");
             navigate(-1); // 이전 페이지로 이동
         }
-        console.log("uniqueString:", uniqueString);
+        console.log("uniqueString, ownerName:", uniqueString, ownerName);
     }, [uniqueString, navigate]);
 
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -156,7 +156,7 @@ const WriteLetter = () => {
 
             if (response.status === 'success') {
                 console.log("편지 작성 성공:", response.data);
-                navigate("/letter-sent-confirm", {state: {uniqueString}});
+                navigate("/letter-sent-confirm", {state: {uniqueString, ownerName}});
             } else {
                 console.error("편지 작성 실패:", response.message);
             }

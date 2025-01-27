@@ -1,5 +1,5 @@
 import {ApiResponse} from "../types/common/apiResponse.ts";
-import {CopyLetterUrlResponse} from "../types/api/myLetter.ts";
+import {CopyLetterUrlResponse, GetMyLettersResponse} from "../types/api/myLetter.ts";
 import axios, {AxiosResponse} from 'axios';
 
 const BASE_URL = import.meta.env.VITE_BACKEND_URL;
@@ -16,3 +16,15 @@ export const copyLetterUrl = async (): Promise<ApiResponse<CopyLetterUrlResponse
     );
     return response.data;
 };
+
+export const getMyLetters = async (): Promise<ApiResponse<GetMyLettersResponse>> => {
+    const response: AxiosResponse<ApiResponse<GetMyLettersResponse>> = await axios.get(
+        `${BASE_URL}/api/v1/letters`,
+        {
+            headers: {
+                Authorization: `Bearer ${jwt_token}`
+            },
+        }
+    );
+    return response.data;
+}

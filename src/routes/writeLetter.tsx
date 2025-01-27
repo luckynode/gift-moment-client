@@ -15,13 +15,15 @@ const Form = styled.form`
   gap: 25px;
 `;
 
-const TextArea = styled.textarea<{ error?: boolean }>`
+const TextArea = styled.textarea.withConfig({
+    shouldForwardProp: (prop) => prop !== "error",
+})<{ error?: boolean }>`
   width: 280px;
   background: #FFF9E6;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   height: 400px;
   font-size: 15px;
-  border: 1px solid ${(props) => (props.error ? 'red' : '#ddd')};
+  border: 1px solid ${(props) => (props.error ? "red" : "#ddd")};
   border-radius: 20px;
   resize: none;
   padding: 20px 25px;
@@ -59,8 +61,9 @@ const Label = styled.label`
   font-size: 17px;
   font-weight: bold;
 `;
-
-const Input = styled.input<{ error?: boolean }>`
+const Input = styled.input.withConfig({
+    shouldForwardProp: (prop) => prop !== 'error', // 'error' prop을 DOM으로 전달하지 않음
+})<{ error?: boolean }>`
   flex: 1;
   padding: 8px 10px;
   border-radius: 20px;

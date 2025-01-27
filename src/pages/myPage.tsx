@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
 import BackButton from "../components/buttons/BackButton";
+import Loading from "../components/loading";
 
 const Row18 = styled.div`
     display: flex;
@@ -40,9 +41,15 @@ interface User {
     account_number: number;
 }
 
+const formatDate = (dateString: string): string => {
+    const date = new Date(dateString);
+    return date.toISOString().split('T')[0]; // "YYYY-MM-DD" 형식으로 변환
+};
+
 export default function Mypage() {
     const [user, setUser] = useState<User | null>(null); // 초기값을 null로 설정
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(true);
 
     useEffect(()=> {
         const fetchData = async() => {
@@ -57,6 +64,8 @@ export default function Mypage() {
                 setUser(response.data.data);
             } catch (error) {
                 console.error("Fetchdata error : ", error);
+            } finally {
+                setLoading(false);
             }
         };
         fetchData();
@@ -64,8 +73,13 @@ export default function Mypage() {
 
     const handleLogout = async () => {
         if (window.confirm("정말 로그아웃하시겠습니까?")) {
-            try {            
-                await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/auth/logout`, {});
+            try {
+                const jwt_token = localStorage.getItem("jwt_token");
+                await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/auth/logout`, {}, {
+                    headers: {
+                        Authorization: `Bearer ${jwt_token}`,
+                    },
+                });
     
                 localStorage.removeItem("jwt_token");
                 alert("로그아웃 되었습니다.");
@@ -74,6 +88,10 @@ export default function Mypage() {
                 console.error("Logout Error : ", error);
             }   
         }
+    }
+
+    if(loading) {
+        return <Loading />
     }
 
     return(
@@ -91,7 +109,7 @@ export default function Mypage() {
                 />
                 <Input 
                     name="birth"
-                    value={user?.birth_date}
+                    value={user?formatDate(user.birth_date) : ''}
                     type="text"
                     placeholder="생년월일"
                     disabled

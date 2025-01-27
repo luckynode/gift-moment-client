@@ -7,6 +7,7 @@ import eximg from "../assets/wishlist/example.jpg"
 import { ornamentImages } from '../assets/ornamentImages.ts';
 import Button from "../components/buttons/Button";
 import axios from "axios";
+import Loading from "../components/loading.tsx";
 
 
 const Wrapper = styled.div`
@@ -182,26 +183,34 @@ export default function UserWishDetail() {
             ]
         },
     });
+    
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/wishlists/${itemId}`,  {});
-                setWishData(response.data.data);
+                setWishData(response.data.data[0]);
             } catch (error) {
                 console.error("Fetching data ",error);
+            } finally {
+                setLoading(false);
             }
         };
 
-        // fetchData();
+        fetchData();
     }, []);
+
+    if (loading) {
+        return <Loading />
+    }
 
     const onLikeClick = async () => {
         const jwt_token = localStorage.getItem("jwt_token");
         if(!jwt_token) {
             const result = window.confirm("로그인이 필요한 서비스입니다. 로그인 페이지로 이동합니다.");
             if(result) {
-                localStorage.setItem("redirect_url", `${window.location.href}/send`);
+                localStorage.setItem("redirect_url", `${window.location.pathname}/send`);
                 navigate(`/login`);
             }
         } else {

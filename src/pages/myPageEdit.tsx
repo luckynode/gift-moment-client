@@ -32,10 +32,15 @@ interface User {
     account_number: number;
 }
 
+const formatDate = (dateString: string): string => {
+    const date = new Date(dateString);
+    return date.toISOString().split('T')[0]; // "YYYY-MM-DD" 형식으로 변환
+};
+
 export default function EditMypage() {
     const [user, setUser] = useState<User>({
         name: '',
-        birth_date: '',
+        birth_date: '2001-01-01',
         email: "",
         bank_code: "",
         account_number: 0,
@@ -96,6 +101,7 @@ export default function EditMypage() {
 
         try {
             // TODO 주석제거
+            console.log("수정내용:", updateData);
             const jwt_token = localStorage.getItem("jwt_token");
 
             await axios.patch(`${import.meta.env.VITE_BACKEND_URL}/api/v1/mypage`,updateData, {
@@ -106,7 +112,6 @@ export default function EditMypage() {
             });
 
             // TEST 콘솔에 데이터 확인
-            console.log("수정내용:", updateData);
             alert("정보 수정 완료");
             navigate("/mypage");
             
@@ -152,8 +157,8 @@ export default function EditMypage() {
                         onChange={onChange}
                     />
                     <Input 
-                        name="birth"
-                        value={user?.birth_date || '2000-01-01'}
+                        name="birth_date"
+                        value={user?formatDate(user.birth_date) : ''}
                         type="date"
                         placeholder="생년월일"
                         onChange={onChange}

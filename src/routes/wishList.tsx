@@ -2,11 +2,12 @@ import { styled } from "styled-components";
 import BackButton from "../components/buttons/BackButton";
 import Header from "../components/headers/Header";
 import WishItem from "../components/items/WishItem";
-import eximg from "../assets/wishlist/example.jpg"
 import { useEffect, useState } from "react";
 import axios from "axios";
 import plus from "../assets/wishlist/plus.svg";
 import {useNavigate} from "react-router-dom";
+import Loading from "../components/loading";
+import Button from "../components/buttons/Button";
 
 const Wrapper = styled.div`
     display: flex;
@@ -38,12 +39,17 @@ const AddButton = styled.img`
     margin-bottom: 60px;
 `
 
+const Margin = styled.div`
+    margin-bottom: 60px;
+`
+
 // TODO 백 api 명세서 확인 후 재구성
 interface WishListData {
     name: string;
     birth: string;
     dday: string;
     member_id: number;
+    before_birthday: boolean,
     gift: Array<{
         id: number;
         title: string;
@@ -69,16 +75,12 @@ export default function WishList() {
         birth: "00월 00일",
         dday: "0",
         member_id: 1,
-        gift: [
-            { id: 1, image: eximg, title: "아이폰1", percent: 30, state: "진행 중" },
-            { id: 2, image: eximg, title: "아이폰2", percent: 70, state: "종료" },
-            { id: 3, image: eximg, title: "아이폰3", percent: 100, state: "완료" },
-            { id: 4, image: eximg, title: "아이폰4", percent: 67, state: "진행 중" },
-        ],
+        before_birthday: true,
+        gift: [],
     });
 
     const item_num = wishData.gift.length;
-
+    const [loading, setLoading] = useState(true);
 
     // TODO FetchData 주석 제거
     useEffect(() => {
@@ -87,18 +89,25 @@ export default function WishList() {
                 const jwt_token = localStorage.getItem("jwt_token");
                 const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/wishlists/member/birthday`,  {
                     headers: {
-                        Authorization: `Bearer ${jwt_token}`, // Authorization 헤더에 토큰 포함
+                        Authorization: `Bearer ${jwt_token}`
                     },
                 });
-                setWishData(response.data.data);
+                console.log(response.data.data[0]);
+                setWishData(response.data.data[0]);
             } catch (error) {
                 console.error("Fetching Data Error: ", error);
+            } finally {
+                setLoading(false);
             }
         };
 
-        // fetchData();
+        fetchData();
     }, []);
 
+    if(loading) {
+        return <Loading />
+    }
+    
     return (
         <>
             <BackButton />
@@ -120,11 +129,23 @@ export default function WishList() {
                     ))}
                 </ListWrapper>
                 {/* 5개보다 작을 때 추가 버튼 */}
-                {item_num < 5 && (
-                    <AddButton 
-                        src={plus}
-                        onClick={handleAddButtonClick} 
-                    />
+                {/* before birthday true -> addbutton, false -> navigate payment-request */}
+                {wishData.before_birthday ? (
+                    item_num < 5 && (
+                        <AddButton 
+                            src={plus}
+                            onClick={handleAddButtonClick} 
+                        />
+                    )
+                ) : (
+                    <Margin>
+                        <Button 
+                            text="선물 받으러 가기 →"
+                            color="black"
+                            size="large"
+                            onClick={() => navigate("/payment-request")}
+                        />
+                    </Margin>
                 )}
             </Wrapper>
         </>

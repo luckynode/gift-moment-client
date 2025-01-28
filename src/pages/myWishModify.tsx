@@ -92,7 +92,7 @@ const ImageUploadWrapper = styled.div<{ thumbnail?: string }>`
   border-radius: 8px;
   width: 300px;
   height: 300px;
-  background-image: url(${(props: { thumbnail: string }) => props.thumbnail});
+  background-image: url(${(props) => props.thumbnail});
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;

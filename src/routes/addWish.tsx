@@ -110,7 +110,7 @@ const ImageUploadWrapper = styled.div<{ thumbnail?: string }>`
 
   /* 투명한 검은색 오버레이 & 가운데 카메라 이미지 배치 */
   ${(props) =>
-          props.image && props.image !== WishImg && props.image.trim() !== "" ? `
+          props.thumbnail && props.thumbnail !== WishImg && props.thumbnail.trim() !== "" ? `
         &::before {
           content: "";
           position: absolute;

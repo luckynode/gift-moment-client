@@ -29,23 +29,20 @@ const Name = styled.div`
 `
 
 interface WishItemProps {
-    userid: number;
     item_id: number;
     item_image: string;
     item_name: string;
 }
 
-export default function UserWishItem({userid, item_id, item_image,item_name}: WishItemProps) {
+export default function UserWishItem({item_id, item_image,item_name}: WishItemProps) {
     const navigate = useNavigate();
     
     const handleClick = () => {
-        navigate(`/wishlist/${userid}/item/${item_id}`);
+        navigate(`/wishlist/item/${item_id}`);
     };
 
     return (
         <>
-            {/* 사진
-                이름 */}
             <Wrapper onClick={handleClick}>
                 <ItemImg src={item_image}/>
                 <Name>{item_name}</Name>

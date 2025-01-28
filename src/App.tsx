@@ -130,11 +130,11 @@ const router = createBrowserRouter([
         element: <WishList/>
     },
     {
-        path: "/wishlist/:userId",
+        path: "/wishlist/:uniqueString",
         element: <UserWishList/>
     },
     {
-        path: "/wishlist/:userId/item/:itemId",
+        path: "/wishlist/item/:itemId",
         element: <UserWishDetail/>
     },
     {

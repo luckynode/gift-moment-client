@@ -61,6 +61,7 @@ export default function UserWishList() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+        localStorage.setItem('uniqueString', String(uniqueString));
         const fetchData = async () => {
             try {
                 const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/wishlists/giver/bylink`, {

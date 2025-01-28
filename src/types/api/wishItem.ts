@@ -16,13 +16,13 @@ export interface AddWishResponse {
     description: string;
 }
 
-export interface GetWishResponse {
+export type GetWishResponse = Array<{
     name: string;
     birth: string;
     dday: number;
     member_id: number;
     gift: wishItem;
-}
+}>;
 
 export interface wishItem {
     id: number;

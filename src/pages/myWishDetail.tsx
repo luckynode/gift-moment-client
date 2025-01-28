@@ -135,7 +135,7 @@ const MyWishDetail = () => {
     const navigate = useNavigate();
     const {itemId} = useParams<{ itemId: string }>();
 
-    const [wishData, setWishData] = useState<GetWishResponse | null>(null);
+    const [wishData, setWishData] = useState<GetWishResponse[0] | null>(null);
 
     // 데이터 가져오기
     useEffect(() => {

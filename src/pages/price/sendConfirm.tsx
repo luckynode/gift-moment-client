@@ -3,6 +3,7 @@ import Button from "../../components/buttons/Button.tsx";
 import styled from "styled-components";
 import {useNavigate, useParams} from "react-router-dom";
 import mascot from "../../assets/home/mascot.svg"
+import { useEffect } from "react";
 
 const Wrapper = styled.div`
   display: flex;
@@ -27,8 +28,17 @@ const Mascot = styled.img`
 export default function SendConfirm() {
     const navigate = useNavigate();
     const uniqueString = localStorage.getItem('uniqueString');
-    
     const friend_name = localStorage.getItem('friend_name');
+
+    useEffect(() => {
+        // 로컬저장소 필요 없는 내용 삭제
+		// amount gift_id tid member_id(현재는 생일 당사자 id이지만 추후 선물 주는 사람 id로 변경)
+		localStorage.removeItem('amount');
+		localStorage.removeItem('gift_id');
+		localStorage.removeItem('tid');
+		localStorage.removeItem('member_id');
+    }, []);
+
     return (
         <>
         <Wrapper>

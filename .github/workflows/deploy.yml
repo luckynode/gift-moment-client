@@ -19,7 +19,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 20
 
       # 3. 의존성 설치
       - name: Install Dependencies
@@ -44,3 +44,7 @@ jobs:
       # 7. CloudFront 캐시 무효화
       - name: Invalidate CloudFront Cache
         run: aws cloudfront create-invalidation --distribution-id ${{ secrets.DEV_AWS_DISTRIBUTION_ID }} --paths "/*"
+
+      # 8. 배포 완료 로그
+      - name: Log Deployment Success
+        run: echo "Deployment to S3 and CloudFront completed successfully."

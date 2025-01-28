@@ -122,8 +122,7 @@ export default function InputPrice({ onNext } : GetInfoProps) {
         const fetchData = async () => {
             try {
                 const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/wishlists/${itemId}`,  {});
-                const data = response.data.data;
-
+                const data = response.data.data[0];
                 setWishData({
                     name: data.name,
                     birth: data.birth,

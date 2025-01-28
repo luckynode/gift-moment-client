@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom"
 import { styled } from "styled-components"
+import Loading from "../../components/loading";
 
 const Wrapper = styled.div`
     display: flex;
@@ -22,6 +23,7 @@ export default function PaymentApprove() {
     const gift_id = localStorage.getItem('gift_id');
     const member_id = localStorage.getItem('member_id');
     const amount = Number(localStorage.getItem('amount'));
+    const uniqueString = localStorage.getItem('uniqueString');
 
     useEffect(() => {
         const fetchData = async () => {
@@ -36,7 +38,7 @@ export default function PaymentApprove() {
 
                 if(response.data.status === "success") {
                     setLoading(false);
-                    navigate(`/wishlist/${member_id}/item/${gift_id}/send/confirm`);
+                    navigate(`/wishlist/${uniqueString}/item/${gift_id}/send/confirm`);
                 } else {
                     setError(response.data.message);
                 }
@@ -57,7 +59,7 @@ export default function PaymentApprove() {
     },[]);
 
     if (loading) {
-        return <Wrapper>로딩중</Wrapper>
+        return <Loading />
     }
 
     if (error) {
@@ -65,8 +67,6 @@ export default function PaymentApprove() {
     }
 
     return(
-        <Wrapper>
-            결제중입니다
-        </Wrapper>
+        <Loading />
     )
 }

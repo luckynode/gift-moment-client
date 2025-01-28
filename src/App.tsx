@@ -134,19 +134,19 @@ const router = createBrowserRouter([
         element: <UserWishList/>
     },
     {
-        path: "/wishlist/item/:itemId",
+        path: "/wishlist/:uniqueString/item/:itemId",
         element: <UserWishDetail/>
     },
     {
-        path: "/wishlist/:userId/item/:itemId/send",
+        path: "/wishlist/:uniqueString/item/:itemId/send",
         element: <GiftAmount/>
     },
     {
-        path: "/wishlist/:userId/item/:itemId/send/confirm",
+        path: "/wishlist/:uniqueString/item/:itemId/send/confirm",
         element: <SendConfirm/>
     },
     {
-        path: "/payment-approval",
+        path: "/payments/kakao-pay/success",
         element: <PaymentApprove />
     },
     {

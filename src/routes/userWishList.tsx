@@ -61,6 +61,7 @@ export default function UserWishList() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+        localStorage.setItem('uniqueString', String(uniqueString));
         const fetchData = async () => {
             try {
                 const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/wishlists/giver/bylink`, {
@@ -94,6 +95,7 @@ export default function UserWishList() {
                     {wishData?.gift.map((gift) => (
                         <UserWishItem
                             key={gift.id}
+                            uniqueString={String(uniqueString)}
                             item_id={gift.id}
                             item_image={gift.image}
                             item_name={gift.title}

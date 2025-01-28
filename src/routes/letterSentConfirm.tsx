@@ -47,7 +47,7 @@ const LetterSentConfirm = () => {
             <Header title={"작은 선물로\n마음을 표현 해보는 건 어떠세요?"} fontSize={"25px"}/>
             <RowButtonContainer>
                 <Button type="button" text="좋아요!" size="small" color="black" onClick={() => {
-                    navigate("/login")
+                    navigate(`/wishlist/${uniqueString}`)
                 }}/>
                 <Button type="button" text="괜찮아요" size="small" color="white" onClick={() => {
                     navigate("/gm-letter/" + uniqueString)

@@ -1,10 +1,10 @@
 name: Deploy to S3 and CloudFront
 
-#on:
-#  push:
-#    branches:
-##      - develop
-##      - feature/33-ci-cd-setup
+on:
+  push:
+    branches:
+      - develop
+      - feature/44-ci-cd-test
 
 jobs:
   build-and-deploy:
@@ -19,7 +19,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 20
 
       # 3. 의존성 설치
       - name: Install Dependencies
@@ -27,7 +27,12 @@ jobs:
 
       # 4. 빌드 실행
       - name: Build Project
-        run: npm run build
+        run: |
+          VITE_BACKEND_URL=${{ secrets.VITE_BACKEND_URL }} \
+          VITE_FRONTEND_URL=${{ secrets.VITE_FRONTEND_URL }} \
+          VITE_KAKAO_REDIRECT_URI=${{ secrets.VITE_KAKAO_REDIRECT_URI }} \
+          VITE_KAKAO_REST_API_KEY=${{ secrets.VITE_KAKAO_REST_API_KEY }} \
+          npm run build
 
       # 5. AWS 자격증명 구성
       - name: Configure AWS Credentials
@@ -39,7 +44,7 @@ jobs:
 
       # 6. S3에 빌드 결과물 업로드
       - name: Deploy to S3
-        run: aws s3 sync ./build s3://your-s3-bucket-name --delete
+        run: aws s3 sync ./dist s3://${{ secrets.S3_BUCKET_NAME }} --delete
 
       # 7. CloudFront 캐시 무효화
       - name: Invalidate CloudFront Cache

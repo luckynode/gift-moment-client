@@ -59,7 +59,7 @@ interface UserWishData {
     name: string;
     birth: string;
     dday: string;
-    member_id: number;
+    memberId: number;
     gift: {
         id: number;
         image: string;
@@ -78,7 +78,7 @@ export default function PriceCheck({price} : PriceCheckProps) {
         name: "김친구",
         birth: "00월 00일",
         dday: "0",
-        member_id: 1,
+        memberId: 1,
         gift : {
             id: 1,
             image: eximg,
@@ -90,14 +90,20 @@ export default function PriceCheck({price} : PriceCheckProps) {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/wishlists/${itemId}`,  {});
-                const data = response.data.data[0];
+                const jwt_token = localStorage.getItem("jwt_token");
+                const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/wishlists/giver/${itemId}`,  {
+                    headers: {
+                        Authorization: `Bearer ${jwt_token}`
+                    },
+                });
+                const data = response.data.data;
+                console.log("data: ", data);
 
                 setWishData({
                     name: data.name,
                     birth: data.birth,
                     dday: data.dday,
-                    member_id: data.member_id,
+                    memberId: data.memberId,
                     gift: {
                         id: data.gift.id,
                         image: data.gift.image,
@@ -106,7 +112,7 @@ export default function PriceCheck({price} : PriceCheckProps) {
                 });
                 
                 // userid, item_id, amount 를 local에 저장해서 pay-approve에서 사용
-                localStorage.setItem("member_id", data.member_id);
+                localStorage.setItem("memberId", data.memberId);
                 localStorage.setItem("gift_id", data.gift.id);
                 localStorage.setItem("amount", price);
                 localStorage.setItem("friend_name", data.name);
@@ -154,7 +160,7 @@ export default function PriceCheck({price} : PriceCheckProps) {
                 </Gap>
                 <Row onSubmit={onSubmit}>
                     <Button size="small" color="black" text="네" onClick={() => {}} type="submit"/>
-                    <Button size="small" color="white" text="아니요" onClick={() => {navigate(-1)}}/>
+                    <Button size="small" color="white" text="아니요" onClick={() => {navigate(-1)}} type="button"/>
                 </Row>
             </Wrapper>
         </>

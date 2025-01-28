@@ -36,7 +36,7 @@ export default function SendConfirm() {
 		localStorage.removeItem('amount');
 		localStorage.removeItem('gift_id');
 		localStorage.removeItem('tid');
-		localStorage.removeItem('member_id');
+		localStorage.removeItem('memberId');
     }, []);
 
     return (

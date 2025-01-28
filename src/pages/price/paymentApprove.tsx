@@ -23,6 +23,7 @@ export default function PaymentApprove() {
     const gift_id = localStorage.getItem('gift_id');
     const member_id = localStorage.getItem('member_id');
     const amount = Number(localStorage.getItem('amount'));
+    const uniqueString = localStorage.getItem('uniqueString');
 
     useEffect(() => {
         const fetchData = async () => {
@@ -37,7 +38,7 @@ export default function PaymentApprove() {
 
                 if(response.data.status === "success") {
                     setLoading(false);
-                    navigate(`/wishlist/item/${gift_id}/send/confirm`);
+                    navigate(`/wishlist/${uniqueString}/item/${gift_id}/send/confirm`);
                 } else {
                     setError(response.data.message);
                 }

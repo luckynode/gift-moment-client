@@ -95,6 +95,7 @@ export default function UserWishList() {
                     {wishData?.gift.map((gift) => (
                         <UserWishItem
                             key={gift.id}
+                            uniqueString={String(uniqueString)}
                             item_id={gift.id}
                             item_image={gift.image}
                             item_name={gift.title}

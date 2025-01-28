@@ -29,16 +29,17 @@ const Name = styled.div`
 `
 
 interface WishItemProps {
+    uniqueString: string;
     item_id: number;
     item_image: string;
     item_name: string;
 }
 
-export default function UserWishItem({item_id, item_image,item_name}: WishItemProps) {
+export default function UserWishItem({uniqueString, item_id, item_image,item_name}: WishItemProps) {
     const navigate = useNavigate();
     
     const handleClick = () => {
-        navigate(`/wishlist/item/${item_id}`);
+        navigate(`/wishlist/${uniqueString}/item/${item_id}`);
     };
 
     return (

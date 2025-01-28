@@ -42,7 +42,7 @@ const Subtitle = styled.div`
   background-clip: text;
 `
 
-export const TextArea = styled.textarea`
+export const TextArea = styled.textarea<{ error?: boolean }>`
   box-sizing: border-box;
   width: 330px;
   height: 150px;
@@ -327,7 +327,6 @@ const MyWishModify = () => {
                         <TextArea
                             name="wishDescription"
                             value={wishDescription}
-                            type="text"
                             placeholder="선물 소개"
                             error={wishDescriptionError} // error 상태 전달
                             onFocus={() => handleFocus(setWishDescriptionError)} // focus 시 에러 초기화

@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - develop
-      - feature/33-ci-cd-setup
+#      - feature/33-ci-cd-setup
 
 jobs:
   build-and-deploy:

@@ -1,6 +1,5 @@
 import Header from "../components/headers/Header.tsx";
 import styled from "styled-components";
-import {useNavigate} from "react-router-dom";
 import mascot from "../assets/home/mascot.svg"
 import {Wrapper} from "./letterSentConfirm.tsx";
 
@@ -9,8 +8,6 @@ export const Mascot = styled.img`
 `
 
 const PaymentRequestComplete = () => {
-    const navigate = useNavigate();
-
     return (
         <Wrapper>
             <Mascot src={mascot}></Mascot>

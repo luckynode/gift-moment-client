@@ -81,7 +81,7 @@ const PaymentRequest = () => {
         <PaymentWrapper>
             <BackButton/>
             <Info>
-                <Header title="달성 위시아이템" fontSize="28px" hasBorder="true"/>
+                <Header title="달성 위시아이템" fontSize="28px" hasBorder={true}/>
 
                 {/* SuccessWishItems 동적 렌더링 */}
                 {paymentData.SuccessWishItems.map((item) => (
@@ -89,7 +89,7 @@ const PaymentRequest = () => {
                 ))}
             </Info>
             <Info>
-                <Header title="총 금액" fontSize="28px" hasBorder="true"/>
+                <Header title="총 금액" fontSize="28px" hasBorder={true}/>
                 <SubHeader>{paymentData.totalAmount.toLocaleString()}원</SubHeader>
             </Info>
             <AccountInfo>

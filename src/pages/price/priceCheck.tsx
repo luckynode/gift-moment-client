@@ -129,7 +129,7 @@ export default function PriceCheck({price} : PriceCheckProps) {
                 gift_id: wishData.gift.id,
             });
 
-            const {tid, next_redirect_pc_url, next_redirect_mobile_url} = response.data.data;
+            const {tid, next_redirect_pc_url} = response.data.data;
 
             localStorage.setItem("tid", tid);
             window.location.href = next_redirect_pc_url;

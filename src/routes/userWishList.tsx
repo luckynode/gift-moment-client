@@ -63,7 +63,11 @@ export default function UserWishList() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/wishlists/giver/bylink/${uniqueString}`,  {});
+                const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/wishlists/giver/bylink`, {
+                    params: {
+                        letter_link: uniqueString, // 쿼리 파라미터로 추가
+                    },
+                });
                 setWishData(response.data.data);
             } catch (error) {
                 console.error("Fetching Data Error: ", error);

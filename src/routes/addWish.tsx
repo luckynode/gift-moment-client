@@ -1,6 +1,6 @@
 import BackButton from "../components/buttons/BackButton.tsx";
 import Header from "../components/headers/Header.tsx";
-import {Form, Hug18, Input} from "../components/SignupComponents.ts";
+import {Form, Input} from "../components/SignupComponents.ts";
 import {useCallback, useMemo, useRef, useState} from "react";
 import styled from "styled-components";
 import Button from "../components/buttons/Button.tsx";
@@ -10,8 +10,6 @@ import {useEffect} from "react";
 import cameraIcon from "../assets/wishlist/wish_img_modify.svg";
 import "react-toastify/dist/ReactToastify.css";
 import {addWishItem} from "../apis/wishItemApi.ts";
-import {toast} from "react-toastify";
-
 
 const Wrapper = styled.div`
   display: flex;

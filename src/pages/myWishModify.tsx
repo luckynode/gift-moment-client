@@ -4,14 +4,13 @@ import {Input} from "../components/SignupComponents.ts";
 import styled from "styled-components";
 import {useLocation, useNavigate, useParams} from "react-router-dom";
 import {useCallback, useEffect, useMemo, useRef, useState} from "react";
-import eximg from "../assets/wishlist/example.jpg";
 import Button from "../components/buttons/Button.tsx";
 import {RowButtonContainer} from "../routes/letterSentConfirm.tsx";
 import {WishInput} from "./myWishDetail.tsx";
 import WishImgDetail from "../assets/wishlist/wish_img_detail.svg";
 import MyWishDeleteConfirm from "../routes/myWishDeleteConfirm.tsx";
 import cameraIcon from "../assets/wishlist/wish_img_modify.svg";
-import {deleteWishItem, getWishItem, modifyWishItem} from "../apis/wishItemApi.ts";
+import {deleteWishItem, modifyWishItem} from "../apis/wishItemApi.ts";
 
 const WishDisabledInput = styled(WishInput)`
   background: #EEE2E2;
@@ -23,15 +22,6 @@ const Info = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-`
-const Img = styled.img`
-  width: 300px;
-  height: 300px;
-  object-fit: cover;
-
-  background: #F8A0BD;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), inset 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 10px;
 `
 
 const Wrapper = styled.div`
@@ -146,7 +136,7 @@ const HiddenInput = styled.input`
 const MyWishModify = () => {
     const navigate = useNavigate();
     const location = useLocation();
-    const {wishData, setWishData} = location.state || {}; // 전달된 데이터 받기
+    const {wishData} = location.state || {}; // 전달된 데이터 받기
     useEffect(() => {
         console.log("위시데이터:", wishData);
     }, [location.state]);

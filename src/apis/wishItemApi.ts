@@ -1,5 +1,5 @@
 import axios, {AxiosResponse} from 'axios';
-import {AddWishRequest, AddWishResponse, GetWishResponse, ModifyWishRequest} from '../types/api/wishItem';
+import {AddWishResponse, GetWishResponse} from '../types/api/wishItem';
 import {ApiResponse} from '../types/common/apiResponse';
 
 const BASE_URL = import.meta.env.VITE_BACKEND_URL;

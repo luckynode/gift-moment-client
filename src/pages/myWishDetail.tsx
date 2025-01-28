@@ -4,7 +4,6 @@ import Header from "../components/headers/Header.tsx";
 import styled from "styled-components";
 import {useNavigate, useParams} from "react-router-dom";
 import {useState} from "react";
-import eximg from "../assets/wishlist/example.jpg";
 import Button from "../components/buttons/Button.tsx";
 import {ornamentImages} from '../assets/ornamentImages.ts';
 import {getWishItem} from '../apis/wishItemApi.ts';

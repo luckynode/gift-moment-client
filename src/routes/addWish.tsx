@@ -26,7 +26,7 @@ const Info = styled.div`
   flex-direction: column;
   align-items: center;
 `
-export const TextArea = styled.textarea<{ error?: boolean }>`
+export const TextArea = styled.textarea<{ hasError?: boolean }>`
   box-sizing: border-box;
   width: 330px;
   height: 150px;
@@ -44,11 +44,11 @@ export const TextArea = styled.textarea<{ error?: boolean }>`
   }
 `;
 
-const CustomInput = styled(Input)`
+const CustomInput = styled(Input)<{ hasError?: boolean }>`
   border: 1px solid ${(props: { hasError?: boolean }) => (props.hasError ? 'red' : '#ddd')};
 `;
 
-const PriceInput = styled(Input)`
+const PriceInput = styled(Input)<{ hasError?: boolean }>`
   padding-right: 50px;
   text-align: right; /* 선물 가격만 오른쪽 정렬하기 */
   border: 1px solid ${(props: { hasError?: boolean }) => (props.hasError ? 'red' : '#C8C8C8')};
@@ -103,7 +103,7 @@ const ImageUploadWrapper = styled.div<{ thumbnail?: string }>`
   border-radius: 8px;
   width: 220px;
   height: 150px;
-  background-image: url(${(props: { thumbnail: string }) => props.thumbnail});
+  background-image: url(${(props) => props.thumbnail});
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
@@ -356,7 +356,7 @@ const AddWish = () => {
                             name="wishDescription"
                             value={wishDescription}
                             placeholder="선물 소개"
-                            error={wishDescriptionError} // error 상태 전달
+                            hasError={wishDescriptionError} // error 상태 전달
                             onFocus={() => handleFocus(setWishDescriptionError)} // focus 시 에러 초기화
                             onChange={handleInputChange(setWishDescription, 100, setWishDescriptionError)}
                         />

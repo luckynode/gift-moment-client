@@ -42,7 +42,7 @@ const Subtitle = styled.div`
   background-clip: text;
 `
 
-export const TextArea = styled.textarea<{ error?: boolean }>`
+export const TextArea = styled.textarea<{ hasError?: boolean }>`
   box-sizing: border-box;
   width: 330px;
   height: 150px;
@@ -72,8 +72,8 @@ const InputContainer = styled.div`
   gap: 5px; /* 입력 필드와 오류 메시지 간격 */
 `;
 
-const CustomInput = styled(Input)`
-  border: 1px solid ${(props: { hasError?: boolean }) => (props.hasError ? 'red' : '#ddd')};
+const CustomInput = styled(Input)<{ hasError?: boolean }>`
+  border: 1px solid ${(props) => (props.hasError ? 'red' : '#ddd')};
 `;
 
 const FileInputContainer = styled.div`
@@ -328,7 +328,7 @@ const MyWishModify = () => {
                             name="wishDescription"
                             value={wishDescription}
                             placeholder="선물 소개"
-                            error={wishDescriptionError} // error 상태 전달
+                            hasError={wishDescriptionError} // error 상태 전달
                             onFocus={() => handleFocus(setWishDescriptionError)} // focus 시 에러 초기화
                             onChange={handleInputChange(setWishDescription, 100, setWishDescriptionError)}
                         />

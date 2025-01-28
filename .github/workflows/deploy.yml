@@ -27,7 +27,12 @@ jobs:
 
       # 4. 빌드 실행
       - name: Build Project
-        run: npm run build
+        run: |
+          VITE_BACKEND_URL=${{ secrets.VITE_BACKEND_URL }} \
+          VITE_FRONTEND_URL=${{ secrets.VITE_FRONTEND_URL }} \
+          VITE_KAKAO_REDIRECT_URI=${{ secrets.VITE_KAKAO_REDIRECT_URI }} \
+          VITE_KAKAO_REST_API_KEY=${{ secrets.VITE_KAKAO_REST_API_KEY }} \
+          npm run build
 
       # 5. AWS 자격증명 구성
       - name: Configure AWS Credentials

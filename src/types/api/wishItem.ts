@@ -19,7 +19,7 @@ export interface AddWishResponse {
 export interface GetWishResponse {
     name: string;
     birth: string;
-    dday: number;
+    dday: number | string;
     member_id: number;
     gift: wishItem;
 }

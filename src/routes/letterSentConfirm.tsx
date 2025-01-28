@@ -50,7 +50,7 @@ const LetterSentConfirm = () => {
                     navigate(`/wishlist/${uniqueString}`)
                 }}/>
                 <Button type="button" text="괜찮아요" size="small" color="white" onClick={() => {
-                    navigate("/gm-letter/" + uniqueString)
+                    navigate(`/gm-letter/${uniqueString}`)
                 }}/>
             </RowButtonContainer>
         </Wrapper>

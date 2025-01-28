@@ -1,9 +1,8 @@
-import axios, {Axios, AxiosResponse} from 'axios';
+import axios, {AxiosResponse} from 'axios';
 import {ApiResponse} from '../types/common/apiResponse';
 import {AddLetterRequest, GetGuestLettersResponse} from "../types/api/guestLetter.ts";
 
 const BASE_URL = import.meta.env.VITE_BACKEND_URL;
-const jwt_token = localStorage.getItem('jwt_token');
 
 export const addLetter = async (
     uniqueString: string,

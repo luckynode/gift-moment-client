@@ -1,10 +1,9 @@
 import axios, {AxiosResponse} from 'axios';
-import {AddWishRequest, AddWishResponse, GetWishResponse, ModifyWishRequest} from '../types/api/wishItem';
+import {AddWishResponse, GetWishResponse} from '../types/api/wishItem';
 import {ApiResponse} from '../types/common/apiResponse';
 
 const BASE_URL = import.meta.env.VITE_BACKEND_URL;
 const jwt_token = localStorage.getItem('jwt_token');
-
 export const addWishItem = async (
     data: FormData
 ): Promise<ApiResponse<AddWishResponse>> => {
@@ -25,10 +24,13 @@ export const getWishItem = async (
     itemId: number
 ): Promise<ApiResponse<GetWishResponse>> => {
     const response: AxiosResponse<ApiResponse<GetWishResponse>> = await axios.get(
-        `${BASE_URL}/api/v1/wishlists/${itemId}`,
+        `${BASE_URL}/api/v1/wishlists`,
         {
             headers: {
                 Authorization: `Bearer ${jwt_token}`,
+            },
+            params: {
+                gift_id: itemId,
             },
         }
     );

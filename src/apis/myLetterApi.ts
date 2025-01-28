@@ -2,7 +2,7 @@ import {ApiResponse} from "../types/common/apiResponse.ts";
 import {CopyLetterUrlResponse, GetMyLettersResponse} from "../types/api/myLetter.ts";
 import axios, {AxiosResponse} from 'axios';
 
-const BASE_URL_PREFIX = import.meta.env.VITE_BACKEND_URL;
+const BASE_URL_PREFIX = import.meta.env.VITE_BACKEND_URL_PREFIX;
 const jwt_token = localStorage.getItem('jwt_token');
 
 export const copyLetterUrl = async (): Promise<ApiResponse<CopyLetterUrlResponse>> => {

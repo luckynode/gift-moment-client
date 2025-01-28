@@ -2,7 +2,7 @@ import axios, {AxiosResponse} from 'axios';
 import {AddWishResponse, GetWishResponse} from '../types/api/wishItem';
 import {ApiResponse} from '../types/common/apiResponse';
 
-const BASE_URL_PREFIX = import.meta.env.VITE_BACKEND_URL;
+const BASE_URL_PREFIX = import.meta.env.VITE_BACKEND_URL_PREFIX;
 const jwt_token = localStorage.getItem('jwt_token');
 export const addWishItem = async (
     data: FormData

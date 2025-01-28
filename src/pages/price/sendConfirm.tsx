@@ -3,8 +3,6 @@ import Button from "../../components/buttons/Button.tsx";
 import styled from "styled-components";
 import {useNavigate, useParams} from "react-router-dom";
 import mascot from "../../assets/home/mascot.svg"
-import { useEffect, useState } from "react";
-import axios from "axios";
 
 const Wrapper = styled.div`
   display: flex;

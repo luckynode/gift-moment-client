@@ -11,7 +11,6 @@ import InstructionText from "../components/InstructionText.tsx";
 import {useNavigate, useParams} from "react-router-dom";
 import BackButton from "../components/buttons/BackButton.tsx";
 import {getGuestLetters} from "../apis/guestLetterApi.ts";
-import {toast} from "react-toastify";
 
 export const Wrapper = styled.div`
   display: flex;
@@ -34,9 +33,9 @@ const GuestLetters = () => {
     const {uniqueString} = useParams();
     const navigate = useNavigate();
 
-    const [ownerName, setOwnerName] = useState('');
+    const [ownerName, setOwnerName] = useState("눈송이");
     const [beforeBirthday, setBeforeBirthday] = useState(true);
-    const [letterCount, setLetterCount] = useState(0);
+    const [letterCount, setLetterCount] = useState(14);
 
     // 표시할 장신구 데이터 생성
     const items = ornamentImages.slice(0, letterCount).map((src, index) => ({
@@ -58,8 +57,7 @@ const GuestLetters = () => {
 
                         const {birthday_owner_name, before_birthday, total_letters} = response.data;
                         setOwnerName(birthday_owner_name);
-                        // TODO 개발의 용이성과 테스트를 위해 임시로 before_birthday를 항상 기본값 true로 설정
-                        // setBeforeBirthday(before_birthday);
+                        setBeforeBirthday(before_birthday);
                         setLetterCount(total_letters);
                     } else {
                         console.error("게스트 편지 조회 실패:", response.message);

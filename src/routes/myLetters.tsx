@@ -34,10 +34,10 @@ export const ColumnButtonContainer = styled.div`
 
 const MyLetters = () => {
     const navigate = useNavigate();
-    const [username, setUsername] = useState<string>("");
-    const [beforeBirthday, setBeforeBirthday] = useState<boolean>(false);
+    const [username, setUsername] = useState("눈송이");
+    const [beforeBirthday, setBeforeBirthday] = useState(false);
     const [letters, setLetters] = useState<Letter[]>([]);
-    const [totalLetters, setTotalLetters] = useState<number>(14);
+    const [totalLetters, setTotalLetters] = useState(14);
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedLetter, setSelectedLetter] = useState<{

@@ -4,14 +4,13 @@ import {Input} from "../components/SignupComponents.ts";
 import styled from "styled-components";
 import {useLocation, useNavigate, useParams} from "react-router-dom";
 import {useCallback, useEffect, useMemo, useRef, useState} from "react";
-import eximg from "../assets/wishlist/example.jpg";
 import Button from "../components/buttons/Button.tsx";
 import {RowButtonContainer} from "../routes/letterSentConfirm.tsx";
 import {WishInput} from "./myWishDetail.tsx";
 import WishImgDetail from "../assets/wishlist/wish_img_detail.svg";
 import MyWishDeleteConfirm from "../routes/myWishDeleteConfirm.tsx";
 import cameraIcon from "../assets/wishlist/wish_img_modify.svg";
-import {deleteWishItem, getWishItem, modifyWishItem} from "../apis/wishItemApi.ts";
+import {deleteWishItem, modifyWishItem} from "../apis/wishItemApi.ts";
 
 const WishDisabledInput = styled(WishInput)`
   background: #EEE2E2;
@@ -23,15 +22,6 @@ const Info = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-`
-const Img = styled.img`
-  width: 300px;
-  height: 300px;
-  object-fit: cover;
-
-  background: #F8A0BD;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), inset 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 10px;
 `
 
 const Wrapper = styled.div`
@@ -52,7 +42,7 @@ const Subtitle = styled.div`
   background-clip: text;
 `
 
-export const TextArea = styled.textarea`
+export const TextArea = styled.textarea<{ hasError?: boolean }>`
   box-sizing: border-box;
   width: 330px;
   height: 150px;
@@ -82,8 +72,8 @@ const InputContainer = styled.div`
   gap: 5px; /* 입력 필드와 오류 메시지 간격 */
 `;
 
-const CustomInput = styled(Input)`
-  border: 1px solid ${(props: { hasError?: boolean }) => (props.hasError ? 'red' : '#ddd')};
+const CustomInput = styled(Input)<{ hasError?: boolean }>`
+  border: 1px solid ${(props) => (props.hasError ? 'red' : '#ddd')};
 `;
 
 const FileInputContainer = styled.div`
@@ -102,7 +92,7 @@ const ImageUploadWrapper = styled.div<{ thumbnail?: string }>`
   border-radius: 8px;
   width: 300px;
   height: 300px;
-  background-image: url(${(props: { thumbnail: string }) => props.thumbnail});
+  background-image: url(${(props) => props.thumbnail});
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
@@ -146,7 +136,7 @@ const HiddenInput = styled.input`
 const MyWishModify = () => {
     const navigate = useNavigate();
     const location = useLocation();
-    const {wishData, setWishData} = location.state || {}; // 전달된 데이터 받기
+    const {wishData} = location.state || {}; // 전달된 데이터 받기
     useEffect(() => {
         console.log("위시데이터:", wishData);
     }, [location.state]);
@@ -337,9 +327,8 @@ const MyWishModify = () => {
                         <TextArea
                             name="wishDescription"
                             value={wishDescription}
-                            type="text"
                             placeholder="선물 소개"
-                            error={wishDescriptionError} // error 상태 전달
+                            hasError={wishDescriptionError} // error 상태 전달
                             onFocus={() => handleFocus(setWishDescriptionError)} // focus 시 에러 초기화
                             onChange={handleInputChange(setWishDescription, 100, setWishDescriptionError)}
                         />

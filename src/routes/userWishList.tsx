@@ -45,7 +45,7 @@ interface WishListData {
 }
 
 export default function UserWishList() {
-    const { userId } = useParams<{ userId: string }>();
+    const { uniqueString } = useParams<{ uniqueString: string }>();
     const [wishData, setWishData] = useState<WishListData>({
         name: "김친구",
         birth: "00월 00일",
@@ -63,7 +63,11 @@ export default function UserWishList() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/wishlists/giver/${userId}`,  {});
+                const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/wishlists/giver/bylink`, {
+                    params: {
+                        letter_link: uniqueString, // 쿼리 파라미터로 추가
+                    },
+                });
                 setWishData(response.data.data);
             } catch (error) {
                 console.error("Fetching Data Error: ", error);
@@ -79,8 +83,6 @@ export default function UserWishList() {
         return <Loading />
     }
 
-    // 추후에도 안되면 반환값에 userid 요청
-    const userIdnum = Number(userId);
     return (
         <>
             <BackButton />
@@ -92,7 +94,6 @@ export default function UserWishList() {
                     {wishData?.gift.map((gift) => (
                         <UserWishItem
                             key={gift.id}
-                            userid={userIdnum}
                             item_id={gift.id}
                             item_image={gift.image}
                             item_name={gift.title}

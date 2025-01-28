@@ -44,7 +44,3 @@ jobs:
       # 7. CloudFront 캐시 무효화
       - name: Invalidate CloudFront Cache
         run: aws cloudfront create-invalidation --distribution-id ${{ secrets.DEV_AWS_DISTRIBUTION_ID }} --paths "/*"
-
-      # 8. 배포 완료 로그
-      - name: Log Deployment Success
-        run: echo "Deployment to S3 and CloudFront completed successfully."

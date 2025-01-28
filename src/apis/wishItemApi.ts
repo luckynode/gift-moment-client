@@ -2,13 +2,13 @@ import axios, {AxiosResponse} from 'axios';
 import {AddWishResponse, GetWishResponse} from '../types/api/wishItem';
 import {ApiResponse} from '../types/common/apiResponse';
 
-const BASE_URL = import.meta.env.VITE_BACKEND_URL;
+const BASE_URL_PREFIX = import.meta.env.VITE_BACKEND_URL;
 const jwt_token = localStorage.getItem('jwt_token');
 export const addWishItem = async (
     data: FormData
 ): Promise<ApiResponse<AddWishResponse>> => {
     const response: AxiosResponse<ApiResponse<AddWishResponse>> = await axios.post(
-        `${BASE_URL}/api/v1/wishlists`,
+        `${BASE_URL_PREFIX}/v1/wishlists`,
         data,
         {
             headers: {
@@ -24,7 +24,7 @@ export const getWishItem = async (
     itemId: number
 ): Promise<ApiResponse<GetWishResponse>> => {
     const response: AxiosResponse<ApiResponse<GetWishResponse>> = await axios.get(
-        `${BASE_URL}/api/v1/wishlists`,
+        `${BASE_URL_PREFIX}/v1/wishlists`,
         {
             headers: {
                 Authorization: `Bearer ${jwt_token}`,
@@ -42,7 +42,7 @@ export const modifyWishItem = async (
     data: FormData
 ): Promise<ApiResponse<GetWishResponse>> => {
     const response: AxiosResponse<ApiResponse<GetWishResponse>> = await axios.patch(
-        `${BASE_URL}/api/v1/wishlists/${itemId}`,
+        `${BASE_URL_PREFIX}/v1/wishlists/${itemId}`,
         data,
         {
             headers: {
@@ -58,7 +58,7 @@ export const deleteWishItem = async (
     itemId: number
 ): Promise<ApiResponse<{}>> => {
     const response: AxiosResponse<ApiResponse<{}>> = await axios.delete(
-        `${BASE_URL}/api/v1/wishlists/${itemId}`,
+        `${BASE_URL_PREFIX}/v1/wishlists/${itemId}`,
         {
             headers: {
                 Authorization: `Bearer ${jwt_token}`,

@@ -137,8 +137,6 @@ const MyWishModify = () => {
         };
     };
 
-    // FIXME AddWish.tsx와 공통된 부분 함수로 묶어서 사용하기
-    // FIXME input값 하나 업데이트인데, 코드가 너무 복잡해짐
     const handleComplete = async () => {
         // 순차적으로 에러를 처리
         if (!wishImageUrl) {

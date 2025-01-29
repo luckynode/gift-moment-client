@@ -1,6 +1,6 @@
 import Header from "../components/headers/Header.tsx";
 import styled from "styled-components";
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import Button from "../components/buttons/Button.tsx";
 import {Wrapper} from "./letterSentConfirm.tsx";
 import BackButton from "../components/buttons/BackButton.tsx";
@@ -65,15 +65,16 @@ interface PaymentData {
 
 const PaymentRequest = () => {
     const navigate = useNavigate();
+    const location = useLocation();
+    const { accountInfo } = location.state || {};
 
-    // 정적 데이터
     const paymentData: PaymentData = {
         bank: "카카오뱅크",
-        account: "3333-38-019-0",
-        totalAmount: 2500000,
+        account: "3333370190",
+        totalAmount: 121900,
         SuccessWishItems: [
-            {id: 1, name: "쿠로미 에어팟 케이스"},
-            {id: 2, name: "아이폰 16 Pro"},
+            {id: 1, name: "케이스티파이 Cute & Crazy"},
+            {id: 2, name: "에디파이어 스피커"},
         ],
     };
 
@@ -82,8 +83,6 @@ const PaymentRequest = () => {
             <BackButton/>
             <Info>
                 <Header title="달성 위시아이템" fontSize="28px" hasBorder={true}/>
-
-                {/* SuccessWishItems 동적 렌더링 */}
                 {paymentData.SuccessWishItems.map((item) => (
                     <SubHeader key={item.id}>{item.name}</SubHeader>
                 ))}
@@ -94,11 +93,8 @@ const PaymentRequest = () => {
             </Info>
             <AccountInfo>
                 <Header title="아래 계좌로 송금됩니다." fontSize="28px"/>
-
-                {/* 계좌 정보 */}
-                <WishDisabledInput>{paymentData.bank || "은행 정보 없음"}</WishDisabledInput>
-                <WishDisabledInput>{paymentData.account || "계좌 정보 없음"}</WishDisabledInput>
-
+                <WishDisabledInput>{accountInfo.bank_code || "카카오뱅크"}</WishDisabledInput>
+                <WishDisabledInput>{accountInfo.account_number || "3333-09-059-3401"}</WishDisabledInput>
                 <Button
                     type="button"
                     text="송금"

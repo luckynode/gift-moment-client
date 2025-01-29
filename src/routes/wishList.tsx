@@ -59,6 +59,11 @@ interface WishListData {
     }>;
 }
 
+interface AccountInfo {
+    bank_code: string;
+    account_number: string;
+}
+
 export default function WishList() {
     const navigate = useNavigate();
 
@@ -81,6 +86,7 @@ export default function WishList() {
 
     const item_num = wishData.gift.length;
     const [loading, setLoading] = useState(true);
+    const [accountInfo, setAccountInfo] = useState<AccountInfo | null>(null);
 
     // TODO FetchData 주석 제거
     useEffect(() => {
@@ -94,6 +100,18 @@ export default function WishList() {
                 });
                 console.log(response.data.data[0]);
                 setWishData(response.data.data[0]);
+
+                const accountResponse = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/mypage`, {
+                    headers: {
+                        Authorization: `Bearer ${jwt_token}`
+                    },
+                });
+                console.log(accountResponse.data.data);
+                setAccountInfo({
+                    bank_code: accountResponse.data.data.bank_code,
+                    account_number: accountResponse.data.data.account_number,
+                });
+
             } catch (error) {
                 console.error("Fetching Data Error: ", error);
             } finally {
@@ -143,7 +161,7 @@ export default function WishList() {
                             text="선물 받으러 가기 →"
                             color="black"
                             size="large"
-                            onClick={() => navigate("/payment-request")}
+                            onClick={() => navigate("/payment-request", {state: {accountInfo}})}
                         />
                     </Margin>
                 )}

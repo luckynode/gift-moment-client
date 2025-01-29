@@ -100,8 +100,6 @@ export default function EditMypage() {
         }
 
         try {
-            // TODO 주석제거
-            console.log("수정내용:", updateData);
             const jwt_token = localStorage.getItem("jwt_token");
 
             await axios.patch(`${import.meta.env.VITE_BACKEND_URL}/api/v1/mypage`,updateData, {

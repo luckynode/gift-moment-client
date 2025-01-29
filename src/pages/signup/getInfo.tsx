@@ -51,8 +51,6 @@ export default function GetInfo({ onNext } : GetInfoProps) {
             const jwt_token = localStorage.getItem("jwt_token");
             const formattedBirthDate = new Date(birth).toISOString().split('T')[0]; // "YYYY-MM-DD" 형식으로 변환
             
-            // 테스트로 console 출력
-            console.log(name, birth, email);
             await axios.patch(`${import.meta.env.VITE_BACKEND_URL}/api/v1/auth/profile`, {
                 name: name,
                 birth_date: formattedBirthDate,

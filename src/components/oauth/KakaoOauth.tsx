@@ -9,9 +9,7 @@ const OAuth = () => {
 
     useEffect(() => {
         const fetchOAuthData = async (code: string) => {
-            console.log("Received authorization code from URL:", code); // 인가 코드 출력
-
-            try {/* */
+            try {
                 const tokenResponse = await axios.post(`https://kauth.kakao.com/oauth/token`, {}, {
                     params: {
                         grant_type: "authorization_code",
@@ -22,7 +20,6 @@ const OAuth = () => {
                 });
 
                 const accessToken = tokenResponse.data.access_token;
-                console.log("카카오 인증 토큰 :", accessToken);
 
                 const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/auth/kakao`, {
                     accessToken: accessToken,

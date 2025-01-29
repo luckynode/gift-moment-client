@@ -22,8 +22,6 @@ export default function AccountInput({ onNext } : GetInfoProps){
     const onSubmit = async (e : React.ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
-            // test로 콘솔 출력
-            console.log(bank, account);
 
             const jwt_token = localStorage.getItem("jwt_token");
 

@@ -173,9 +173,6 @@ export default function InputPrice({ onNext } : GetInfoProps) {
         }
 
         try {
-            // 테스트로 console 출력
-            console.log("가격: ", price);
-
             // 다음 페이지로 정보 넘기기
             onNext(price);
         } catch (error) {

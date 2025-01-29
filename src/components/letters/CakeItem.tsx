@@ -51,6 +51,7 @@ const StyledCakeItem = styled.img.attrs<StyledCakeItemProps>((props) => ({
         left: props.left,
         animationDelay: props.delay,
     },
+    isClockwise: undefined,
 }))<StyledCakeItemProps>`
   position: absolute;
   width: 50px;

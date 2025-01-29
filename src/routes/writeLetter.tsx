@@ -61,6 +61,7 @@ const Label = styled.label`
   font-size: 17px;
   font-weight: bold;
 `;
+
 const Input = styled.input.withConfig({
     shouldForwardProp: (prop) => prop !== 'error', // 'error' prop을 DOM으로 전달하지 않음
 })<{ error?: boolean }>`

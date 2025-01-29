@@ -11,6 +11,7 @@ import WishImgDetail from "../assets/wishlist/wish_img_detail.svg";
 import MyWishDeleteConfirm from "../routes/myWishDeleteConfirm.tsx";
 import cameraIcon from "../assets/wishlist/wish_img_modify.svg";
 import {deleteWishItem, modifyWishItem} from "../apis/wishItemApi.ts";
+import {GetWishResponse} from "../types/api/wishItem.ts";
 
 const WishDisabledInput = styled(WishInput)`
   background: #EEE2E2;
@@ -136,10 +137,7 @@ const HiddenInput = styled.input`
 const MyWishModify = () => {
     const navigate = useNavigate();
     const location = useLocation();
-    const {wishData} = location.state || {}; // 전달된 데이터 받기
-    useEffect(() => {
-        console.log("위시데이터:", wishData);
-    }, [location.state]);
+    const { wishData } = location.state as { wishData: GetWishResponse[0] }; // 타입 캐스팅
 
     const {itemId} = useParams<{ itemId: string }>();
 
@@ -152,14 +150,18 @@ const MyWishModify = () => {
     );
     const [wishImageUrlError, setWishImageUrlError] = useState(false);
 
-    const [wishLink, setWishLink] = useState(wishData.gift?.link);
-    const [wishDescription, setWishDescription] = useState(wishData.gift?.description);
+    const [wishLink, setWishLink] = useState<string>(wishData?.gift?.link || "");
+    const [wishDescription, setWishDescription] = useState<string>(wishData?.gift?.description || "");
 
     const [wishLinkError, setWishLinkError] = useState(false);
     const [wishDescriptionError, setWishDescriptionError] = useState(false);
 
     const [isModalOpen, setIsModalOpen] = useState(false); // 모달 표시 여부
     const fileInputRef = useRef<HTMLInputElement>(null);
+
+    useEffect(() => {
+        console.log("위시데이터:", wishData);
+    }, [location.state]);
 
     const handleFocus = (setter: (value: boolean) => void) => {
         setter(false); // 에러 상태 초기화

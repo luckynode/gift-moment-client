@@ -1,7 +1,7 @@
-import Header from "../components/headers/Header.tsx";
-import Button from "../components/buttons/Button.tsx";
+import Header from "../../components/headers/Header.tsx";
+import Button from "../../components/buttons/Button.tsx";
 import {useNavigate} from "react-router-dom";
-import {Hug18, Wrapper} from "../components/SignupComponents.ts";
+import {Hug18, Wrapper} from "../../components/auth/SignupComponents.ts";
 
 const AddWishConfirm = () => {
     const navigate = useNavigate();

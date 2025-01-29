@@ -1,9 +1,9 @@
-import BackButton from "../components/buttons/BackButton.tsx";
+import BackButton from "../../components/buttons/BackButton.tsx";
 import {useEffect, useState} from "react";
-import Button from "../components/buttons/Button.tsx";
+import Button from "../../components/buttons/Button.tsx";
 import styled from "styled-components";
 import {useNavigate, useLocation} from "react-router-dom";
-import {addLetter} from "../apis/guestLetterApi.ts";
+import {addLetter} from "../../apis/guestLetterApi.ts";
 import {toast} from "react-toastify";
 
 const Form = styled.form`

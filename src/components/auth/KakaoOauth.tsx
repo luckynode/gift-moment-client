@@ -8,7 +8,7 @@
 import { useEffect } from "react";
 import axios from "axios"
 import { useNavigate } from "react-router-dom";
-import Loading from "../loading";
+import Loading from "../common/loading.tsx";
 
 const OAuth = () => {
     const navigate = useNavigate();

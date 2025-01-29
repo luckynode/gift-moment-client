@@ -1,15 +1,15 @@
 import {useEffect} from "react";
-import BackButton from "../components/buttons/BackButton.tsx";
-import Header from "../components/headers/Header.tsx";
+import BackButton from "../../components/buttons/BackButton.tsx";
+import Header from "../../components/headers/Header.tsx";
 import styled from "styled-components";
 import {useNavigate, useParams} from "react-router-dom";
 import {useState} from "react";
-import Button from "../components/buttons/Button.tsx";
-import {ornamentImages} from '../assets/ornamentImages.ts';
-import {getWishItem} from '../apis/wishItemApi.ts';
-import {GetWishResponse} from "../types/api/wishItem.ts";
-import {Subtitle, WishWrapper} from "../components/wish/Wish.ts";
-import {Info, WishInput} from "../components/wish/WishInput.ts";
+import Button from "../../components/buttons/Button.tsx";
+import {ornamentImages} from '../../assets/letters/ornamentImages.ts';
+import {getWishItem} from '../../apis/wishItemApi.ts';
+import {GetWishResponse} from "../../types/api/wishItem.ts";
+import {Subtitle, WishWrapper} from "../../components/wish/Wish.ts";
+import {Info, WishInput} from "../../components/wish/WishInput.ts";
 
 const List = styled.div`
   display: flex;

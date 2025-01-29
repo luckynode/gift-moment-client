@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {Input} from "../SignupComponents.ts";
+import {Input} from "../auth/SignupComponents.ts";
 
 export const Info = styled.div`
   gap: 20px;

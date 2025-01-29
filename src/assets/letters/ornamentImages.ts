@@ -1,17 +1,17 @@
-import redFlower from './letters/red_flower.svg';
-import whiteStar from './letters/white_star.svg';
-import orangeFlower from './letters/orange_flower.svg';
-import sparkle from './letters/sparkle.svg';
-import rainbowStar from './letters/rainbow_star.svg';
-import cherry from './letters/cherry.svg';
-import cloud from './letters/cloud.svg';
-import blueEnvelope from './letters/blue_envelope.svg';
-import mintEnvelope from './letters/mint_envelope.svg';
-import whiteFlower from './letters/white_flower.svg';
-import strawberry from './letters/strawberry.svg';
-import heart from './letters/heart.svg';
-import yellowMusic from './letters/yellow_music.svg';
-import blackMusic from './letters/black_music.svg';
+import redFlower from './red_flower.svg';
+import whiteStar from './white_star.svg';
+import orangeFlower from './orange_flower.svg';
+import sparkle from './sparkle.svg';
+import rainbowStar from './rainbow_star.svg';
+import cherry from './cherry.svg';
+import cloud from './cloud.svg';
+import blueEnvelope from './blue_envelope.svg';
+import mintEnvelope from './mint_envelope.svg';
+import whiteFlower from './white_flower.svg';
+import strawberry from './strawberry.svg';
+import heart from './heart.svg';
+import yellowMusic from './yellow_music.svg';
+import blackMusic from './black_music.svg';
 
 export const ornamentImages = [
     redFlower,

@@ -1,16 +1,16 @@
 import {useEffect, useState} from 'react';
-import Header from '../components/headers/Header.tsx';
-import Button from '../components/buttons/Button.tsx';
-import Cake from '../components/letters/Cake.tsx';
+import Header from '../../components/headers/Header.tsx';
+import Button from '../../components/buttons/Button.tsx';
+import Cake from '../../components/letters/Cake.tsx';
 import "react-toastify/dist/ReactToastify.css";
-import {ornamentImages} from '../assets/ornamentImages.ts';
-import {ornamentPositions} from '../assets/ornamentImages.ts';
-import InstructionText from "../components/InstructionText.tsx";
+import {ornamentImages} from '../../assets/letters/ornamentImages.ts';
+import {ornamentPositions} from '../../assets/letters/ornamentImages.ts';
+import InstructionText from "../../components/common/InstructionText.tsx";
 import {useNavigate, useParams} from "react-router-dom";
-import BackButton from "../components/buttons/BackButton.tsx";
-import {getGuestLetters} from "../apis/guestLetterApi.ts";
-import {ColumnButtonContainer} from "../components/buttons/ButtonContainer.ts";
-import {Wrapper} from "../components/SignupComponents.ts";
+import BackButton from "../../components/buttons/BackButton.tsx";
+import {getGuestLetters} from "../../apis/guestLetterApi.ts";
+import {ColumnButtonContainer} from "../../components/buttons/ButtonContainer.ts";
+import {Wrapper} from "../../components/auth/SignupComponents.ts";
 
 const GuestLetters = () => {
     const {uniqueString} = useParams();

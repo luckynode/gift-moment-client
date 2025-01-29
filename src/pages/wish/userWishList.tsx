@@ -1,12 +1,12 @@
 import { useParams } from "react-router-dom";
 import { styled } from "styled-components";
-import BackButton from "../components/buttons/BackButton";
-import Header from "../components/headers/Header";
-import eximg from "../assets/wishlist/example.jpg"
+import BackButton from "../../components/buttons/BackButton.tsx";
+import Header from "../../components/headers/Header.tsx";
+import eximg from "../../assets/wishlist/example.jpg"
 import { useEffect, useState } from "react";
 import axios from "axios";
-import UserWishItem from "../components/items/UserWishItem";
-import Loading from "../components/loading";
+import UserWishItem from "../../components/items/UserWishItem.tsx";
+import Loading from "../../components/common/loading.tsx";
 
 const Wrapper = styled.div`
     display: flex;

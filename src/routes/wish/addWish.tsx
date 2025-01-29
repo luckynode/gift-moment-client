@@ -1,13 +1,13 @@
-import BackButton from "../components/buttons/BackButton.tsx";
-import Header from "../components/headers/Header.tsx";
-import {Form, Input} from "../components/SignupComponents.ts";
+import BackButton from "../../components/buttons/BackButton.tsx";
+import Header from "../../components/headers/Header.tsx";
+import {Form, Input} from "../../components/auth/SignupComponents.ts";
 import {useCallback, useMemo, useRef, useState} from "react";
 import styled from "styled-components";
-import Button from "../components/buttons/Button.tsx";
+import Button from "../../components/buttons/Button.tsx";
 import {useNavigate} from "react-router-dom";
 import {useEffect} from "react";
 import "react-toastify/dist/ReactToastify.css";
-import {addWishItem} from "../apis/wishItemApi.ts";
+import {addWishItem} from "../../apis/wishItemApi.ts";
 import {
     CustomInput,
     ErrorMessage,
@@ -15,8 +15,8 @@ import {
     HiddenInput,
     Info,
     InputContainer, TextArea
-} from "../components/wish/WishInput.ts";
-import {WishChangeWrapper} from "../components/wish/Wish.ts";
+} from "../../components/wish/WishInput.ts";
+import {WishChangeWrapper} from "../../components/wish/Wish.ts";
 
 
 const PriceInput = styled(Input)<{ hasError?: boolean }>`

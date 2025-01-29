@@ -1,11 +1,11 @@
-import Header from "../components/headers/Header.tsx";
-import Button from "../components/buttons/Button.tsx";
+import Header from "../../components/headers/Header.tsx";
+import Button from "../../components/buttons/Button.tsx";
 import styled from "styled-components";
 import {useLocation, useNavigate} from "react-router-dom";
-import mascot from "../assets/home/mascot.svg"
+import mascot from "../../assets/home/mascot.svg"
 import {useEffect} from "react";
 import {toast} from "react-toastify";
-import {RowButtonContainer} from "../components/buttons/ButtonContainer.ts";
+import {RowButtonContainer} from "../../components/buttons/ButtonContainer.ts";
 
 export const Wrapper = styled.div`
   display: flex;

@@ -1,7 +1,7 @@
 import styled from "styled-components"
-import logoimg from "../assets/home/logo.svg"
-import introimg from "../assets/home/intro.svg"
-import KakaoBtn from "../components/oauth/Kakao"
+import logoimg from "../../assets/home/logo.svg"
+import introimg from "../../assets/home/intro.svg"
+import KakaoBtn from "../../components/auth/Kakao.tsx"
 import Confetti from 'react-confetti'
 
 const Wrapper = styled.div`

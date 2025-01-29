@@ -1,19 +1,19 @@
 import {useEffect, useState} from 'react';
-import Header from '../components/headers/Header.tsx';
-import Button from '../components/buttons/Button.tsx';
-import Cake from '../components/letters/Cake.tsx';
+import Header from '../../components/headers/Header.tsx';
+import Button from '../../components/buttons/Button.tsx';
+import Cake from '../../components/letters/Cake.tsx';
 import {toast} from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import LetterDetailModal from "../components/letters/LetterDetailModal.tsx";
-import {ornamentImages} from '../assets/ornamentImages.ts';
-import {ornamentPositions} from '../assets/ornamentImages.ts';
-import InstructionText from "../components/InstructionText.tsx";
+import LetterDetailModal from "../../components/letters/LetterDetailModal.tsx";
+import {ornamentImages} from '../../assets/letters/ornamentImages.ts';
+import {ornamentPositions} from '../../assets/letters/ornamentImages.ts';
+import InstructionText from "../../components/common/InstructionText.tsx";
 import {useNavigate} from "react-router-dom";
-import BackButton from "../components/buttons/BackButton.tsx";
-import {copyLetterUrl, getMyLetters} from "../apis/myLetterApi.ts";
-import {Letter} from "../types/api/myLetter.ts";
-import {ColumnButtonContainer} from "../components/buttons/ButtonContainer.ts";
-import {Wrapper} from "../components/SignupComponents.ts";
+import BackButton from "../../components/buttons/BackButton.tsx";
+import {copyLetterUrl, getMyLetters} from "../../apis/myLetterApi.ts";
+import {Letter} from "../../types/api/myLetter.ts";
+import {ColumnButtonContainer} from "../../components/buttons/ButtonContainer.ts";
+import {Wrapper} from "../../components/auth/SignupComponents.ts";
 
 const MyLetters = () => {
     const navigate = useNavigate();

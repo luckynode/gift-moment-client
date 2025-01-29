@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Button from "../components/buttons/Button";
+import Button from "../../components/buttons/Button.tsx";
 
 const ModalOverlay = styled.div`
   position: fixed;

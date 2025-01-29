@@ -1,7 +1,7 @@
-import Header from "../components/headers/Header.tsx";
+import Header from "../../components/headers/Header.tsx";
 import styled from "styled-components";
-import mascot from "../assets/home/mascot.svg"
-import {Wrapper} from "./letterSentConfirm.tsx";
+import mascot from "../../assets/home/mascot.svg"
+import {Wrapper} from "../letters/letterSentConfirm.tsx";
 
 export const Mascot = styled.img`
   width: 45%;

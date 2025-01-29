@@ -1,14 +1,14 @@
-import BackButton from "../components/buttons/BackButton.tsx";
-import Header from "../components/headers/Header.tsx";
+import BackButton from "../../components/buttons/BackButton.tsx";
+import Header from "../../components/headers/Header.tsx";
 import styled from "styled-components";
 import {useLocation, useNavigate, useParams} from "react-router-dom";
 import {useCallback, useEffect, useMemo, useRef, useState} from "react";
-import Button from "../components/buttons/Button.tsx";
-import MyWishDeleteConfirm from "../routes/myWishDeleteConfirm.tsx";
-import cameraIcon from "../assets/wishlist/wish_img_modify.svg";
-import {deleteWishItem, modifyWishItem} from "../apis/wishItemApi.ts";
-import {GetWishResponse} from "../types/api/wishItem.ts";
-import {RowButtonContainer} from "../components/buttons/ButtonContainer.ts";
+import Button from "../../components/buttons/Button.tsx";
+import MyWishDeleteConfirm from "../../routes/wish/myWishDeleteConfirm.tsx";
+import cameraIcon from "../../assets/wishlist/wish_img_modify.svg";
+import {deleteWishItem, modifyWishItem} from "../../apis/wishItemApi.ts";
+import {GetWishResponse} from "../../types/api/wishItem.ts";
+import {RowButtonContainer} from "../../components/buttons/ButtonContainer.ts";
 import {
     CustomInput, ErrorMessage,
     FileInputContainer,
@@ -16,8 +16,8 @@ import {
     Info,
     InputContainer, TextArea,
     WishInput
-} from "../components/wish/WishInput.ts";
-import {Subtitle, WishChangeWrapper} from "../components/wish/Wish.ts";
+} from "../../components/wish/WishInput.ts";
+import {Subtitle, WishChangeWrapper} from "../../components/wish/Wish.ts";
 
 const WishDisabledInput = styled(WishInput)`
   background: #EEE2E2;

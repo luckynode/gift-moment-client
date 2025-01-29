@@ -1,13 +1,13 @@
 import { styled } from "styled-components";
-import BackButton from "../components/buttons/BackButton";
-import Header from "../components/headers/Header";
+import BackButton from "../../components/buttons/BackButton.tsx";
+import Header from "../../components/headers/Header.tsx";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import eximg from "../assets/wishlist/example.jpg"
-import { ornamentImages } from '../assets/ornamentImages.ts';
-import Button from "../components/buttons/Button";
+import eximg from "../../assets/wishlist/example.jpg"
+import { ornamentImages } from '../../assets/letters/ornamentImages.ts';
+import Button from "../../components/buttons/Button.tsx";
 import axios from "axios";
-import Loading from "../components/loading.tsx";
+import Loading from "../../components/common/loading.tsx";
 
 
 const Wrapper = styled.div`

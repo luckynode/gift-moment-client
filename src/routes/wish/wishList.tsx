@@ -1,13 +1,13 @@
 import { styled } from "styled-components";
-import BackButton from "../components/buttons/BackButton";
-import Header from "../components/headers/Header";
-import WishItem from "../components/items/WishItem";
+import BackButton from "../../components/buttons/BackButton.tsx";
+import Header from "../../components/headers/Header.tsx";
+import WishItem from "../../components/items/WishItem.tsx";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import plus from "../assets/wishlist/plus.svg";
+import plus from "../../assets/wishlist/plus.svg";
 import {useNavigate} from "react-router-dom";
-import Loading from "../components/loading";
-import Button from "../components/buttons/Button";
+import Loading from "../../components/common/loading.tsx";
+import Button from "../../components/buttons/Button.tsx";
 
 const Wrapper = styled.div`
     display: flex;

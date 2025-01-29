@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { Form, Hug18, Input, SubTitle, Title, Wrapper } from "../../components/SignupComponents";
+import { Form, Hug18, Input, SubTitle, Title, Wrapper } from "../../components/auth/SignupComponents.ts";
 import Button from "../../components/buttons/Button";
 import axios from "axios";
-import BankCompo from "../../components/BankCompo";
+import BankCompo from "../../components/auth/BankCompo.tsx";
 
 interface GetInfoProps {
     onNext: () => void;

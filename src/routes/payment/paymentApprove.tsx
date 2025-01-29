@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom"
 import { styled } from "styled-components"
-import Loading from "../../components/loading";
+import Loading from "../../components/common/loading.tsx";
 
 const Wrapper = styled.div`
     display: flex;

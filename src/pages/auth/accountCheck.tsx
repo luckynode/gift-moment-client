@@ -1,5 +1,5 @@
 import { styled } from "styled-components";
-import { Title, Wrapper } from "../../components/SignupComponents";
+import { Title, Wrapper } from "../../components/auth/SignupComponents.ts";
 import { useNavigate } from "react-router-dom";
 import Button from "../../components/buttons/Button";
 

@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { Title, Wrapper, Input, Hug18, Form } from "../components/SignupComponents";
-import Button from "../components/buttons/Button";
+import { Title, Wrapper, Input, Hug18, Form } from "../../components/auth/SignupComponents.ts";
+import Button from "../../components/buttons/Button.tsx";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
-import BackButton from "../components/buttons/BackButton";
+import BackButton from "../../components/buttons/BackButton.tsx";
 
 const Leave = styled.div`
     position: fixed;

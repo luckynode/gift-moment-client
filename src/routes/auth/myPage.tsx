@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import { Title, Wrapper, Hug18 } from "../components/SignupComponents";
-import Button from "../components/buttons/Button";
+import { Title, Wrapper, Hug18 } from "../../components/auth/SignupComponents.ts";
+import Button from "../../components/buttons/Button.tsx";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
-import BackButton from "../components/buttons/BackButton";
-import Loading from "../components/loading";
+import BackButton from "../../components/buttons/BackButton.tsx";
+import Loading from "../../components/common/loading.tsx";
 
 const Row18 = styled.div`
     display: flex;

@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import { Hug18, Title, Wrapper } from "../components/SignupComponents";
+import { Hug18, Title, Wrapper } from "../../components/auth/SignupComponents.ts";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import Button from "../components/buttons/Button";
-import mascot from "../assets/home/mascot.svg";
+import Button from "../../components/buttons/Button.tsx";
+import mascot from "../../assets/home/mascot.svg";
 import styled from "styled-components";
-import Loading from "../components/loading";
+import Loading from "../../components/common/loading.tsx";
 
 const Mascot = styled.img`
   width: 45%;

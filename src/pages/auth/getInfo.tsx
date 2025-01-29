@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { Detail, Form, Hug10, Hug18, Input, Title, Wrapper } from "../../components/SignupComponents";
+import { Detail, Form, Hug10, Hug18, Input, Title, Wrapper } from "../../components/auth/SignupComponents.ts";
 import axios from "axios";
 import Button from "../../components/buttons/Button";
 

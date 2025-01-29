@@ -1,10 +1,3 @@
-
-// 이 아래부터는 oauth 컴포넌트
-// 그 인가코드를 백엔드로 전송
-// * 백엔드에서 카카오로 엑세스 토큰 요청
-// fetchData 로 우리만의 access_token, refresh_token 으로 로그인
-
-
 import { useEffect } from "react";
 import axios from "axios"
 import { useNavigate } from "react-router-dom";

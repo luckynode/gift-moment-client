@@ -43,7 +43,6 @@ const Margin = styled.div`
     margin-bottom: 60px;
 `
 
-// TODO 백 api 명세서 확인 후 재구성
 interface WishListData {
     name: string;
     birth: string;
@@ -62,7 +61,6 @@ interface WishListData {
 export default function WishList() {
     const navigate = useNavigate();
 
-    // 아이템 클릭 시 상세 페이지로 이동
     const handleItemClick = (itemId: number) => {
         navigate(`/wishlist/item/${itemId}`);
     };
@@ -82,7 +80,6 @@ export default function WishList() {
     const item_num = wishData.gift.length;
     const [loading, setLoading] = useState(true);
 
-    // TODO FetchData 주석 제거
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -128,8 +125,6 @@ export default function WishList() {
                         />
                     ))}
                 </ListWrapper>
-                {/* 5개보다 작을 때 추가 버튼 */}
-                {/* before birthday true -> addbutton, false -> navigate payment-request */}
                 {wishData.before_birthday ? (
                     item_num < 5 && (
                         <AddButton 

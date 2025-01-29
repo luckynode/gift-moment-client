@@ -53,8 +53,6 @@ export default function GetInfo({ onNext } : GetInfoProps) {
             
             // 테스트로 console 출력
             console.log(name, birth, email);
-            // TODO 주석 제거
-            /* */
             await axios.patch(`${import.meta.env.VITE_BACKEND_URL}/api/v1/auth/profile`, {
                 name: name,
                 birth_date: formattedBirthDate,

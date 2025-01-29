@@ -117,7 +117,6 @@ export default function InputPrice({ onNext } : GetInfoProps) {
     const [isError, setIsError] = useState(false);
     const [isOverError, setIsOverError] = useState(false);
 
-    // TODO 특정 유저 정보 받아오기
     useEffect(() => {
         const fetchData = async () => {
             try {

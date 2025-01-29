@@ -140,7 +140,6 @@ const FreindPercent = styled.div`
     color: #000000;
 `
 
-// TODO 백 api 명세서 확인 후 재구성
 interface UserWishData {
     name: string;
     birth: string;

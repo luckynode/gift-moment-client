@@ -7,7 +7,7 @@ import Loading from "../../components/loading";
 const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
-    align-items: center; /* 수직가운데 */
+    align-items: center;
     justify-content: center;
 `
 // 실제 결제 이후 도착하는 곳

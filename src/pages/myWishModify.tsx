@@ -1,87 +1,29 @@
 import BackButton from "../components/buttons/BackButton.tsx";
 import Header from "../components/headers/Header.tsx";
-import {Input} from "../components/SignupComponents.ts";
 import styled from "styled-components";
 import {useLocation, useNavigate, useParams} from "react-router-dom";
 import {useCallback, useEffect, useMemo, useRef, useState} from "react";
 import Button from "../components/buttons/Button.tsx";
-import {RowButtonContainer} from "../routes/letterSentConfirm.tsx";
-import {WishInput} from "./myWishDetail.tsx";
 import WishImgDetail from "../assets/wishlist/wish_img_detail.svg";
 import MyWishDeleteConfirm from "../routes/myWishDeleteConfirm.tsx";
 import cameraIcon from "../assets/wishlist/wish_img_modify.svg";
 import {deleteWishItem, modifyWishItem} from "../apis/wishItemApi.ts";
 import {GetWishResponse} from "../types/api/wishItem.ts";
+import {RowButtonContainer} from "../components/buttons/ButtonContainer.ts";
+import {
+    CustomInput, ErrorMessage,
+    FileInputContainer,
+    HiddenInput,
+    Info,
+    InputContainer, TextArea,
+    WishInput
+} from "../components/wish/WishInput.ts";
+import {Subtitle, WishChangeWrapper} from "../components/wish/Wish.ts";
 
 const WishDisabledInput = styled(WishInput)`
   background: #EEE2E2;
 `;
 
-const Info = styled.div`
-  gap: 20px;
-  margin: 40px 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`
-
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center; /* 수직가운데 */
-  justify-content: flex-start;
-  padding-top: 70px;
-  padding-bottom: 70px;
-`
-
-const Subtitle = styled.div`
-  font-size: 25px;
-  font-family: 'Lato';
-  color: transparent;
-  display: inline-block;
-  background: linear-gradient(to bottom, #924C57 0%, #B62F45 30%, #B72F54 60%, #924C57 100%); /* 중앙만 살짝 연하게 */
-  background-clip: text;
-`
-
-export const TextArea = styled.textarea<{ hasError?: boolean }>`
-  box-sizing: border-box;
-  width: 330px;
-  height: 150px;
-  font-size: 20px;
-  resize: none;
-  background: #FFFFFF;
-  border: 1px solid #C8C8C8;
-  border-radius: 8px;
-  padding: 15px;
-
-  &:disabled {
-    background-color: #FFFFFF90;
-  }
-`;
-
-
-const ErrorMessage = styled.div`
-  color: red;
-  font-size: 14px;
-  margin-left: 10px;
-`;
-
-const InputContainer = styled.div`
-  display: flex;
-  flex-direction: column; /* 세로 정렬 */
-  width: 100%;
-  gap: 5px; /* 입력 필드와 오류 메시지 간격 */
-`;
-
-const CustomInput = styled(Input)<{ hasError?: boolean }>`
-  border: 1px solid ${(props) => (props.hasError ? 'red' : '#ddd')};
-`;
-
-const FileInputContainer = styled.div`
-  display: flex;
-  flex-direction: column; /* 세로 정렬 */
-  gap: 5px; /* 입력 필드와 오류 메시지 간격 */
-`;
 
 const ImageUploadWrapper = styled.div<{ thumbnail?: string }>`
   display: flex;
@@ -127,10 +69,6 @@ const ImageUploadWrapper = styled.div<{ thumbnail?: string }>`
     transform: translate(-50%, -50%);
     z-index: 2; /* 검은색 배경 오버레이 위에 표시되도록 */
   }
-`;
-
-const HiddenInput = styled.input`
-  display: none;
 `;
 
 
@@ -284,7 +222,7 @@ const MyWishModify = () => {
         }
     }, []);
 
-// 이미지 업로드 버튼 클릭 시 input[type="file"]이 클릭되도록 함
+    // 이미지 업로드 버튼 클릭 시 input[type="file"]이 클릭되도록 함
     const openFilePicker = () => {
         if (fileInputRef.current) {
             fileInputRef.current.click();
@@ -294,7 +232,7 @@ const MyWishModify = () => {
     return (
         <>
             <BackButton/>
-            <Wrapper>
+            <WishChangeWrapper>
                 <Subtitle>{wishData?.birth} D-{wishData?.dday}</Subtitle>
                 <Header title={`${wishData?.name}님의 위시아이템`}/>
                 <Info>
@@ -341,7 +279,7 @@ const MyWishModify = () => {
                     <Button type="button" text="삭제" size="small" color="white" onClick={() => setIsModalOpen(true)}/>
                     <Button type="button" text="완료" size="small" color="black" onClick={handleComplete}/>
                 </RowButtonContainer>
-            </Wrapper>
+            </WishChangeWrapper>
 
             {/* 삭제 확인 모달 */}
             {isModalOpen && (

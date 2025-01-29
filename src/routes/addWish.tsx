@@ -10,43 +10,16 @@ import {useEffect} from "react";
 import cameraIcon from "../assets/wishlist/wish_img_modify.svg";
 import "react-toastify/dist/ReactToastify.css";
 import {addWishItem} from "../apis/wishItemApi.ts";
+import {
+    CustomInput,
+    ErrorMessage,
+    FileInputContainer,
+    HiddenInput,
+    Info,
+    InputContainer, TextArea
+} from "../components/wish/WishInput.ts";
+import {WishChangeWrapper} from "../components/wish/Wish.ts";
 
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  padding-top: 70px;
-  padding-bottom: 70px;
-`
-const Info = styled.div`
-  gap: 20px;
-  margin: 40px 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`
-export const TextArea = styled.textarea<{ hasError?: boolean }>`
-  box-sizing: border-box;
-  width: 330px;
-  height: 150px;
-  font-size: 20px;
-  resize: none;
-
-  background: #FFFFFF;
-  border: 1px solid #C8C8C8;
-  border-radius: 8px;
-
-  padding: 15px;
-
-  &:disabled {
-    background-color: #FFFFFF90;
-  }
-`;
-
-const CustomInput = styled(Input)<{ hasError?: boolean }>`
-  border: 1px solid ${(props: { hasError?: boolean }) => (props.hasError ? 'red' : '#ddd')};
-`;
 
 const PriceInput = styled(Input)<{ hasError?: boolean }>`
   padding-right: 50px;
@@ -57,26 +30,6 @@ const PriceInput = styled(Input)<{ hasError?: boolean }>`
     text-align: left; /* placeholder는 그대로 왼쪽 정렬 */
   }
 `;
-
-
-const ErrorMessage = styled.div`
-  color: red;
-  font-size: 14px;
-  margin-left: 10px;
-`;
-const InputContainer = styled.div`
-  display: flex;
-  flex-direction: column; /* 세로 정렬 */
-  width: 100%;
-  gap: 5px; /* 입력 필드와 오류 메시지 간격 */
-`;
-
-const FileInputContainer = styled.div`
-  display: flex;
-  flex-direction: column; /* 세로 정렬 */
-  gap: 5px; /* 입력 필드와 오류 메시지 간격 */
-`;
-
 
 const CurrencyLabel = styled.span`
   position: absolute;
@@ -139,10 +92,6 @@ const ImageUploadWrapper = styled.div<{ thumbnail?: string }>`
       ` : ""}
 `;
 
-
-const HiddenInput = styled.input`
-  display: none;
-`;
 
 const AddWish = () => {
 
@@ -297,7 +246,7 @@ const AddWish = () => {
     }, [wishName, wishPrice, wishLink, wishDescription, wishImage, navigate]);
 
     return (
-        <Wrapper>
+        <WishChangeWrapper>
             <BackButton/>
             <Header title="선물을 등록해주세요!"/>
             <Form onSubmit={onSubmit}>
@@ -372,7 +321,7 @@ const AddWish = () => {
                     }}
                 />
             </Form>
-        </Wrapper>
+        </WishChangeWrapper>
     );
 }
 

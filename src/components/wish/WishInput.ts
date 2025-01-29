@@ -15,11 +15,15 @@ export const FileInputContainer = styled.div`
   gap: 5px; 
 `;
 
-export const CustomInput = styled(Input)<{ hasError?: boolean }>`
+export const CustomInput = styled(Input).withConfig({
+    shouldForwardProp: (prop) => prop !== "hasError",
+})<{ hasError?: boolean }>`
   border: 1px solid ${(props) => (props.hasError ? 'red' : '#ddd')};
 `;
 
-export const TextArea = styled.textarea<{ hasError?: boolean }>`
+export const TextArea = styled.textarea.withConfig({
+    shouldForwardProp: (prop) => prop !== "hasError",
+})<{ hasError?: boolean }>`
   box-sizing: border-box;
   width: 330px;
   height: 150px;

@@ -20,10 +20,12 @@ import {WishChangeWrapper} from "../../components/wish/Wish.ts";
 import Loading from "../../components/common/loading.tsx";
 
 
-const PriceInput = styled(Input)<{ hasError?: boolean }>`
+const PriceInput = styled(Input).withConfig({
+    shouldForwardProp: (prop) => prop !== "hasError",
+})<{ hasError?: boolean }>`
   padding-right: 50px;
-  text-align: right; /* 선물 가격만 오른쪽 정렬하기 */
-  border: 1px solid ${(props: { hasError?: boolean }) => (props.hasError ? 'red' : '#C8C8C8')};
+  text-align: right; /* 선물 가격만 오른쪽 정렬 */
+  border: 1px solid ${(props) => (props.hasError ? "red" : "#C8C8C8")};
 
   &::placeholder {
     text-align: left; /* placeholder는 그대로 왼쪽 정렬 */

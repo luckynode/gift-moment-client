@@ -83,8 +83,6 @@ const MyLetters = () => {
     }));
 
     const copyLinkToClipboard = async () => {
-        setLoading(true);
-
         try {
             const response = await copyLetterUrl();
             if (response.status == "success") {

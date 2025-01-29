@@ -5,11 +5,76 @@ import styled from "styled-components";
 import {useNavigate, useParams} from "react-router-dom";
 import {useState} from "react";
 import Button from "../components/buttons/Button.tsx";
+import {ornamentImages} from '../assets/ornamentImages.ts';
 import {getWishItem} from '../apis/wishItemApi.ts';
 import {GetWishResponse} from "../types/api/wishItem.ts";
 import {Subtitle, WishWrapper} from "../components/wish/Wish.ts";
 import {Info, WishInput} from "../components/wish/WishInput.ts";
-import CongratsList from "../components/wish/CongratsList.tsx";
+
+const List = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  width: 363px;
+  gap: 15px;
+`
+
+const Card = styled.div`
+  width: 111px;
+  height: 50px;
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  margin-bottom: 5px;
+`
+
+const CardImg = styled.img`
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid #C8C8C8;
+  object-fit: contain;
+  padding: 5px;
+`;
+
+const CardName = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: flex-start;
+`
+
+const FriendName = styled.div`
+  font-family: 'Lato';
+  font-weight: 700;
+  font-size: 12px;
+  text-align: center;
+  color: #000000;
+`
+
+const FreindPercent = styled.div`
+  font-family: 'Lato';
+  font-weight: 500;
+  font-size: 12px;
+  color: #000000;
+`
+
+const Congrats = styled.div`
+  background-color: white;
+  min-width: 390px;
+  padding: 10px;
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`
+
+const CongratsTitle = styled.div`
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 20px;
+`
 
 const Img = styled.img`
   width: 300px;
@@ -79,9 +144,20 @@ const MyWishDetail = () => {
                 <Button type="button" text="편집" size="small" color="white" onClick={() => {
                     navigate(`/wishlist/item/${itemId}/modify`, {state: {wishData}})
                 }}/>
-                {wishData?.gift?.payments && (
-                    <CongratsList payments={wishData.gift.payments} />
-                )}
+                <Congrats>
+                    <CongratsTitle>축하해준 친구들</CongratsTitle>
+                    <List>
+                        {wishData?.gift?.payments.map((payment, index) => (
+                            <Card key={payment.name}>
+                                <CardImg src={ornamentImages[index % ornamentImages.length]}/>
+                                <CardName>
+                                    <FriendName>{payment.name}</FriendName>
+                                    <FreindPercent>{payment.amount ? Number(payment.amount).toLocaleString() : "0"}원</FreindPercent>
+                                </CardName>
+                            </Card>
+                        ))}
+                    </List>
+                </Congrats>
             </WishWrapper>
         </>
     )

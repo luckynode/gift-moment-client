@@ -40,7 +40,6 @@ const ImageUploadWrapper = styled.div<{ thumbnail?: string }>`
   background-position: center center;
 
   /* 투명한 검은색 오버레이 */
-
   &::before {
     content: "";
     position: absolute;
@@ -54,7 +53,6 @@ const ImageUploadWrapper = styled.div<{ thumbnail?: string }>`
   }
 
   /* 카메라 아이콘 */
-
   &::after {
     content: "";
     position: absolute;

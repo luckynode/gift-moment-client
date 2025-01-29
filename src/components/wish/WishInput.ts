@@ -64,7 +64,7 @@ export const WishInput = styled.div`
   padding: 10px;
 
   font-size: 20px;
-  font-family: 'Lato',serif;
+  font-family: 'Lato';
   font-weight: 500;
 
   background: #FFFFFF;

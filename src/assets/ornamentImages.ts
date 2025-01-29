@@ -13,7 +13,6 @@ import heart from './letters/heart.svg';
 import yellowMusic from './letters/yellow_music.svg';
 import blackMusic from './letters/black_music.svg';
 
-// 장신구 이미지 경로 배열
 export const ornamentImages = [
     redFlower,
     whiteStar,
@@ -31,8 +30,6 @@ export const ornamentImages = [
     blackMusic,
 ];
 
-// FIXME 장신구 위치는 px로 잡으면 반응형 어려워짐. %로 변경하는 것 고려해봐야 할듯
-// 장신구 위치 배열
 export const ornamentPositions = [
     {top: '125px', left: '55px'},  // redFlower
     {top: '122px', left: '120px'},  // whiteStar

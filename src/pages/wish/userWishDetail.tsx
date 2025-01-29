@@ -184,6 +184,7 @@ export default function UserWishDetail() {
     });
     
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -192,6 +193,7 @@ export default function UserWishDetail() {
                 setWishData(response.data.data[0]);
             } catch (error) {
                 console.error("Fetching data ",error);
+                setError(true);
             } finally {
                 setLoading(false);
             }
@@ -200,7 +202,7 @@ export default function UserWishDetail() {
         fetchData();
     }, []);
 
-    if (loading) {
+    if (loading || error) {
         return <Loading />
     }
 

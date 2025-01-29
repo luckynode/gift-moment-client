@@ -59,6 +59,7 @@ export default function UserWishList() {
     });
 
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(false);
 
     useEffect(() => {
         localStorage.setItem('uniqueString', String(uniqueString));
@@ -72,6 +73,7 @@ export default function UserWishList() {
                 setWishData(response.data.data);
             } catch (error) {
                 console.error("Fetching Data Error: ", error);
+                setError(true);
             } finally {
                 setLoading(false);
             }
@@ -80,7 +82,7 @@ export default function UserWishList() {
         fetchData();
     }, []);
 
-    if (loading) {
+    if (loading || error) {
         return <Loading />
     }
 

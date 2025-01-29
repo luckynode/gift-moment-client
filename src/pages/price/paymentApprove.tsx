@@ -21,7 +21,7 @@ export default function PaymentApprove() {
     const pg_token = new URLSearchParams(window.location.search).get('pg_token');
     const tid = localStorage.getItem('tid');
     const gift_id = localStorage.getItem('gift_id');
-    const member_id = localStorage.getItem('member_id');
+    const memberId = localStorage.getItem('memberId');
     const amount = Number(localStorage.getItem('amount'));
     const uniqueString = localStorage.getItem('uniqueString');
 
@@ -32,7 +32,7 @@ export default function PaymentApprove() {
                     pg_token,
                     tid,
                     gift_id,
-                    member_id,
+                    member_id : memberId,
                     amount,
                 });
 

@@ -4,7 +4,6 @@ import styled from "styled-components";
 import {useLocation, useNavigate, useParams} from "react-router-dom";
 import {useCallback, useEffect, useMemo, useRef, useState} from "react";
 import Button from "../components/buttons/Button.tsx";
-import WishImgDetail from "../assets/wishlist/wish_img_detail.svg";
 import MyWishDeleteConfirm from "../routes/myWishDeleteConfirm.tsx";
 import cameraIcon from "../assets/wishlist/wish_img_modify.svg";
 import {deleteWishItem, modifyWishItem} from "../apis/wishItemApi.ts";
@@ -77,7 +76,7 @@ const MyWishModify = () => {
 
     const [wishImage, setWishImage] = useState<File | null>(null);
     const wishImageUrl = useMemo(
-        () => (wishImage ? URL.createObjectURL(wishImage) : wishData?.gift?.image || WishImgDetail),
+        () => (wishImage ? URL.createObjectURL(wishImage) : wishData?.gift?.image || "/home/wish_img_modify.svg"),
         [wishImage, wishData?.gift?.image]
     );
     const [wishImageUrlError, setWishImageUrlError] = useState<boolean>(false);

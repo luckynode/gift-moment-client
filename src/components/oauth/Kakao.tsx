@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import kimg from "../../assets/home/klogin.svg"
 
 const Button = styled.button`
     display: flex;
@@ -11,7 +10,7 @@ const Button = styled.button`
     width: 160px;
     height: 40px;
 
-    background: url(${kimg}) no-repeat center center;
+    background: url("/home/klogin.svg") no-repeat center center;
     border: none;
     cursor: pointer;
     z-index: 2;

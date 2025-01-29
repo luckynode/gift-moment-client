@@ -5,9 +5,7 @@ import {useCallback, useMemo, useRef, useState} from "react";
 import styled from "styled-components";
 import Button from "../components/buttons/Button.tsx";
 import {useNavigate} from "react-router-dom";
-import WishImg from "../assets/wishlist/wish_img_input.svg";
 import {useEffect} from "react";
-import cameraIcon from "../assets/wishlist/wish_img_modify.svg";
 import "react-toastify/dist/ReactToastify.css";
 import {addWishItem} from "../apis/wishItemApi.ts";
 import {
@@ -63,7 +61,7 @@ const ImageUploadWrapper = styled.div<{ thumbnail?: string }>`
 
   /* 투명한 검은색 오버레이 & 가운데 카메라 이미지 배치 */
   ${(props) =>
-          props.thumbnail && props.thumbnail !== WishImg && props.thumbnail.trim() !== "" ? `
+          props.thumbnail && props.thumbnail.trim() !== "/home/wish_img_input.svg" && props.thumbnail.trim() !== "" ? `
         &::before {
           content: "";
           position: absolute;
@@ -81,7 +79,7 @@ const ImageUploadWrapper = styled.div<{ thumbnail?: string }>`
           position: absolute;
           width: 50px;
           height: 50px;
-          background-image: url(${cameraIcon});
+          background-image: url("/home/wish_img_modify.svg");
           background-size: contain;
           background-repeat: no-repeat;
           top: 50%;
@@ -109,7 +107,7 @@ const AddWish = () => {
     const fileInputRef = useRef<HTMLInputElement | null>(null);
 
     const imageUrl = useMemo(() => {
-        return wishImage ? URL.createObjectURL(wishImage) : WishImg;
+        return wishImage ? URL.createObjectURL(wishImage) : "/home/wish_img_input.svg";
     }, [wishImage]);
 
     useEffect(() => {

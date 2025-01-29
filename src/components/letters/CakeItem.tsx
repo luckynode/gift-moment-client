@@ -9,9 +9,9 @@ type CakeItemProps = {
 };
 
 type StyledCakeItemProps = {
-    top: string;
-    left: string;
-    delay: string;
+    $top: string;
+    $left: string;
+    $delay: string;
     isClockwise: boolean;
 };
 
@@ -47,9 +47,9 @@ const counterClockwiseRotation = keyframes`
 
 const StyledCakeItem = styled.img.attrs<StyledCakeItemProps>((props) => ({
     style: {
-        top: props.top,
-        left: props.left,
-        animationDelay: props.delay,
+        top: props.$top,
+        left: props.$left,
+        animationDelay: props.$delay,
     },
     isClockwise: undefined,
 }))<StyledCakeItemProps>`
@@ -75,10 +75,10 @@ const CakeItem = ({ id, top, left, src, onClick }: CakeItemProps) => {
         <StyledCakeItem
             src={src}
             alt={`Cake item ${id}`}
-            top={top}
-            left={left}
+            $top={top}
+            $left={left}
             onClick={() => onClick(id)}
-            delay={delay}
+            $delay={delay}
             isClockwise={isClockwise}
         />
     );

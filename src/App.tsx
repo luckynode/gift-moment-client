@@ -1,31 +1,31 @@
 import './App.css'
 import styled, {createGlobalStyle} from 'styled-components'
 import {createBrowserRouter, RouterProvider} from 'react-router-dom'
-import Home from './routes/home.tsx'
+import Home from './routes/auth/home.tsx'
 import {useEffect} from 'react'
-import MyLetters from "./routes/myLetters.tsx";
+import MyLetters from "./routes/letters/myLetters.tsx";
 import {ToastContainer} from "react-toastify";
-import OAuth from './components/oauth/KakaoOauth.tsx'
-import SignUp from './routes/signUp.tsx'
-import Mywish from './routes/myWish.tsx'
-import Login from './routes/login.tsx'
-import GuestLetters from "./routes/guestLetters.tsx";
-import WriteLetter from "./routes/writeLetter.tsx";
-import LetterSentConfirm from "./routes/letterSentConfirm.tsx";
-import Mypage from './pages/myPage.tsx'
-import EditMypage from './pages/myPageEdit.tsx'
-import WishList from './routes/wishList.tsx'
-import UserWishList from './routes/userWishList.tsx'
+import OAuth from './components/auth/KakaoOauth.tsx'
+import SignUp from './routes/auth/signUp.tsx'
+import Mywish from './routes/wish/myWish.tsx'
+import Login from './routes/auth/login.tsx'
+import GuestLetters from "./pages/letters/guestLetters.tsx";
+import WriteLetter from "./routes/letters/writeLetter.tsx";
+import LetterSentConfirm from "./routes/letters/letterSentConfirm.tsx";
+import Mypage from './routes/auth/myPage.tsx'
+import EditMypage from './routes/auth/myPageEdit.tsx'
+import WishList from './routes/wish/wishList.tsx'
+import UserWishList from './pages/wish/userWishList.tsx'
 import GiftAmount from './pages/price/giftAmount.tsx'
-import UserWishDetail from './pages/userWishDetail.tsx'
+import UserWishDetail from './pages/wish/userWishDetail.tsx'
 import SendConfirm from './pages/price/sendConfirm.tsx'
-import PaymentRequest from "./routes/paymentRequest.tsx";
-import PaymentRequestComplete from "./routes/paymentRequestComplete.tsx";
-import MyWishDetail from "./pages/myWishDetail.tsx";
-import MyWishModify from "./pages/myWishModify.tsx";
-import AddWish from "./routes/addWish.tsx";
-import AddWishConfirm from "./routes/addWishConfirm.tsx";
-import PaymentApprove from './pages/price/paymentApprove.tsx'
+import PaymentRequest from "./routes/payment/paymentRequest.tsx";
+import PaymentRequestComplete from "./routes/payment/paymentRequestComplete.tsx";
+import MyWishDetail from "./pages/wish/myWishDetail.tsx";
+import MyWishModify from "./pages/wish/myWishModify.tsx";
+import AddWish from "./routes/wish/addWish.tsx";
+import AddWishConfirm from "./routes/wish/addWishConfirm.tsx";
+import PaymentApprove from './routes/payment/paymentApprove.tsx'
 
 const GlobalStyles = createGlobalStyle`
   body {

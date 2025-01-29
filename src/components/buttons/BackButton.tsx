@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import arrowLeft from '../../assets/letters/arrow_left.svg'; // 이미지 파일 경로
+import arrowLeft from '../../assets/letters/arrow_left.svg';
 
 const BackButtonWrapper = styled.div`
   position: absolute;
@@ -24,7 +24,7 @@ const BackButton = () => {
     const navigate = useNavigate();
 
     const handleBackClick = () => {
-        navigate(-1); // 브라우저 뒤로가기
+        navigate(-1);
     };
 
     return (

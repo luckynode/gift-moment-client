@@ -173,7 +173,15 @@ const router = createBrowserRouter([
         path: "/wishlist/add/confirm",
         element: <AddWishConfirm/>
     }
-])
+], {
+    future: {
+        v7_relativeSplatPath: true,
+        v7_fetcherPersist: true,
+        v7_normalizeFormMethod: true,
+        v7_partialHydration: true,
+        v7_skipActionErrorRevalidation: true,
+    },
+});
 
 
 function App() {
@@ -194,7 +202,7 @@ function App() {
     return (
         <Wrapper className='store'>
             <GlobalStyles/>
-            <RouterProvider router={router}/>
+            <RouterProvider router={router} future={{ v7_startTransition : true }}/>
             <ToastContainer/>
         </Wrapper>
     )

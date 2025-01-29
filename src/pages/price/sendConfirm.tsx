@@ -44,7 +44,7 @@ export default function SendConfirm() {
             <Mascot src={mascot}></Mascot>
             <Header title={`${friend_name} 님에게 선물이 전달되었어요!`} fontSize={"25px"}/>
             <RowButtonContainer>
-                <Button type="button" text="확인" size="small" color="black" onClick={() => {
+                <Button type="button" $text="확인" size="small" color="black" onClick={() => {
                     navigate(`/wishlist/${uniqueString}`); // 사용자 ID에 맞춰 이동
                 }}/>
             </RowButtonContainer>

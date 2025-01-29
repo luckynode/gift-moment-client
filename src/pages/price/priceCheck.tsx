@@ -157,8 +157,8 @@ export default function PriceCheck({price} : PriceCheckProps) {
                     <Header title="송금하시겠습니까?" fontSize="25px"/>
                 </Gap>
                 <Row onSubmit={onSubmit}>
-                    <Button size="small" color="black" text="네" onClick={() => {}} type="submit"/>
-                    <Button size="small" color="white" text="아니요" onClick={() => {navigate(-1)}} type="button"/>
+                    <Button size="small" color="black" $text="네" onClick={() => {}} type="submit"/>
+                    <Button size="small" color="white" $text="아니요" onClick={() => {navigate(-1)}} type="button"/>
                 </Row>
             </Wrapper>
         </>

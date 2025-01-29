@@ -97,7 +97,7 @@ const PaymentRequest = () => {
                 <WishDisabledInput>{accountInfo.account_number || "3333-09-059-3401"}</WishDisabledInput>
                 <Button
                     type="button"
-                    text="송금"
+                    $text="송금"
                     size="small"
                     color="black"
                     onClick={() => navigate("/payment-request-complete")}

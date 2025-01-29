@@ -141,7 +141,7 @@ const MyWishDetail = () => {
                     </WishInput>
                     <WishInput>{wishData?.gift?.description}</WishInput>
                 </Info>
-                <Button type="button" text="편집" size="small" color="white" onClick={() => {
+                <Button type="button" $text="편집" size="small" color="white" onClick={() => {
                     navigate(`/wishlist/item/${itemId}/modify`, {state: {wishData}})
                 }}/>
                 <Congrats>

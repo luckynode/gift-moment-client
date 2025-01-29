@@ -77,9 +77,9 @@ const GuestLetters = () => {
                 />
                 {beforeBirthday ? (
                     <ColumnButtonContainer>
-                        <Button type="button" text="편지 쓰러 가기" size="large" color="white"
+                        <Button type="button" $text="편지 쓰러 가기" size="large" color="white"
                                 onClick={() => navigate("/write-letter", {state: {uniqueString, ownerName}})}/>
-                        <Button type="button" text="위시리스트 보러 가기" size="large" color="black"
+                        <Button type="button" $text="위시리스트 보러 가기" size="large" color="black"
                                 onClick={() => navigate(`/wishlist/${uniqueString}`)}/>
                     </ColumnButtonContainer>
                 ) : ""}

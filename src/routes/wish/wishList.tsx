@@ -153,7 +153,7 @@ export default function WishList() {
                 ) : (
                     <Margin>
                         <Button 
-                            text="선물 받으러 가기 →"
+                            $text="선물 받으러 가기 →"
                             color="black"
                             size="large"
                             onClick={() => navigate("/payment-request", {state: {accountInfo}})}

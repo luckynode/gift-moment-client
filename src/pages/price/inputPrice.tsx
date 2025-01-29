@@ -194,7 +194,7 @@ export default function InputPrice({ onNext } : GetInfoProps) {
                     <Input onChange={onChange} placeholder="금액" name="price" value={price} type="number" required isError={isError} isOverError={isOverError}/>
                     {isError && <ErrorMessage>금액을 입력해주세요.</ErrorMessage>}
                     {isOverError && <ErrorMessage>선물 가격을 초과했습니다.</ErrorMessage>}
-                    <Button type="submit" size="small" color="black" text="완료" onClick={() => {}}/>
+                    <Button type="submit" size="small" color="black" $text="완료" onClick={() => {}}/>
                 </Form>
             </Wrapper>
         </>

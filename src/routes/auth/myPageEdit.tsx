@@ -182,7 +182,7 @@ export default function EditMypage() {
                         />
                     <Button 
                         type="submit"
-                        text="완료"
+                        $text="완료"
                         size="small"
                         color="black"
                         onClick={() => {}}

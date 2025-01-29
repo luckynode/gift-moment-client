@@ -61,7 +61,7 @@ export default function Mywish() {
                         <Button
                             key={index}
                             type="button"
-                            text={button.text}
+                            $text={button.text}
                             size={button.size}
                             onClick={button.onClick}
                         />
@@ -80,7 +80,7 @@ export default function Mywish() {
                     <Button
                         key={index}
                         type="button"
-                        text={button.text}
+                        $text={button.text}
                         size={button.size}
                         onClick={button.onClick}
                     />

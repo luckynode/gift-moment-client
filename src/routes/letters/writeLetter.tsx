@@ -229,7 +229,7 @@ const WriteLetter = () => {
                     </InputContainer>
                 </InputRow>
                 {/* 완료 버튼 */}
-                <Button type="submit" text="완료" size="small" color="black" onClick={() => {
+                <Button type="submit" $text="완료" size="small" color="black" onClick={() => {
                 }}/>
             </Form>
         </div>

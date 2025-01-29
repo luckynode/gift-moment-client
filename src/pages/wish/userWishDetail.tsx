@@ -237,8 +237,8 @@ export default function UserWishDetail() {
                 <Header title={`${wishData?.name} 님에게 선물하기`} fontSize="25px"/>
                 <CheckBtn>
                     {/* 로그인 여부 확인 */}
-                    <Button text="좋아요!" size="small" color="black" onClick={() => {onLikeClick()}}/>
-                    <Button text="괜찮아요" size="small" color="white" onClick={() => {navigate(-1)}}/>
+                    <Button $text="좋아요!" size="small" color="black" onClick={() => {onLikeClick()}}/>
+                    <Button $text="괜찮아요" size="small" color="white" onClick={() => {navigate(-1)}}/>
                 </CheckBtn>
                 <Congrats>
                     <CongratsTitle>축하해준 친구들</CongratsTitle>

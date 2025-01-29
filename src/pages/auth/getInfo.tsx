@@ -101,7 +101,7 @@ export default function GetInfo({ onNext } : GetInfoProps) {
                 <Hug10>
                     <Button 
                         type="submit"
-                        text="선물 등록하러 가기"
+                        $text="선물 등록하러 가기"
                         size="large"
                         color="black"
                         onClick={() => {}}

@@ -63,7 +63,7 @@ const Label = styled.label`
 `;
 
 const Input = styled.input.withConfig({
-    shouldForwardProp: (prop) => prop !== 'error', // 'error' prop을 DOM으로 전달하지 않음
+    shouldForwardProp: (prop) => prop !== 'error',
 })<{ error?: boolean }>`
   flex: 1;
   padding: 8px 10px;
@@ -89,20 +89,19 @@ const ErrorMessage = styled.div`
 
 const InputContainer = styled.div`
   display: flex;
-  flex-direction: column; /* 세로 정렬 */
+  flex-direction: column; 
   width: 100%;
-  gap: 5px; /* 입력 필드와 오류 메시지 간격 */
+  gap: 5px; 
 `;
 
 const WriteLetter = () => {
     const location = useLocation();
-    const {uniqueString, ownerName} = location.state || {};
-
-    const [to, setTo] = useState('');
-    const [message, setMessage] = useState('');
-    const [from, setFrom] = useState('');
     const navigate = useNavigate();
 
+    const {uniqueString, ownerName} = location.state || {};
+    const [to, setTo] = useState<string>("");
+    const [message, setMessage] = useState<string>("");
+    const [from, setFrom] = useState<string>("");
     const [toError, setToError] = useState(false);
     const [messageError, setMessageError] = useState(false);
     const [fromError, setFromError] = useState(false);

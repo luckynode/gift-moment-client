@@ -7,7 +7,6 @@ import "react-toastify/dist/ReactToastify.css";
 import LetterDetailModal from "../components/letters/LetterDetailModal.tsx";
 import {ornamentImages} from '../assets/ornamentImages.ts';
 import {ornamentPositions} from '../assets/ornamentImages.ts';
-
 import InstructionText from "../components/InstructionText.tsx";
 import {useNavigate} from "react-router-dom";
 import BackButton from "../components/buttons/BackButton.tsx";
@@ -18,12 +17,12 @@ import {Wrapper} from "../components/SignupComponents.ts";
 
 const MyLetters = () => {
     const navigate = useNavigate();
-    const [username, setUsername] = useState("눈송이");
-    const [beforeBirthday, setBeforeBirthday] = useState(false);
-    const [letters, setLetters] = useState<Letter[]>([]);
-    const [totalLetters, setTotalLetters] = useState(14);
 
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [username, setUsername] = useState<string>("눈송이");
+    const [beforeBirthday, setBeforeBirthday] = useState<boolean>(false);
+    const [letters, setLetters] = useState<Letter[]>([]);
+    const [totalLetters, setTotalLetters] = useState<number>(14);
+    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const [selectedLetter, setSelectedLetter] = useState<{
         id: number;
         to: string;
@@ -60,8 +59,8 @@ const MyLetters = () => {
                 letter
                     ? {id: letter.id, to: letter.recipient_to, from: letter.sender_name, content: letter.content}
                     : null
-            ); // 선택한 편지 데이터 설정
-            setIsModalOpen(true); // 모달 열기
+            );
+            setIsModalOpen(true);
         }
     };
 
@@ -69,11 +68,11 @@ const MyLetters = () => {
 
     // 표시할 장신구 데이터 생성
     const items = ornamentImages.slice(0, totalLetters).map((src, index) => ({
-        id: letters[index]?.id || index, // letters 배열의 id로 설정
+        id: letters[index]?.id || index,
         src,
         top: ornamentPositions[index].top,
         left: ornamentPositions[index].left,
-        onClick: () => handleItemClick(letters[index]?.id || index), // letters의 id 전달
+        onClick: () => handleItemClick(letters[index]?.id || index),
     }));
 
     const copyLinkToClipboard = async () => {

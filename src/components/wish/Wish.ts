@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const WishWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center; /* 수직가운데 */
+  align-items: center; 
   justify-content: flex-start;
   padding-top: 70px;
 `
@@ -17,6 +17,6 @@ export const Subtitle = styled.div`
   font-family: 'Lato';
   color: transparent;
   display: inline-block;
-  background: linear-gradient(to bottom, #924C57 0%, #B62F45 30%, #B72F54 60%, #924C57 100%); /* 중앙만 살짝 연하게 */
+  background: linear-gradient(to bottom, #924C57 0%, #B62F45 30%, #B72F54 60%, #924C57 100%); 
   background-clip: text;
 `

@@ -24,7 +24,6 @@ const WishDisabledInput = styled(WishInput)`
   background: #EEE2E2;
 `;
 
-
 const ImageUploadWrapper = styled.div<{ thumbnail?: string }>`
   display: flex;
   flex-direction: column;
@@ -75,27 +74,21 @@ const ImageUploadWrapper = styled.div<{ thumbnail?: string }>`
 const MyWishModify = () => {
     const navigate = useNavigate();
     const location = useLocation();
-    const { wishData } = location.state as { wishData: GetWishResponse[0] }; // 타입 캐스팅
-
+    const {wishData} = location.state as { wishData: GetWishResponse[0] };
     const {itemId} = useParams<{ itemId: string }>();
 
-    const [wishImage, setWishImage] = useState<File | null>(null); // 업로드용 파일
-
-    // useMemo를 사용하여 wishImageUrl을 캐싱함
+    const [wishImage, setWishImage] = useState<File | null>(null);
     const wishImageUrl = useMemo(
         () => (wishImage ? URL.createObjectURL(wishImage) : wishData?.gift?.image || WishImgDetail),
         [wishImage, wishData?.gift?.image]
     );
-    const [wishImageUrlError, setWishImageUrlError] = useState(false);
-
+    const [wishImageUrlError, setWishImageUrlError] = useState<boolean>(false);
     const [wishLink, setWishLink] = useState<string>(wishData?.gift?.link || "");
     const [wishDescription, setWishDescription] = useState<string>(wishData?.gift?.description || "");
-
-    const [wishLinkError, setWishLinkError] = useState(false);
-    const [wishDescriptionError, setWishDescriptionError] = useState(false);
-
-    const [isModalOpen, setIsModalOpen] = useState(false); // 모달 표시 여부
-    const fileInputRef = useRef<HTMLInputElement>(null);
+    const [wishLinkError, setWishLinkError] = useState<boolean>(false);
+    const [wishDescriptionError, setWishDescriptionError] = useState<boolean>(false);
+    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+    const fileInputRef = useRef<HTMLInputElement | null>(null);
 
     useEffect(() => {
         console.log("위시데이터:", wishData);
@@ -113,8 +106,8 @@ const MyWishModify = () => {
             }
             const response = await deleteWishItem(Number(itemId));
             if (response.status === 'success') {
-                console.log(response.message); // 성공 메시지 출력
-                setIsModalOpen(false); // 모달 닫기
+                console.log(response.message);
+                setIsModalOpen(false);
                 navigate("/wishlist");
             } else {
                 console.error("위시리스트 삭제 실패:", response.message);
@@ -136,11 +129,8 @@ const MyWishModify = () => {
     ) => {
         return (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
             const value = e.target.value;
-
-            // 입력 값 설정
             setter(value);
 
-            // 길이 초과 여부 확인
             if (value.length > maxLength) {
                 errorSetter(true);
             } else {
@@ -225,7 +215,9 @@ const MyWishModify = () => {
     // 이미지 업로드 버튼 클릭 시 input[type="file"]이 클릭되도록 함
     const openFilePicker = () => {
         if (fileInputRef.current) {
-            fileInputRef.current.click();
+            if ("click" in fileInputRef.current) {
+                fileInputRef.current.click();
+            }
         }
     };
 
@@ -257,8 +249,8 @@ const MyWishModify = () => {
                             value={wishLink}
                             type="text"
                             placeholder="선물 링크"
-                            hasError={wishLinkError} // 에러 상태 전달
-                            onFocus={() => handleFocus(setWishLinkError)} // 에러 초기화
+                            hasError={wishLinkError} // error 상태 전달
+                            onFocus={() => handleFocus(setWishLinkError)} // focus 시 에러 초기화
                             onChange={handleInputChange(setWishLink, 2000, setWishLinkError)}
                         />
                         {wishLinkError && <ErrorMessage>구매하려는 선물 링크를 입력해주세요!</ErrorMessage>}
@@ -268,8 +260,8 @@ const MyWishModify = () => {
                             name="wishDescription"
                             value={wishDescription}
                             placeholder="선물 소개"
-                            hasError={wishDescriptionError} // error 상태 전달
-                            onFocus={() => handleFocus(setWishDescriptionError)} // focus 시 에러 초기화
+                            hasError={wishDescriptionError}
+                            onFocus={() => handleFocus(setWishDescriptionError)}
                             onChange={handleInputChange(setWishDescription, 100, setWishDescriptionError)}
                         />
                         {wishDescriptionError && <ErrorMessage>선물에 대해 간략히 설명해주세요️!</ErrorMessage>}

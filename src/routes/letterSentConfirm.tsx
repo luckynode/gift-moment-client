@@ -27,7 +27,7 @@ const LetterSentConfirm = () => {
         // uniqueString이 없으면 이전 페이지로 리다이렉트
         if (!uniqueString) {
             toast.error("잘못된 접근입니다. 편지함에서 다시 시도해주세요.");
-            navigate(-1); // 이전 페이지로 이동
+            navigate(-1);
         }
         console.log("uniqueString, ownerName:", uniqueString, ownerName);
     }, [uniqueString, navigate]);

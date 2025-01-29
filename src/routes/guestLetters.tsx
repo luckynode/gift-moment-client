@@ -5,7 +5,6 @@ import Cake from '../components/letters/Cake.tsx';
 import "react-toastify/dist/ReactToastify.css";
 import {ornamentImages} from '../assets/ornamentImages.ts';
 import {ornamentPositions} from '../assets/ornamentImages.ts';
-
 import InstructionText from "../components/InstructionText.tsx";
 import {useNavigate, useParams} from "react-router-dom";
 import BackButton from "../components/buttons/BackButton.tsx";
@@ -16,9 +15,10 @@ import {Wrapper} from "../components/SignupComponents.ts";
 const GuestLetters = () => {
     const {uniqueString} = useParams();
     const navigate = useNavigate();
-    const [ownerName, setOwnerName] = useState("눈송이");
-    const [beforeBirthday, setBeforeBirthday] = useState(true);
-    const [letterCount, setLetterCount] = useState(14);
+
+    const [ownerName, setOwnerName] = useState<string>("눈송이");
+    const [beforeBirthday, setBeforeBirthday] = useState<boolean>(true);
+    const [letterCount, setLetterCount] = useState<number>(14);
 
     // 표시할 장신구 데이터 생성
     const items = ornamentImages.slice(0, letterCount).map((src, index) => ({
@@ -58,7 +58,7 @@ const GuestLetters = () => {
             <Wrapper>
                 <BackButton/>
                 <Header title={`${ownerName}님의 편지함`}/>
-                <Cake items={items}/> {/* items를 Cake에 전달 */}
+                <Cake items={items}/>
                 <InstructionText
                     iconText="Notice"
                     message={

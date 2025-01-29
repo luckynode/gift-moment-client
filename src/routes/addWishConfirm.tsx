@@ -3,7 +3,6 @@ import Button from "../components/buttons/Button.tsx";
 import {useNavigate} from "react-router-dom";
 import {Hug18, Wrapper} from "../components/SignupComponents.ts";
 
-
 const AddWishConfirm = () => {
     const navigate = useNavigate();
 

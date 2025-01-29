@@ -27,6 +27,10 @@ export default function PaymentApprove() {
 
     useEffect(() => {
         const fetchData = async () => {
+            if (!pg_token || !tid || !gift_id || !memberId || !amount) {
+                return; // 필수 값이 없으면 요청하지 않음
+            }
+
             try {
                 const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/payments/kakao-pay/approve`,{
                     pg_token,
@@ -44,7 +48,7 @@ export default function PaymentApprove() {
                 }
             } catch (error) {
                 console.error("결제 승인 오류: ",error);
-                setError("결제 승인 중 오류");
+                setError("로딩중");
             } finally {
                 setLoading(false);
             }
@@ -56,7 +60,7 @@ export default function PaymentApprove() {
             setLoading(false);
             setError("결제 정보가 없습니다.");
         }
-    },[]);
+    },[pg_token, tid, gift_id, memberId, amount, uniqueString]);
 
     if (loading) {
         return <Loading />

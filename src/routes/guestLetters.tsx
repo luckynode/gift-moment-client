@@ -1,5 +1,4 @@
 import {useEffect, useState} from 'react';
-import styled from 'styled-components';
 import Header from '../components/headers/Header.tsx';
 import Button from '../components/buttons/Button.tsx';
 import Cake from '../components/letters/Cake.tsx';
@@ -11,28 +10,12 @@ import InstructionText from "../components/InstructionText.tsx";
 import {useNavigate, useParams} from "react-router-dom";
 import BackButton from "../components/buttons/BackButton.tsx";
 import {getGuestLetters} from "../apis/guestLetterApi.ts";
-
-export const Wrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-`
-
-const ButtonContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  width: 100%;
-  align-items: center;
-  margin-top: 10px;
-`;
-
+import {ColumnButtonContainer} from "../components/buttons/ButtonContainer.ts";
+import {Wrapper} from "../components/SignupComponents.ts";
 
 const GuestLetters = () => {
     const {uniqueString} = useParams();
     const navigate = useNavigate();
-
     const [ownerName, setOwnerName] = useState("눈송이");
     const [beforeBirthday, setBeforeBirthday] = useState(true);
     const [letterCount, setLetterCount] = useState(14);
@@ -85,12 +68,12 @@ const GuestLetters = () => {
                     }
                 />
                 {beforeBirthday ? (
-                    <ButtonContainer>
+                    <ColumnButtonContainer>
                         <Button type="button" text="편지 쓰러 가기" size="large" color="white"
                                 onClick={() => navigate("/write-letter", {state: {uniqueString, ownerName}})}/>
                         <Button type="button" text="위시리스트 보러 가기" size="large" color="black"
                                 onClick={() => navigate(`/wishlist/${uniqueString}`)}/>
-                    </ButtonContainer>
+                    </ColumnButtonContainer>
                 ) : ""}
             </Wrapper>
         </>

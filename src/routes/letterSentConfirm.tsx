@@ -5,6 +5,7 @@ import {useLocation, useNavigate} from "react-router-dom";
 import mascot from "../assets/home/mascot.svg"
 import {useEffect} from "react";
 import {toast} from "react-toastify";
+import {RowButtonContainer} from "../components/buttons/ButtonContainer.ts";
 
 export const Wrapper = styled.div`
   display: flex;
@@ -13,15 +14,6 @@ export const Wrapper = styled.div`
   flex-direction: column;
   gap: 30px;
 `
-
-export const RowButtonContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  gap: 20px;
-  width: 100%;
-  justify-content: center;
-`;
-
 export const Mascot = styled.img`
   width: 45%;
 `

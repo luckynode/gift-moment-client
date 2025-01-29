@@ -1,5 +1,4 @@
 import {useEffect, useState} from 'react';
-import styled from 'styled-components';
 import Header from '../components/headers/Header.tsx';
 import Button from '../components/buttons/Button.tsx';
 import Cake from '../components/letters/Cake.tsx';
@@ -14,23 +13,8 @@ import {useNavigate} from "react-router-dom";
 import BackButton from "../components/buttons/BackButton.tsx";
 import {copyLetterUrl, getMyLetters} from "../apis/myLetterApi.ts";
 import {Letter} from "../types/api/myLetter.ts";
-
-export const Wrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-`
-
-export const ColumnButtonContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  width: 100%;
-  align-items: center;
-  margin-top: 10px;
-`;
-
+import {ColumnButtonContainer} from "../components/buttons/ButtonContainer.ts";
+import {Wrapper} from "../components/SignupComponents.ts";
 
 const MyLetters = () => {
     const navigate = useNavigate();

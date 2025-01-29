@@ -17,6 +17,7 @@ import {
     InputContainer, TextArea
 } from "../../components/wish/WishInput.ts";
 import {WishChangeWrapper} from "../../components/wish/Wish.ts";
+import Loading from "../../components/common/loading.tsx";
 
 
 const PriceInput = styled(Input)<{ hasError?: boolean }>`
@@ -105,6 +106,7 @@ const AddWish = () => {
     const [wishImage, setWishImage] = useState<File | null>(null);
     const [wishImageError, setWishImageError] = useState<boolean>(false);
     const fileInputRef = useRef<HTMLInputElement | null>(null);
+    const [loading, setLoading] = useState(false);
 
     const imageUrl = useMemo(() => {
         return wishImage ? URL.createObjectURL(wishImage) : "/home/wish_img_input.svg";
@@ -178,6 +180,7 @@ const AddWish = () => {
 
     const onSubmit = useCallback(async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        setLoading(true);
         if (!wishImage) {
             setWishImageError(true);
             return;
@@ -236,8 +239,14 @@ const AddWish = () => {
         } catch (error) {
             console.error("위시리스트 추가 중 오류 발생:", error);
             alert("위시리스트 추가 중 오류가 발생했습니다.");
+        } finally {
+            setLoading(false);
         }
     }, [wishName, wishPrice, wishLink, wishDescription, wishImage, navigate]);
+
+    if (loading) {
+        return <Loading />
+    }
 
     return (
         <WishChangeWrapper>

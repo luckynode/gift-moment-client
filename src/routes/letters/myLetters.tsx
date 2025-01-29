@@ -14,6 +14,7 @@ import {copyLetterUrl, getMyLetters} from "../../apis/myLetterApi.ts";
 import {Letter} from "../../types/api/myLetter.ts";
 import {ColumnButtonContainer} from "../../components/buttons/ButtonContainer.ts";
 import {Wrapper} from "../../components/auth/SignupComponents.ts";
+import Loading from "../../components/common/loading.tsx";
 
 const MyLetters = () => {
     const navigate = useNavigate();
@@ -23,6 +24,7 @@ const MyLetters = () => {
     const [letters, setLetters] = useState<Letter[]>([]);
     const [totalLetters, setTotalLetters] = useState<number>(14);
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+    const [loading, setLoading] = useState(true);
     const [selectedLetter, setSelectedLetter] = useState<{
         id: number;
         to: string;
@@ -46,11 +48,16 @@ const MyLetters = () => {
                 }
             } catch (error) {
                 console.error("편지 데이터 가져오기 실패:", error);
+            } finally {
+                setLoading(false);
             }
         }
         fetchLetters();
     }, []);
 
+    if (loading) {
+        return <Loading />
+    }
 
     const handleItemClick = (id: number) => {
         if (!beforeBirthday) { // 생일이 지나면 편지 열람 가능
@@ -76,6 +83,7 @@ const MyLetters = () => {
     }));
 
     const copyLinkToClipboard = async () => {
+        setLoading(true);
 
         try {
             const response = await copyLetterUrl();
@@ -108,8 +116,14 @@ const MyLetters = () => {
             }
         } catch (error) {
             console.error('링크 복사 실패:', error);
+        } finally {
+            setLoading(false);
         }
     };
+
+    if (loading) {
+        return <Loading />
+    }
 
     return (
         <>

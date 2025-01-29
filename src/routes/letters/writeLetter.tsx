@@ -5,6 +5,7 @@ import styled from "styled-components";
 import {useNavigate, useLocation} from "react-router-dom";
 import {addLetter} from "../../apis/guestLetterApi.ts";
 import {toast} from "react-toastify";
+import Loading from "../../components/common/loading.tsx";
 
 const Form = styled.form`
   margin: 60px 20px 20px 20px;
@@ -105,6 +106,7 @@ const WriteLetter = () => {
     const [toError, setToError] = useState(false);
     const [messageError, setMessageError] = useState(false);
     const [fromError, setFromError] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     const handleFocus = (setter: (value: boolean) => void) => {
         setter(false); // 에러 상태 초기화
@@ -127,7 +129,8 @@ const WriteLetter = () => {
 
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        // 순차적으로 에러를 처리
+        setLoading(true);
+
         if (!to) {
             setToError(true);
             return;
@@ -165,8 +168,14 @@ const WriteLetter = () => {
             }
         } catch (error) {
             console.error("편지 작성 중 오류 발생:", error);
+        } finally {
+            setLoading(false);
         }
     };
+
+    if (loading) {
+        return <Loading />
+    }
 
     return (
         <div>

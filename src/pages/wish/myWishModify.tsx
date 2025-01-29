@@ -18,6 +18,7 @@ import {
     WishInput
 } from "../../components/wish/WishInput.ts";
 import {Subtitle, WishChangeWrapper} from "../../components/wish/Wish.ts";
+import Loading from "../../components/common/loading.tsx";
 
 const WishDisabledInput = styled(WishInput)`
   background: #EEE2E2;
@@ -86,6 +87,7 @@ const MyWishModify = () => {
     const [wishDescriptionError, setWishDescriptionError] = useState<boolean>(false);
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const fileInputRef = useRef<HTMLInputElement | null>(null);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         console.log("위시데이터:", wishData);
@@ -96,6 +98,7 @@ const MyWishModify = () => {
     };
 
     const handleDeleteConfirm = async () => {
+        setLoading(true);
         try {
             if (!itemId) {
                 console.error("itemId가 없습니다.");
@@ -112,8 +115,14 @@ const MyWishModify = () => {
         } catch (error) {
             console.error("위시리스트 삭제 중 오류 발생:", error);
             alert("위시리스트 삭제 중 오류가 발생했습니다.");
+        } finally {
+            setLoading(false);
         }
     };
+
+    if (loading) {
+        return <Loading />
+    }
 
     const handleDeleteCancel = () => {
         setIsModalOpen(false);
@@ -162,7 +171,10 @@ const MyWishModify = () => {
             return;
         }
 
+        setLoading(true);
+
         try {
+
             if (!itemId) {
                 console.error("itemId가 없습니다.");
                 return;
@@ -189,8 +201,14 @@ const MyWishModify = () => {
         } catch (error) {
             console.error("위시리스트 수정 중 오류 발생:", error);
             alert("위시리스트 수정 중 오류가 발생했습니다.");
+        } finally {
+            setLoading(false);
         }
     };
+
+    if (loading) {
+        return <Loading />
+    }
 
     useEffect(() => {
         return () => {

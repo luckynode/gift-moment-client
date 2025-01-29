@@ -10,6 +10,7 @@ import {getWishItem} from '../../apis/wishItemApi.ts';
 import {GetWishResponse} from "../../types/api/wishItem.ts";
 import {Subtitle, WishWrapper} from "../../components/wish/Wish.ts";
 import {Info, WishInput} from "../../components/wish/WishInput.ts";
+import Loading from "../../components/common/loading.tsx";
 
 const List = styled.div`
   display: flex;
@@ -93,8 +94,8 @@ const LinkText = styled.a`
 const MyWishDetail = () => {
     const navigate = useNavigate();
     const {itemId} = useParams<{ itemId: string }>();
-
     const [wishData, setWishData] = useState<GetWishResponse[0] | null>(null);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         if (!itemId) {
@@ -114,11 +115,18 @@ const MyWishDetail = () => {
                 }
             } catch (error) {
                 console.error("데이터 가져오기 실패:", error);
+            } finally {
+                setLoading(false);
             }
         };
 
         fetchWishItem();
     }, [itemId]);
+
+
+    if (loading) {
+        return <Loading />
+    }
 
     useEffect(() => {
         console.log("wishData 상태 변경됨:", wishData);

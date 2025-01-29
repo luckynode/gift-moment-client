@@ -11,6 +11,7 @@ import BackButton from "../../components/buttons/BackButton.tsx";
 import {getGuestLetters} from "../../apis/guestLetterApi.ts";
 import {ColumnButtonContainer} from "../../components/buttons/ButtonContainer.ts";
 import {Wrapper} from "../../components/auth/SignupComponents.ts";
+import Loading from "../../components/common/loading.tsx";
 
 const GuestLetters = () => {
     const {uniqueString} = useParams();
@@ -19,6 +20,7 @@ const GuestLetters = () => {
     const [ownerName, setOwnerName] = useState<string>("눈송이");
     const [beforeBirthday, setBeforeBirthday] = useState<boolean>(true);
     const [letterCount, setLetterCount] = useState<number>(14);
+    const [loading, setLoading] = useState(true);
 
     // 표시할 장신구 데이터 생성
     const items = ornamentImages.slice(0, letterCount).map((src, index) => ({
@@ -48,10 +50,16 @@ const GuestLetters = () => {
                 }
             } catch (error) {
                 console.error("게스트 편지 조회 실패:", error);
+            } finally {
+                setLoading(false);
             }
         }
         fetchData();
     }, [uniqueString, navigate]);
+
+    if (loading) {
+        return <Loading />
+    }
 
     return (
         <>

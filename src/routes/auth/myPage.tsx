@@ -138,14 +138,14 @@ export default function Mypage() {
                 <Row18>
                     <Button 
                         type="button"
-                        text="편집"
+                        $text="편집"
                         size="small"
                         color="white"
                         onClick={() => {navigate("/mypage/edit")}}
                     />
                     <Button 
                         type="button"
-                        text="로그아웃"
+                        $text="로그아웃"
                         size="small"
                         color="black"
                         onClick={handleLogout}

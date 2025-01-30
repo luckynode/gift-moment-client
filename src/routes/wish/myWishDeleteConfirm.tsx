@@ -50,8 +50,8 @@ function MyWishDeleteConfirm({ onConfirm, onCancel }: MyWishDeleteConfirmProps) 
             <ModalContent>
                 <ModalText>정말 삭제하시겠습니까?</ModalText>
                 <ModalButtonContainer>
-                    <Button type="button" size ="small" text="예" color="white" onClick={onConfirm} />
-                    <Button type="button" size ="small" text="아니오" color="black" onClick={onCancel} />
+                    <Button type="button" size ="small" $text="예" color="white" onClick={onConfirm} />
+                    <Button type="button" size ="small" $text="아니오" color="black" onClick={onCancel} />
                 </ModalButtonContainer>
             </ModalContent>
         </ModalOverlay>

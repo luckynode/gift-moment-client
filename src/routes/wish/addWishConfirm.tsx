@@ -10,10 +10,10 @@ const AddWishConfirm = () => {
         <Wrapper>
             <Header title="선물 등록이 완료되었어요!"/>
             <Hug18>
-                <Button type="button" text="선물 추가 등록" size="medium" color={"white"} onClick={() => {
+                <Button type="button" $text="선물 추가 등록" size="medium" color={"white"} onClick={() => {
                     navigate("/wishlist/add");
                 }}/>
-                <Button type="button" text="나의 위시리스트" size="medium" color={"black"} onClick={() => {
+                <Button type="button" $text="나의 위시리스트" size="medium" color={"black"} onClick={() => {
                     navigate("/wishlist")
                 }}/>
             </Hug18>

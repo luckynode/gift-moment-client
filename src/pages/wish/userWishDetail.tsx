@@ -140,7 +140,6 @@ const FreindPercent = styled.div`
     color: #000000;
 `
 
-// TODO 백 api 명세서 확인 후 재구성
 interface UserWishData {
     name: string;
     birth: string;
@@ -185,6 +184,7 @@ export default function UserWishDetail() {
     });
     
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -193,6 +193,7 @@ export default function UserWishDetail() {
                 setWishData(response.data.data[0]);
             } catch (error) {
                 console.error("Fetching data ",error);
+                setError(true);
             } finally {
                 setLoading(false);
             }
@@ -201,7 +202,7 @@ export default function UserWishDetail() {
         fetchData();
     }, []);
 
-    if (loading) {
+    if (loading || error) {
         return <Loading />
     }
 
@@ -238,8 +239,8 @@ export default function UserWishDetail() {
                 <Header title={`${wishData?.name} 님에게 선물하기`} fontSize="25px"/>
                 <CheckBtn>
                     {/* 로그인 여부 확인 */}
-                    <Button text="좋아요!" size="small" color="black" onClick={() => {onLikeClick()}}/>
-                    <Button text="괜찮아요" size="small" color="white" onClick={() => {navigate(-1)}}/>
+                    <Button $text="좋아요!" size="small" color="black" onClick={() => {onLikeClick()}}/>
+                    <Button $text="괜찮아요" size="small" color="white" onClick={() => {navigate(-1)}}/>
                 </CheckBtn>
                 <Congrats>
                     <CongratsTitle>축하해준 친구들</CongratsTitle>

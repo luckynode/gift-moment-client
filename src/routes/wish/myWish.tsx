@@ -14,7 +14,7 @@ const Mascot = styled.img`
 export default function Mywish() {
     const [name, setName] = useState("");
     const [birthday, setBirthday] = useState("");
-    const [isBirthday, setIsBirthday] = useState(false); // 생일 여부 상태 추가
+    const [isBirthday, setIsBirthday] = useState(false);
     const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
 
@@ -29,7 +29,7 @@ export default function Mywish() {
                 });
                 setName(response.data.data.name);
                 setBirthday(response.data.data.birthday);
-                setIsBirthday(response.data.data.isBirthday); // TODO 변수명 확인인
+                setIsBirthday(response.data.data.isBirthday);
             } catch (error) {
                 console.error("Fetch data error : ", error);
             } finally {
@@ -61,7 +61,7 @@ export default function Mywish() {
                         <Button
                             key={index}
                             type="button"
-                            text={button.text}
+                            $text={button.text}
                             size={button.size}
                             onClick={button.onClick}
                         />
@@ -80,7 +80,7 @@ export default function Mywish() {
                     <Button
                         key={index}
                         type="button"
-                        text={button.text}
+                        $text={button.text}
                         size={button.size}
                         onClick={button.onClick}
                     />

@@ -7,7 +7,7 @@ import Loading from "../../components/common/loading.tsx";
 const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
-    align-items: center; /* 수직가운데 */
+    align-items: center;
     justify-content: center;
 `
 // 실제 결제 이후 도착하는 곳
@@ -44,7 +44,7 @@ export default function PaymentApprove() {
                 }
             } catch (error) {
                 console.error("결제 승인 오류: ",error);
-                setError("결제 승인 중 오류");
+                setError("로딩중");
             } finally {
                 setLoading(false);
             }

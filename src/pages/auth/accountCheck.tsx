@@ -23,7 +23,7 @@ export default function AccountCheck(){
             <Gap />
             <Button 
                 type="button"
-                text="다음"
+                $text="다음"
                 size="small"
                 color="black"
                 onClick={onSubmit}

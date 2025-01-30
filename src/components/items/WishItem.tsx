@@ -104,9 +104,6 @@ export default function WishItem({item_id, item_image, item_name, percent, state
 
     return (
         <>
-            {/* 사진
-                이름 % 진행중
-                progress bar */}
             <Wrapper onClick={handleClick}>
                 <ItemImg src={item_image}/>
                 <Info>

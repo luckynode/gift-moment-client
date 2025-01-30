@@ -117,7 +117,6 @@ export default function InputPrice({ onNext } : GetInfoProps) {
     const [isError, setIsError] = useState(false);
     const [isOverError, setIsOverError] = useState(false);
 
-    // TODO 특정 유저 정보 받아오기
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -174,9 +173,6 @@ export default function InputPrice({ onNext } : GetInfoProps) {
         }
 
         try {
-            // 테스트로 console 출력
-            console.log("가격: ", price);
-
             // 다음 페이지로 정보 넘기기
             onNext(price);
         } catch (error) {
@@ -198,7 +194,7 @@ export default function InputPrice({ onNext } : GetInfoProps) {
                     <Input onChange={onChange} placeholder="금액" name="price" value={price} type="number" required isError={isError} isOverError={isOverError}/>
                     {isError && <ErrorMessage>금액을 입력해주세요.</ErrorMessage>}
                     {isOverError && <ErrorMessage>선물 가격을 초과했습니다.</ErrorMessage>}
-                    <Button type="submit" size="small" color="black" text="완료" onClick={() => {}}/>
+                    <Button type="submit" size="small" color="black" $text="완료" onClick={() => {}}/>
                 </Form>
             </Wrapper>
         </>

@@ -263,8 +263,8 @@ const MyWishModify = () => {
                     </InputContainer>
                 </Info>
                 <RowButtonContainer>
-                    <Button type="button" text="삭제" size="small" color="white" onClick={() => setIsModalOpen(true)}/>
-                    <Button type="button" text="완료" size="small" color="black" onClick={handleComplete}/>
+                    <Button type="button" $text="삭제" size="small" color="white" onClick={() => setIsModalOpen(true)}/>
+                    <Button type="button" $text="완료" size="small" color="black" onClick={handleComplete}/>
                 </RowButtonContainer>
             </WishChangeWrapper>
 

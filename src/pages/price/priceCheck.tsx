@@ -10,7 +10,7 @@ import axios from "axios";
 const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
-    align-items: center; /* 수직가운데 */
+    align-items: center;
     justify-content: flex-start;
     padding-top: 70px;
 `
@@ -20,7 +20,7 @@ const Subtitle = styled.div`
     font-family: 'Lato';
     color: transparent;
     display: inline-block;
-    background: linear-gradient(to bottom, #924C57 0%, #B62F45 30%, #B72F54 60%, #924C57 100%); /* 중앙만 살짝 연하게 */
+    background: linear-gradient(to bottom, #924C57 0%, #B62F45 30%, #B72F54 60%, #924C57 100%);
     background-clip: text;
 `
 
@@ -86,7 +86,6 @@ export default function PriceCheck({price} : PriceCheckProps) {
         },
     });
 
-    // 특정 유저 정보 받아오기
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -139,7 +138,6 @@ export default function PriceCheck({price} : PriceCheckProps) {
 
             localStorage.setItem("tid", tid);
             window.location.href = next_redirect_pc_url;
-            // window.location.href = next_redirect_mobile_url;
         } catch (error) {
             console.error("금액 전송 오류: ", error);
         }
@@ -159,8 +157,8 @@ export default function PriceCheck({price} : PriceCheckProps) {
                     <Header title="송금하시겠습니까?" fontSize="25px"/>
                 </Gap>
                 <Row onSubmit={onSubmit}>
-                    <Button size="small" color="black" text="네" onClick={() => {}} type="submit"/>
-                    <Button size="small" color="white" text="아니요" onClick={() => {navigate(-1)}} type="button"/>
+                    <Button size="small" color="black" $text="네" onClick={() => {}} type="submit"/>
+                    <Button size="small" color="white" $text="아니요" onClick={() => {navigate(-1)}} type="button"/>
                 </Row>
             </Wrapper>
         </>

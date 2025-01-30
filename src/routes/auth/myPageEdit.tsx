@@ -59,8 +59,8 @@ export default function EditMypage() {
                         Authorization: `Bearer ${jwt_token}`,
                     },
                 });
-                const {name, birth_date, email, bank_code, account_number} = response.data.data; // 데이터 설정
-                setUser({name, birth_date, email, bank_code, account_number}); // 수정할 데이터 가져오기
+                const {name, birth_date, email, bank_code, account_number} = response.data.data;
+                setUser({name, birth_date, email, bank_code, account_number});
             } catch (error) {
                 console.error("Fetchdata error : ", error);
             }
@@ -100,8 +100,6 @@ export default function EditMypage() {
         }
 
         try {
-            // TODO 주석제거
-            console.log("수정내용:", updateData);
             const jwt_token = localStorage.getItem("jwt_token");
 
             await axios.patch(`${import.meta.env.VITE_BACKEND_URL}/api/v1/mypage`,updateData, {
@@ -111,7 +109,6 @@ export default function EditMypage() {
                 },
             });
 
-            // TEST 콘솔에 데이터 확인
             alert("정보 수정 완료");
             navigate("/mypage");
             
@@ -148,7 +145,6 @@ export default function EditMypage() {
             <Title>마이페이지</Title>
             <Form onSubmit={onSubmit}>
                 <Hug18>
-                    {/* TODO 수정 가능 요소들 확인 후 disabled 예정 */}
                     <Input 
                         name="name"
                         value={user?.name}
@@ -186,7 +182,7 @@ export default function EditMypage() {
                         />
                     <Button 
                         type="submit"
-                        text="완료"
+                        $text="완료"
                         size="small"
                         color="black"
                         onClick={() => {}}

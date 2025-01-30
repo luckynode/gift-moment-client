@@ -138,8 +138,8 @@ const MyLetters = () => {
                     }
                 />
                 <ColumnButtonContainer>
-                    <Button text="마이페이지" size="large" color="white" onClick={() => navigate("/mypage")}/>
-                    <Button text="편지 링크 복사하기" size="large" color="black" onClick={copyLinkToClipboard}/>
+                    <Button $text="마이페이지" size="large" color="white" onClick={() => navigate("/mypage")}/>
+                    <Button $text="편지 링크 복사하기" size="large" color="black" onClick={copyLinkToClipboard}/>
                 </ColumnButtonContainer>
                 <LetterDetailModal isOpen={isModalOpen} onClose={closeModal} letter={selectedLetter}/>
             </Wrapper>

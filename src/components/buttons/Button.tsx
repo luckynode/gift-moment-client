@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 type ButtonProps = {
-    text: string;
+    $text: string;
     size?: 'small' | 'medium' | 'large';
     color?: 'black' | 'white';
     onClick: () => void;
@@ -44,7 +44,7 @@ const StyledButton = styled.button<ButtonProps>`
 `;
 
 const Button: React.FC<ButtonProps> = ({
-                                           text,
+                                           $text,
                                            size = 'large',
                                            color = 'black',
                                            onClick,
@@ -52,8 +52,8 @@ const Button: React.FC<ButtonProps> = ({
                                            type = 'submit',
                                        }) => {
     return (
-        <StyledButton text={text} size={size} color={color} onClick={onClick} disabled={disabled} type={type}>
-            {text}
+        <StyledButton $text={$text} size={size} color={color} onClick={onClick} disabled={disabled} type={type}>
+            {$text}
         </StyledButton>
     );
 };

@@ -319,7 +319,7 @@ const AddWish = () => {
                 </Info>
                 <Button
                     type="submit"
-                    text="등록"
+                    $text="등록"
                     size="small"
                     color="black"
                     onClick={() => {

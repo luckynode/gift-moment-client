@@ -22,12 +22,9 @@ export default function AccountInput({ onNext } : GetInfoProps){
     const onSubmit = async (e : React.ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
-            // test로 콘솔 출력
-            console.log(bank, account);
 
             const jwt_token = localStorage.getItem("jwt_token");
 
-            // TODO 서버 axios post
             axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/auth/account`, {
                 bank_code: bank,
                 account_number: Number(account),
@@ -52,7 +49,6 @@ export default function AccountInput({ onNext } : GetInfoProps){
             <SubTitle>계좌 먼저 등록해 주세요. ◡̈⋆*</SubTitle>
             <Form onSubmit={onSubmit}>
                 <Hug18>
-                    {/* TODO type 확인 */}
                     <BankCompo value={bank} onchange={onChange} />
                     <Input
                         onChange={onChange}
@@ -64,7 +60,7 @@ export default function AccountInput({ onNext } : GetInfoProps){
                     />
                     <Button 
                         type="submit"
-                        text="등록"
+                        $text="등록"
                         size="small"
                         color="black"
                         onClick={()=> {}}

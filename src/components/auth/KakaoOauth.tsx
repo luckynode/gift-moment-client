@@ -36,7 +36,6 @@ const OAuth = () => {
                 const redirectUrl = localStorage.getItem("redirect_url");
                 if(isExistingUser){
                     navigate(redirectUrl || "/mywish");
-                    localStorage.removeItem("redirect_url");
                 } else {
                     navigate("/signup");
                 }

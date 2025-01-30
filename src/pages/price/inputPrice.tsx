@@ -173,6 +173,8 @@ export default function InputPrice({ onNext } : GetInfoProps) {
         }
 
         try {
+            // 로그인 이후 도착했으므로 redirect_url 삭제
+            localStorage.removeItem("redirect_url");
             // 다음 페이지로 정보 넘기기
             onNext(price);
         } catch (error) {

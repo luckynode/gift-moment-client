@@ -71,7 +71,7 @@ const GuestLetters = () => {
                     iconText="Notice"
                     message={
                         beforeBirthday
-                            ? `생일을 함께 축하해주세요!\n편지 작성 후 선물 전달이 가능합니다!`
+                            ? `편지나 선물 전달로 마음을 표현하세요!`
                             : `편지 전달 기간이 종료되었습니다!`
                     }
                 />

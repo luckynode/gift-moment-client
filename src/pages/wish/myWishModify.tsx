@@ -5,7 +5,6 @@ import {useLocation, useNavigate, useParams} from "react-router-dom";
 import {useCallback, useEffect, useMemo, useRef, useState} from "react";
 import Button from "../../components/buttons/Button.tsx";
 import MyWishDeleteConfirm from "../../routes/wish/myWishDeleteConfirm.tsx";
-import cameraIcon from "../../assets/wishlist/wish_img_modify.svg";
 import {deleteWishItem, modifyWishItem} from "../../apis/wishItemApi.ts";
 import {GetWishResponse} from "../../types/api/wishItem.ts";
 import {RowButtonContainer} from "../../components/buttons/ButtonContainer.ts";
@@ -57,7 +56,7 @@ const ImageUploadWrapper = styled.div<{ thumbnail?: string }>`
     position: absolute;
     width: 50px;
     height: 50px;
-    background-image: url(${cameraIcon});
+    background-image: url("/home/wish_img_modify.svg");
     background-size: contain;
     background-repeat: no-repeat;
     top: 50%;

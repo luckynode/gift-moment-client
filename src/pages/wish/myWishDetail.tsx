@@ -88,6 +88,12 @@ const Img = styled.img`
 
 const LinkText = styled.a`
   color: #0066FF;
+  text-decoration: none;
+  display: block;
+  white-space: nowrap; 
+  overflow: hidden;    
+  text-overflow: ellipsis; 
+  direction: ltr;      
 `;
 
 const MyWishDetail = () => {

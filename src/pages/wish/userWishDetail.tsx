@@ -66,7 +66,13 @@ const Input = styled.div`
 `
 
 const LinkText = styled.a`
-    color: #0066FF;
+  color: #0066FF;
+  text-decoration: none;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  direction: ltr;
 `;
 
 const CheckBtn = styled.div`

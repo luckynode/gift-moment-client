@@ -9,18 +9,27 @@
 | 이름        | 역할               | 담당 파트           |
 |-------------|--------------------|---------------------|
 | [김선화](https://github.com/sunhwaaRj) | Frontend            | 회원, 위시리스트, 선물 결제    |
-| [노경희](https://github.com/khee2) | Frontend            | 편지함, 선물, 생일당일 송금   |
+| [노경희](https://github.com/khee2) | Frontend            | 편지, 선물, CI/CD 파이프라인 |
 
 </br>
 
 ## 📂 𝗣𝗿𝗼𝗷𝗲𝗰𝘁 𝗙𝗼𝗹𝗱𝗲𝗿 𝗦𝘁𝗿𝘂𝗰𝘁𝘂𝗿𝗲
 ```plaintext
 gift-moment-client
+├── .github/
+│   └── workflows/
+│       └── deploy.yml
+├── public/
+│   └── home/
 ├── src/
+│   ├── apis/
 │   ├── assets/
 │   ├── components/
 │   ├── pages/
 │   ├── routes/
+│   ├── types/
+│   │   ├── api/
+│   │   └── common/
 │   ├── App.tsx
 │   ├── main.tsx
 ├── .gitignore
@@ -33,10 +42,17 @@ gift-moment-client
 </br>
 
 ## 🔧 𝗧𝗲𝗰𝗵 𝗦𝘁𝗮𝗰𝗸
-- 𝗥𝗲𝗮𝗰𝘁 (v18.3.1)
-- 𝗩𝗶𝘁𝗲 (v5.4.10)
-- 𝗧𝘆𝗽𝗲𝗦𝗰𝗿𝗶𝗽𝘁 (~5.6.2)
-- 𝘀𝘁𝘆𝗹𝗲𝗱-𝗰𝗼𝗺𝗽𝗼𝗻𝗲𝗻𝘁𝘀 (v6.1.13)
+- **React** (v18.3.1)
+- **Vite** (v5.4.10)
+- **TypeScript** (~5.6.2)
+- **styled-components** (v6.1.13)
+- **axios** (v1.7.8)
+- **react-router-dom** (v6.28.0)
+- **AWS S3**
+- **CloudFront**
+- **GitHub Actions** (CI/CD)
+
+![Gift Moment](https://github.com/user-attachments/assets/61a24b08-68d5-4fcb-a20d-42b6643547df)
 
 </br>
 

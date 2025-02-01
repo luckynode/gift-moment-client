@@ -71,10 +71,9 @@ const PaymentRequest = () => {
     const paymentData: PaymentData = {
         bank: "카카오뱅크",
         account: "3333370190",
-        totalAmount: 121900,
+        totalAmount: 150000,
         SuccessWishItems: [
-            {id: 1, name: "케이스티파이 Cute & Crazy"},
-            {id: 2, name: "에디파이어 스피커"},
+            {id: 1, name: "디올 어딕트 립글로우"},
         ],
     };
 

@@ -127,7 +127,7 @@ const MyLetters = () => {
         <>
             <Wrapper>
                 <BackButton/>
-                <Header title={`${username} 님의 편지함`}/>
+                <Header title={`${username}님의 편지함`}/>
                 <Cake items={items}/> {/* items를 Cake에 전달 */}
                 <InstructionText
                     iconText="Notice"

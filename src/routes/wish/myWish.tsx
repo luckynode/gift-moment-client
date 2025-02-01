@@ -14,24 +14,24 @@ const Mascot = styled.img`
 export default function Mywish() {
     const [name, setName] = useState("");
     const [birthday, setBirthday] = useState("");
-    const [isBirthday, setIsBirthday] = useState(false);
+    const [isBirthday, setIsBirthday] = useState(true);
     const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
 
-    useEffect(()=> {
-        const fetchData = async() => {
+    useEffect(() => {
+        const fetchData = async () => {
             try {
                 const jwt_token = localStorage.getItem("jwt_token");
-                const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/auth/navigate`, {
+                const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/wishlists/member/birthday`,  {
                     headers: {
                         Authorization: `Bearer ${jwt_token}`
                     },
                 });
-                setName(response.data.data.name);
-                setBirthday(response.data.data.birthday);
-                setIsBirthday(response.data.data.isBirthday);
+                setName(response.data.data[0].name);
+                setBirthday(response.data.data[0].birth);
+                setIsBirthday(response.data.data[0].before_birthday);    
             } catch (error) {
-                console.error("Fetch data error : ", error);
+                console.error("Fetching Data Error: ", error);
             } finally {
                 setLoading(false);
             }
@@ -49,7 +49,7 @@ export default function Mywish() {
     ];
 
     // 생일 여부에 따른 조건부 렌더링
-    if (isBirthday) {
+    if (!isBirthday) {
         return (
             <Wrapper>
                 <Mascot src={mascot} />
